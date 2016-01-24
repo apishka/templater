@@ -827,7 +827,7 @@ function twig_reverse_filter(Twig_Environment $env, $item, $preserveKeys = false
         $item = iconv($charset, 'UTF-8', $string);
     }
 
-    preg_match_all('/./us', $item, $matches);
+    preg_match_all('/./u', $item, $matches);
 
     $string = implode('', array_reverse($matches[0]));
 
