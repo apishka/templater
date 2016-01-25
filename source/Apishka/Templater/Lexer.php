@@ -300,9 +300,9 @@ class Apishka_Templater_Lexer
         elseif (preg_match(self::REGEX_NUMBER, $this->code, $match, null, $this->cursor))
         {
             $number = (float) $match[0];  // floats
-            if (ctype_digit($match[0]) && $number <= PHP_INT_MAX) {
+            if (ctype_digit($match[0]) && $number <= PHP_INT_MAX)
                 $number = (int) $match[0]; // integers lower than the maximum
-            }
+
             $this->pushToken(Apishka_Templater_Token::NUMBER_TYPE, $number);
             $this->moveCursor($match[0]);
         }
