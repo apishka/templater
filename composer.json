@@ -14,17 +14,12 @@
     },
     "autoload": {
         "psr-0" : {
-            "Twig_" : "source/"
+            "Apishka_Templater_" : "source/"
         }
     },
     "autoload-dev": {
         "psr-0" : {
-            "Twig_Tests_" : "tests/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.0-dev"
+            "Apishka_Templater_Tests_" : "tests/"
         }
     }
 }
