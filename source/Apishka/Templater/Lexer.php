@@ -91,12 +91,12 @@ class Apishka_Templater_Lexer
     {
         if (((int) ini_get('mbstring.func_overload')) & 2)
         {
-            $mbEncoding = mb_internal_encoding();
+            $mb_encoding = mb_internal_encoding();
             mb_internal_encoding('ASCII');
         }
         else
         {
-            $mbEncoding = null;
+            $mb_encoding = null;
         }
 
         $this->code = str_replace(array("\r\n", "\r"), "\n", $code);
@@ -114,10 +114,12 @@ class Apishka_Templater_Lexer
         preg_match_all($this->regexes['lex_tokens_start'], $this->code, $matches, PREG_OFFSET_CAPTURE);
         $this->positions = $matches;
 
-        while ($this->cursor < $this->end) {
+        while ($this->cursor < $this->end)
+        {
             // dispatch to the lexing functions depending
             // on the current state
-            switch ($this->state) {
+            switch ($this->state)
+            {
                 case self::STATE_DATA:
                     $this->lexData();
                     break;
@@ -142,14 +144,15 @@ class Apishka_Templater_Lexer
 
         $this->pushToken(Apishka_Templater_Token::EOF_TYPE);
 
-        if (!empty($this->brackets)) {
+        if (!empty($this->brackets))
+        {
             list($expect, $lineno) = array_pop($this->brackets);
+
             throw new Apishka_Templater_Error_Syntax(sprintf('Unclosed "%s".', $expect), $lineno, $this->filename);
         }
 
-        if ($mbEncoding) {
-            mb_internal_encoding($mbEncoding);
-        }
+        if ($mb_encoding)
+            mb_internal_encoding($mb_encoding);
 
         return new Apishka_Templater_TokenStream($this->tokens, $this->filename);
     }
