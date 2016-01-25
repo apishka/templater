@@ -15,6 +15,6 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Apishka_Templater_Node_Expression extends Apishka_Templater_Node
+abstract class Apishka_Templater_Node_ExpressionAbstract extends Apishka_Templater_NodeAbstract
 {
 }

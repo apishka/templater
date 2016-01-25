@@ -27,7 +27,7 @@ class Apishka_Templater_TokenParser_Include extends Apishka_Templater_TokenParse
 
         list($variables, $only, $ignoreMissing) = $this->parseArguments();
 
-        return new Apishka_Templater_Node_Include($expr, $variables, $only, $ignoreMissing, $token->getLine(), $this->getTag());
+        return Apishka_Templater_Node_Include::apishka($expr, $variables, $only, $ignoreMissing, $token->getLine(), $this->getTag());
     }
 
     protected function parseArguments()

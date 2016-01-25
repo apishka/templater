@@ -44,7 +44,7 @@ class Apishka_Templater_TokenParser_Use extends Apishka_Templater_TokenParser
                     $alias = $stream->expect(Apishka_Templater_Token::NAME_TYPE)->getValue();
                 }
 
-                $targets[$name] = new Apishka_Templater_Node_Expression_Constant($alias, -1);
+                $targets[$name] = Apishka_Templater_Node_Expression_Constant::apishka($alias, -1);
 
                 if (!$stream->nextIf(Apishka_Templater_Token::PUNCTUATION_TYPE, ',')) {
                     break;
@@ -54,7 +54,7 @@ class Apishka_Templater_TokenParser_Use extends Apishka_Templater_TokenParser
 
         $stream->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
 
-        $this->parser->addTrait(new Apishka_Templater_Node(array('template' => $template, 'targets' => new Apishka_Templater_Node($targets))));
+        $this->parser->addTrait(Apishka_Templater_Node::apishka(array('template' => $template, 'targets' => Apishka_Templater_Node::apishka($targets))));
     }
 
     public function getTag()

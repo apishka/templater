@@ -20,7 +20,7 @@ class Apishka_Templater_TokenParser_Flush extends Apishka_Templater_TokenParser
     {
         $this->parser->getStream()->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
 
-        return new Apishka_Templater_Node_Flush($token->getLine(), $this->getTag());
+        return Apishka_Templater_Node_Flush::apishka($token->getLine(), $this->getTag());
     }
 
     public function getTag()

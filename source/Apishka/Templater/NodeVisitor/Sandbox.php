@@ -24,7 +24,7 @@ class Apishka_Templater_NodeVisitor_Sandbox extends Apishka_Templater_BaseNodeVi
     /**
      * {@inheritdoc}
      */
-    protected function doEnterNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    protected function doEnterNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if ($node instanceof Apishka_Templater_Node_Module) {
             $this->inAModule = true;
@@ -51,7 +51,7 @@ class Apishka_Templater_NodeVisitor_Sandbox extends Apishka_Templater_BaseNodeVi
 
             // wrap print to check __toString() calls
             if ($node instanceof Apishka_Templater_Node_Print) {
-                return new Apishka_Templater_Node_SandboxedPrint($node->getNode('expr'), $node->getLine(), $node->getNodeTag());
+                return Apishka_Templater_Node_SandboxedPrint::apishka($node->getNode('expr'), $node->getLine(), $node->getNodeTag());
             }
         }
 
@@ -61,12 +61,12 @@ class Apishka_Templater_NodeVisitor_Sandbox extends Apishka_Templater_BaseNodeVi
     /**
      * {@inheritdoc}
      */
-    protected function doLeaveNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    protected function doLeaveNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if ($node instanceof Apishka_Templater_Node_Module) {
             $this->inAModule = false;
 
-            $node->setNode('display_start', new Apishka_Templater_Node(array(new Apishka_Templater_Node_CheckSecurity($this->filters, $this->tags, $this->functions), $node->getNode('display_start'))));
+            $node->setNode('display_start', Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_CheckSecurity::apishka($this->filters, $this->tags, $this->functions), $node->getNode('display_start'))));
         }
 
         return $node;

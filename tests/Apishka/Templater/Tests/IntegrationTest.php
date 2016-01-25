@@ -115,7 +115,7 @@ class TwigTestTokenParser_§ extends Apishka_Templater_TokenParser
     {
         $this->parser->getStream()->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
 
-        return new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Constant('§', -1), -1);
+        return Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Constant::apishka('§', -1), -1);
     }
 
     public function getTag()

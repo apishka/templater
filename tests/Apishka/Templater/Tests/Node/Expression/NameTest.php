@@ -13,16 +13,16 @@ class Apishka_Templater_Tests_Node_Expression_NameTest extends Apishka_Templater
 {
     public function testConstructor()
     {
-        $node = new Apishka_Templater_Node_Expression_Name('foo', 1);
+        $node = Apishka_Templater_Node_Expression_Name::apishka('foo', 1);
 
         $this->assertEquals('foo', $node->getAttribute('name'));
     }
 
     public function getTests()
     {
-        $node = new Apishka_Templater_Node_Expression_Name('foo', 1);
-        $self = new Apishka_Templater_Node_Expression_Name('_self', 1);
-        $context = new Apishka_Templater_Node_Expression_Name('_context', 1);
+        $node = Apishka_Templater_Node_Expression_Name::apishka('foo', 1);
+        $self = Apishka_Templater_Node_Expression_Name::apishka('_self', 1);
+        $context = Apishka_Templater_Node_Expression_Name::apishka('_context', 1);
 
         $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('strict_variables' => true));
         $env1 = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('strict_variables' => false));

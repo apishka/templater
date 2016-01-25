@@ -88,7 +88,7 @@ class Apishka_Templater_Filter
         return $this->options['needs_context'];
     }
 
-    public function getSafe(Apishka_Templater_Node $filterArgs)
+    public function getSafe(Apishka_Templater_NodeAbstract $filterArgs)
     {
         if (null !== $this->options['is_safe']) {
             return $this->options['is_safe'];

@@ -9,9 +9,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+/**
+ * Apishka templater node expression filter
+ *
+ * @easy-extend-base
+ *
+ * @uses Apishka_Templater_Node_Expression_Call
+ * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
+ */
+
 class Apishka_Templater_Node_Expression_Filter extends Apishka_Templater_Node_Expression_Call
 {
-    public function __construct(Apishka_Templater_Node $node, Apishka_Templater_Node_Expression_Constant $filterName, Apishka_Templater_Node $arguments, $lineno, $tag = null)
+    public function __construct(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Node_Expression_Constant $filterName, Apishka_Templater_NodeAbstract $arguments, $lineno, $tag = null)
     {
         parent::__construct(array('node' => $node, 'filter' => $filterName, 'arguments' => $arguments), array(), $lineno, $tag);
     }

@@ -12,6 +12,8 @@
 /**
  * Checks if a variable is divisible by a number.
  *
+ * @easy-extend-base
+ *
  * <pre>
  *  {% if loop.index is divisible by(3) %}
  * </pre>

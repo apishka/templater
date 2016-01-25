@@ -13,16 +13,16 @@ class Apishka_Templater_Tests_Node_SpacelessTest extends Apishka_Templater_Test_
 {
     public function testConstructor()
     {
-        $body = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Text('<div>   <div>   foo   </div>   </div>', 1)));
-        $node = new Apishka_Templater_Node_Spaceless($body, 1);
+        $body = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Text::apishka('<div>   <div>   foo   </div>   </div>', 1)));
+        $node = Apishka_Templater_Node_Spaceless::apishka($body, 1);
 
         $this->assertEquals($body, $node->getNode('body'));
     }
 
     public function getTests()
     {
-        $body = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Text('<div>   <div>   foo   </div>   </div>', 1)));
-        $node = new Apishka_Templater_Node_Spaceless($body, 1);
+        $body = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Text::apishka('<div>   <div>   foo   </div>   </div>', 1)));
+        $node = Apishka_Templater_Node_Spaceless::apishka($body, 1);
 
         return array(
             array($node, <<<EOF

@@ -15,16 +15,16 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_For extends Apishka_Templater_Node
+class Apishka_Templater_Node_For extends Apishka_Templater_NodeAbstract
 {
     private $loop;
 
-    public function __construct(Apishka_Templater_Node_Expression_AssignName $keyTarget, Apishka_Templater_Node_Expression_AssignName $valueTarget, Apishka_Templater_Node_Expression $seq, Apishka_Templater_Node_Expression $ifexpr = null, Apishka_Templater_Node $body, Apishka_Templater_Node $else = null, $lineno, $tag = null)
+    public function __construct(Apishka_Templater_Node_Expression_AssignName $keyTarget, Apishka_Templater_Node_Expression_AssignName $valueTarget, Apishka_Templater_Node_ExpressionAbstract $seq, Apishka_Templater_Node_ExpressionAbstract $ifexpr = null, Apishka_Templater_NodeAbstract $body, Apishka_Templater_NodeAbstract $else = null, $lineno, $tag = null)
     {
-        $body = new Apishka_Templater_Node(array($body, $this->loop = new Apishka_Templater_Node_ForLoop($lineno, $tag)));
+        $body = Apishka_Templater_Node::apishka(array($body, $this->loop = Apishka_Templater_Node_ForLoop::apishka($lineno, $tag)));
 
         if (null !== $ifexpr) {
-            $body = new Apishka_Templater_Node_If(new Apishka_Templater_Node(array($ifexpr, $body)), null, $lineno, $tag);
+            $body = Apishka_Templater_Node_If::apishka(Apishka_Templater_Node::apishka(array($ifexpr, $body)), null, $lineno, $tag);
         }
 
         parent::__construct(array('key_target' => $keyTarget, 'value_target' => $valueTarget, 'seq' => $seq, 'body' => $body, 'else' => $else), array('with_loop' => true, 'ifexpr' => null !== $ifexpr), $lineno, $tag);

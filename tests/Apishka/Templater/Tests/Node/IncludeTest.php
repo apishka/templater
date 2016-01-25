@@ -13,15 +13,15 @@ class Apishka_Templater_Tests_Node_IncludeTest extends Apishka_Templater_Test_No
 {
     public function testConstructor()
     {
-        $expr = new Apishka_Templater_Node_Expression_Constant('foo.twig', 1);
-        $node = new Apishka_Templater_Node_Include($expr, null, false, false, 1);
+        $expr = Apishka_Templater_Node_Expression_Constant::apishka('foo.twig', 1);
+        $node = Apishka_Templater_Node_Include::apishka($expr, null, false, false, 1);
 
         $this->assertNull($node->getNode('variables'));
         $this->assertEquals($expr, $node->getNode('expr'));
         $this->assertFalse($node->getAttribute('only'));
 
-        $vars = new Apishka_Templater_Node_Expression_Array(array(new Apishka_Templater_Node_Expression_Constant('foo', 1), new Apishka_Templater_Node_Expression_Constant(true, 1)), 1);
-        $node = new Apishka_Templater_Node_Include($expr, $vars, true, false, 1);
+        $vars = Apishka_Templater_Node_Expression_Array::apishka(array(Apishka_Templater_Node_Expression_Constant::apishka('foo', 1), Apishka_Templater_Node_Expression_Constant::apishka(true, 1)), 1);
+        $node = Apishka_Templater_Node_Include::apishka($expr, $vars, true, false, 1);
         $this->assertEquals($vars, $node->getNode('variables'));
         $this->assertTrue($node->getAttribute('only'));
     }
@@ -30,44 +30,44 @@ class Apishka_Templater_Tests_Node_IncludeTest extends Apishka_Templater_Test_No
     {
         $tests = array();
 
-        $expr = new Apishka_Templater_Node_Expression_Constant('foo.twig', 1);
-        $node = new Apishka_Templater_Node_Include($expr, null, false, false, 1);
+        $expr = Apishka_Templater_Node_Expression_Constant::apishka('foo.twig', 1);
+        $node = Apishka_Templater_Node_Include::apishka($expr, null, false, false, 1);
         $tests[] = array($node, <<<EOF
 // line 1
 \$this->loadTemplate("foo.twig", null, 1)->display(\$context);
 EOF
         );
 
-        $expr = new Apishka_Templater_Node_Expression_Conditional(
-                        new Apishka_Templater_Node_Expression_Constant(true, 1),
-                        new Apishka_Templater_Node_Expression_Constant('foo', 1),
-                        new Apishka_Templater_Node_Expression_Constant('foo', 1),
+        $expr = Apishka_Templater_Node_Expression_Conditional::apishka(
+                        Apishka_Templater_Node_Expression_Constant::apishka(true, 1),
+                        Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
+                        Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
                         0
                     );
-        $node = new Apishka_Templater_Node_Include($expr, null, false, false, 1);
+        $node = Apishka_Templater_Node_Include::apishka($expr, null, false, false, 1);
         $tests[] = array($node, <<<EOF
 // line 1
 \$this->loadTemplate(((true) ? ("foo") : ("foo")), null, 1)->display(\$context);
 EOF
         );
 
-        $expr = new Apishka_Templater_Node_Expression_Constant('foo.twig', 1);
-        $vars = new Apishka_Templater_Node_Expression_Array(array(new Apishka_Templater_Node_Expression_Constant('foo', 1), new Apishka_Templater_Node_Expression_Constant(true, 1)), 1);
-        $node = new Apishka_Templater_Node_Include($expr, $vars, false, false, 1);
+        $expr = Apishka_Templater_Node_Expression_Constant::apishka('foo.twig', 1);
+        $vars = Apishka_Templater_Node_Expression_Array::apishka(array(Apishka_Templater_Node_Expression_Constant::apishka('foo', 1), Apishka_Templater_Node_Expression_Constant::apishka(true, 1)), 1);
+        $node = Apishka_Templater_Node_Include::apishka($expr, $vars, false, false, 1);
         $tests[] = array($node, <<<EOF
 // line 1
 \$this->loadTemplate("foo.twig", null, 1)->display(array_merge(\$context, array("foo" => true)));
 EOF
         );
 
-        $node = new Apishka_Templater_Node_Include($expr, $vars, true, false, 1);
+        $node = Apishka_Templater_Node_Include::apishka($expr, $vars, true, false, 1);
         $tests[] = array($node, <<<EOF
 // line 1
 \$this->loadTemplate("foo.twig", null, 1)->display(array("foo" => true));
 EOF
         );
 
-        $node = new Apishka_Templater_Node_Include($expr, $vars, true, true, 1);
+        $node = Apishka_Templater_Node_Include::apishka($expr, $vars, true, true, 1);
         $tests[] = array($node, <<<EOF
 // line 1
 try {

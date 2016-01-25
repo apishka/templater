@@ -62,7 +62,7 @@ class Apishka_Templater_TokenParser_If extends Apishka_Templater_TokenParser
 
         $stream->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
 
-        return new Apishka_Templater_Node_If(new Apishka_Templater_Node($tests), $else, $lineno, $this->getTag());
+        return Apishka_Templater_Node_If::apishka(Apishka_Templater_Node::apishka($tests), $else, $lineno, $this->getTag());
     }
 
     public function decideIfFork(Apishka_Templater_Token $token)

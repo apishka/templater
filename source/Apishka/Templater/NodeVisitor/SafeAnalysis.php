@@ -19,7 +19,7 @@ class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseN
         $this->safeVars = $safeVars;
     }
 
-    public function getSafe(Apishka_Templater_Node $node)
+    public function getSafe(Apishka_Templater_NodeAbstract $node)
     {
         $hash = spl_object_hash($node);
         if (!isset($this->data[$hash])) {
@@ -39,7 +39,7 @@ class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseN
         }
     }
 
-    private function setSafe(Apishka_Templater_Node $node, array $safe)
+    private function setSafe(Apishka_Templater_NodeAbstract $node, array $safe)
     {
         $hash = spl_object_hash($node);
         if (isset($this->data[$hash])) {
@@ -60,7 +60,7 @@ class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseN
     /**
      * {@inheritdoc}
      */
-    protected function doEnterNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    protected function doEnterNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         return $node;
     }
@@ -68,7 +68,7 @@ class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseN
     /**
      * {@inheritdoc}
      */
-    protected function doLeaveNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    protected function doLeaveNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if ($node instanceof Apishka_Templater_Node_Expression_Constant) {
             // constants are marked safe for all

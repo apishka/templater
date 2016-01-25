@@ -14,11 +14,11 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_Macro extends Apishka_Templater_Node
+class Apishka_Templater_Node_Macro extends Apishka_Templater_NodeAbstract
 {
     const VARARGS_NAME = 'varargs';
 
-    public function __construct($name, Apishka_Templater_Node $body, Apishka_Templater_Node $arguments, $lineno, $tag = null)
+    public function __construct($name, Apishka_Templater_NodeAbstract $body, Apishka_Templater_NodeAbstract $arguments, $lineno, $tag = null)
     {
         foreach ($arguments as $argumentName => $argument) {
             if (self::VARARGS_NAME === $argumentName) {

@@ -15,7 +15,7 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_Expression_Parent extends Apishka_Templater_Node_Expression
+class Apishka_Templater_Node_Expression_Parent extends Apishka_Templater_Node_ExpressionAbstract
 {
     public function __construct($name, $lineno, $tag = null)
     {

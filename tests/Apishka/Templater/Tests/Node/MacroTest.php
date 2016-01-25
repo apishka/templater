@@ -13,9 +13,9 @@ class Apishka_Templater_Tests_Node_MacroTest extends Apishka_Templater_Test_Node
 {
     public function testConstructor()
     {
-        $body = new Apishka_Templater_Node_Text('foo', 1);
-        $arguments = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Expression_Name('foo', 1)), array(), 1);
-        $node = new Apishka_Templater_Node_Macro('foo', $body, $arguments, 1);
+        $body = Apishka_Templater_Node_Text::apishka('foo', 1);
+        $arguments = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Expression_Name::apishka('foo', 1)), array(), 1);
+        $node = Apishka_Templater_Node_Macro::apishka('foo', $body, $arguments, 1);
 
         $this->assertEquals($body, $node->getNode('body'));
         $this->assertEquals($arguments, $node->getNode('arguments'));
@@ -24,12 +24,12 @@ class Apishka_Templater_Tests_Node_MacroTest extends Apishka_Templater_Test_Node
 
     public function getTests()
     {
-        $body = new Apishka_Templater_Node_Text('foo', 1);
-        $arguments = new Apishka_Templater_Node(array(
-            'foo' => new Apishka_Templater_Node_Expression_Constant(null, 1),
-            'bar' => new Apishka_Templater_Node_Expression_Constant('Foo', 1),
+        $body = Apishka_Templater_Node_Text::apishka('foo', 1);
+        $arguments = Apishka_Templater_Node::apishka(array(
+            'foo' => Apishka_Templater_Node_Expression_Constant::apishka(null, 1),
+            'bar' => Apishka_Templater_Node_Expression_Constant::apishka('Foo', 1),
         ), array(), 1);
-        $node = new Apishka_Templater_Node_Macro('foo', $body, $arguments, 1);
+        $node = Apishka_Templater_Node_Macro::apishka('foo', $body, $arguments, 1);
 
         if (PHP_VERSION_ID >= 50600) {
             $declaration = ', ...$__varargs__';

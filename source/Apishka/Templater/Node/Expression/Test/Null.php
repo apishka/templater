@@ -12,6 +12,8 @@
 /**
  * Checks that a variable is null.
  *
+ * @easy-extend-base
+ *
  * <pre>
  *  {{ var is none }}
  * </pre>

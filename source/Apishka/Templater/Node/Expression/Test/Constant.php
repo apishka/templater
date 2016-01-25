@@ -12,6 +12,8 @@
 /**
  * Checks if a variable is the exact same value as a constant.
  *
+ * @easy-extend-base
+ *
  * <pre>
  *  {% if post.status is constant('Post::PUBLISHED') %}
  *    the status attribute is exactly the same as Post::PUBLISHED

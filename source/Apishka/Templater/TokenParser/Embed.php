@@ -39,7 +39,7 @@ class Apishka_Templater_TokenParser_Embed extends Apishka_Templater_TokenParser_
 
         $stream->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
 
-        return new Apishka_Templater_Node_Embed($module->getAttribute('filename'), $module->getAttribute('index'), $variables, $only, $ignoreMissing, $token->getLine(), $this->getTag());
+        return Apishka_Templater_Node_Embed::apishka($module->getAttribute('filename'), $module->getAttribute('index'), $variables, $only, $ignoreMissing, $token->getLine(), $this->getTag());
     }
 
     public function decideBlockEnd(Apishka_Templater_Token $token)

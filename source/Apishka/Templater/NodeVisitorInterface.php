@@ -24,7 +24,7 @@ interface Apishka_Templater_NodeVisitorInterface
      *
      * @return Apishka_Templater_Node The modified node
      */
-    public function enterNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env);
+    public function enterNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env);
 
     /**
      * Called after child nodes are visited.
@@ -34,7 +34,7 @@ interface Apishka_Templater_NodeVisitorInterface
      *
      * @return Apishka_Templater_Node|false The modified node or false if the node must be removed
      */
-    public function leaveNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env);
+    public function leaveNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env);
 
     /**
      * Returns the priority for this visitor.

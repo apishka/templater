@@ -86,7 +86,7 @@ class Apishka_Templater_Function
         return $this->options['needs_context'];
     }
 
-    public function getSafe(Apishka_Templater_Node $functionArgs)
+    public function getSafe(Apishka_Templater_NodeAbstract $functionArgs)
     {
         if (null !== $this->options['is_safe']) {
             return $this->options['is_safe'];

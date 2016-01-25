@@ -13,8 +13,8 @@ class Apishka_Templater_Tests_Node_SandboxTest extends Apishka_Templater_Test_No
 {
     public function testConstructor()
     {
-        $body = new Apishka_Templater_Node_Text('foo', 1);
-        $node = new Apishka_Templater_Node_Sandbox($body, 1);
+        $body = Apishka_Templater_Node_Text::apishka('foo', 1);
+        $node = Apishka_Templater_Node_Sandbox::apishka($body, 1);
 
         $this->assertEquals($body, $node->getNode('body'));
     }
@@ -23,8 +23,8 @@ class Apishka_Templater_Tests_Node_SandboxTest extends Apishka_Templater_Test_No
     {
         $tests = array();
 
-        $body = new Apishka_Templater_Node_Text('foo', 1);
-        $node = new Apishka_Templater_Node_Sandbox($body, 1);
+        $body = Apishka_Templater_Node_Text::apishka('foo', 1);
+        $node = Apishka_Templater_Node_Sandbox::apishka($body, 1);
 
         $tests[] = array($node, <<<EOF
 // line 1

@@ -13,10 +13,10 @@ class Apishka_Templater_Tests_Node_Expression_FilterTest extends Apishka_Templat
 {
     public function testConstructor()
     {
-        $expr = new Apishka_Templater_Node_Expression_Constant('foo', 1);
-        $name = new Apishka_Templater_Node_Expression_Constant('upper', 1);
-        $args = new Apishka_Templater_Node();
-        $node = new Apishka_Templater_Node_Expression_Filter($expr, $name, $args, 1);
+        $expr = Apishka_Templater_Node_Expression_Constant::apishka('foo', 1);
+        $name = Apishka_Templater_Node_Expression_Constant::apishka('upper', 1);
+        $args = Apishka_Templater_Node::apishka();
+        $node = Apishka_Templater_Node_Expression_Filter::apishka($expr, $name, $args, 1);
 
         $this->assertEquals($expr, $node->getNode('node'));
         $this->assertEquals($name, $node->getNode('filter'));
@@ -31,64 +31,64 @@ class Apishka_Templater_Tests_Node_Expression_FilterTest extends Apishka_Templat
 
         $tests = array();
 
-        $expr = new Apishka_Templater_Node_Expression_Constant('foo', 1);
+        $expr = Apishka_Templater_Node_Expression_Constant::apishka('foo', 1);
         $node = $this->createFilter($expr, 'upper');
-        $node = $this->createFilter($node, 'number_format', array(new Apishka_Templater_Node_Expression_Constant(2, 1), new Apishka_Templater_Node_Expression_Constant('.', 1), new Apishka_Templater_Node_Expression_Constant(',', 1)));
+        $node = $this->createFilter($node, 'number_format', array(Apishka_Templater_Node_Expression_Constant::apishka(2, 1), Apishka_Templater_Node_Expression_Constant::apishka('.', 1), Apishka_Templater_Node_Expression_Constant::apishka(',', 1)));
 
         $tests[] = array($node, 'twig_number_format_filter($this->env, twig_upper_filter($this->env, "foo"), 2, ".", ",")');
 
         // named arguments
-        $date = new Apishka_Templater_Node_Expression_Constant(0, 1);
+        $date = Apishka_Templater_Node_Expression_Constant::apishka(0, 1);
         $node = $this->createFilter($date, 'date', array(
-            'timezone' => new Apishka_Templater_Node_Expression_Constant('America/Chicago', 1),
-            'format'   => new Apishka_Templater_Node_Expression_Constant('d/m/Y H:i:s P', 1),
+            'timezone' => Apishka_Templater_Node_Expression_Constant::apishka('America/Chicago', 1),
+            'format'   => Apishka_Templater_Node_Expression_Constant::apishka('d/m/Y H:i:s P', 1),
         ));
         $tests[] = array($node, 'twig_date_format_filter($this->env, 0, "d/m/Y H:i:s P", "America/Chicago")');
 
         // skip an optional argument
-        $date = new Apishka_Templater_Node_Expression_Constant(0, 1);
+        $date = Apishka_Templater_Node_Expression_Constant::apishka(0, 1);
         $node = $this->createFilter($date, 'date', array(
-            'timezone' => new Apishka_Templater_Node_Expression_Constant('America/Chicago', 1),
+            'timezone' => Apishka_Templater_Node_Expression_Constant::apishka('America/Chicago', 1),
         ));
         $tests[] = array($node, 'twig_date_format_filter($this->env, 0, null, "America/Chicago")');
 
         // underscores vs camelCase for named arguments
-        $string = new Apishka_Templater_Node_Expression_Constant('abc', 1);
+        $string = Apishka_Templater_Node_Expression_Constant::apishka('abc', 1);
         $node = $this->createFilter($string, 'reverse', array(
-            'preserve_keys' => new Apishka_Templater_Node_Expression_Constant(true, 1),
+            'preserve_keys' => Apishka_Templater_Node_Expression_Constant::apishka(true, 1),
         ));
         $tests[] = array($node, 'twig_reverse_filter($this->env, "abc", true)');
         $node = $this->createFilter($string, 'reverse', array(
-            'preserveKeys' => new Apishka_Templater_Node_Expression_Constant(true, 1),
+            'preserveKeys' => Apishka_Templater_Node_Expression_Constant::apishka(true, 1),
         ));
         $tests[] = array($node, 'twig_reverse_filter($this->env, "abc", true)');
 
         // filter as an anonymous function
-        $node = $this->createFilter(new Apishka_Templater_Node_Expression_Constant('foo', 1), 'anonymous');
+        $node = $this->createFilter(Apishka_Templater_Node_Expression_Constant::apishka('foo', 1), 'anonymous');
         $tests[] = array($node, 'call_user_func_array($this->env->getFilter(\'anonymous\')->getCallable(), array("foo"))');
 
         // needs environment
         $node = $this->createFilter($string, 'bar');
         $tests[] = array($node, 'twig_tests_filter_dummy($this->env, "abc")', $environment);
 
-        $node = $this->createFilter($string, 'bar', array(new Apishka_Templater_Node_Expression_Constant('bar', 1)));
+        $node = $this->createFilter($string, 'bar', array(Apishka_Templater_Node_Expression_Constant::apishka('bar', 1)));
         $tests[] = array($node, 'twig_tests_filter_dummy($this->env, "abc", "bar")', $environment);
 
         // arbitrary named arguments
         $node = $this->createFilter($string, 'barbar');
         $tests[] = array($node, 'twig_tests_filter_barbar($context, "abc")', $environment);
 
-        $node = $this->createFilter($string, 'barbar', array('foo' => new Apishka_Templater_Node_Expression_Constant('bar', 1)));
+        $node = $this->createFilter($string, 'barbar', array('foo' => Apishka_Templater_Node_Expression_Constant::apishka('bar', 1)));
         $tests[] = array($node, 'twig_tests_filter_barbar($context, "abc", null, null, array("foo" => "bar"))', $environment);
 
-        $node = $this->createFilter($string, 'barbar', array('arg2' => new Apishka_Templater_Node_Expression_Constant('bar', 1)));
+        $node = $this->createFilter($string, 'barbar', array('arg2' => Apishka_Templater_Node_Expression_Constant::apishka('bar', 1)));
         $tests[] = array($node, 'twig_tests_filter_barbar($context, "abc", null, "bar")', $environment);
 
         $node = $this->createFilter($string, 'barbar', array(
-            new Apishka_Templater_Node_Expression_Constant('1', 1),
-            new Apishka_Templater_Node_Expression_Constant('2', 1),
-            new Apishka_Templater_Node_Expression_Constant('3', 1),
-            'foo' => new Apishka_Templater_Node_Expression_Constant('bar', 1),
+            Apishka_Templater_Node_Expression_Constant::apishka('1', 1),
+            Apishka_Templater_Node_Expression_Constant::apishka('2', 1),
+            Apishka_Templater_Node_Expression_Constant::apishka('3', 1),
+            'foo' => Apishka_Templater_Node_Expression_Constant::apishka('bar', 1),
         ));
         $tests[] = array($node, 'twig_tests_filter_barbar($context, "abc", "1", "2", array(0 => "3", "foo" => "bar"))', $environment);
 
@@ -101,9 +101,9 @@ class Apishka_Templater_Tests_Node_Expression_FilterTest extends Apishka_Templat
      */
     public function testCompileWithWrongNamedArgumentName()
     {
-        $date = new Apishka_Templater_Node_Expression_Constant(0, 1);
+        $date = Apishka_Templater_Node_Expression_Constant::apishka(0, 1);
         $node = $this->createFilter($date, 'date', array(
-            'foobar' => new Apishka_Templater_Node_Expression_Constant('America/Chicago', 1),
+            'foobar' => Apishka_Templater_Node_Expression_Constant::apishka('America/Chicago', 1),
         ));
 
         $compiler = $this->getCompiler();
@@ -116,9 +116,9 @@ class Apishka_Templater_Tests_Node_Expression_FilterTest extends Apishka_Templat
      */
     public function testCompileWithMissingNamedArgument()
     {
-        $value = new Apishka_Templater_Node_Expression_Constant(0, 1);
+        $value = Apishka_Templater_Node_Expression_Constant::apishka(0, 1);
         $node = $this->createFilter($value, 'replace', array(
-            'to' => new Apishka_Templater_Node_Expression_Constant('foo', 1),
+            'to' => Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
         ));
 
         $compiler = $this->getCompiler();
@@ -127,10 +127,10 @@ class Apishka_Templater_Tests_Node_Expression_FilterTest extends Apishka_Templat
 
     protected function createFilter($node, $name, array $arguments = array())
     {
-        $name = new Apishka_Templater_Node_Expression_Constant($name, 1);
-        $arguments = new Apishka_Templater_Node($arguments);
+        $name = Apishka_Templater_Node_Expression_Constant::apishka($name, 1);
+        $arguments = Apishka_Templater_Node::apishka($arguments);
 
-        return new Apishka_Templater_Node_Expression_Filter($node, $name, $arguments, 1);
+        return Apishka_Templater_Node_Expression_Filter::apishka($node, $name, $arguments, 1);
     }
 
     protected function getEnvironment()

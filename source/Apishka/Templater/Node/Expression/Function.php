@@ -8,9 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+/**
+ * Apishka templater node expression function
+ *
+ * @easy-extend-base
+ *
+ * @uses Apishka_Templater_Node_Expression_Call
+ * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
+ */
+
 class Apishka_Templater_Node_Expression_Function extends Apishka_Templater_Node_Expression_Call
 {
-    public function __construct($name, Apishka_Templater_Node $arguments, $lineno)
+    public function __construct($name, Apishka_Templater_NodeAbstract $arguments, $lineno)
     {
         parent::__construct(array('arguments' => $arguments), array('name' => $name), $lineno);
     }

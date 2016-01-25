@@ -13,7 +13,7 @@ class Apishka_Templater_Tests_Node_SandboxedPrintTest extends Apishka_Templater_
 {
     public function testConstructor()
     {
-        $node = new Apishka_Templater_Node_SandboxedPrint($expr = new Apishka_Templater_Node_Expression_Constant('foo', 1), 1);
+        $node = Apishka_Templater_Node_SandboxedPrint::apishka($expr = Apishka_Templater_Node_Expression_Constant::apishka('foo', 1), 1);
 
         $this->assertEquals($expr, $node->getNode('expr'));
     }
@@ -22,7 +22,7 @@ class Apishka_Templater_Tests_Node_SandboxedPrintTest extends Apishka_Templater_
     {
         $tests = array();
 
-        $tests[] = array(new Apishka_Templater_Node_SandboxedPrint(new Apishka_Templater_Node_Expression_Constant('foo', 1), 1), <<<EOF
+        $tests[] = array(Apishka_Templater_Node_SandboxedPrint::apishka(Apishka_Templater_Node_Expression_Constant::apishka('foo', 1), 1), <<<EOF
 // line 1
 echo \$this->env->getExtension('sandbox')->ensureToStringAllowed("foo");
 EOF

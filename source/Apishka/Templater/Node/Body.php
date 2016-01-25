@@ -14,6 +14,6 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_Body extends Apishka_Templater_Node
+class Apishka_Templater_Node_Body extends Apishka_Templater_NodeAbstract
 {
 }

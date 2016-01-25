@@ -13,18 +13,18 @@ class Apishka_Templater_Tests_Node_IfTest extends Apishka_Templater_Test_NodeTes
 {
     public function testConstructor()
     {
-        $t = new Apishka_Templater_Node(array(
-            new Apishka_Templater_Node_Expression_Constant(true, 1),
-            new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('foo', 1), 1),
+        $t = Apishka_Templater_Node::apishka(array(
+            Apishka_Templater_Node_Expression_Constant::apishka(true, 1),
+            Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('foo', 1), 1),
         ), array(), 1);
         $else = null;
-        $node = new Apishka_Templater_Node_If($t, $else, 1);
+        $node = Apishka_Templater_Node_If::apishka($t, $else, 1);
 
         $this->assertEquals($t, $node->getNode('tests'));
         $this->assertNull($node->getNode('else'));
 
-        $else = new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('bar', 1), 1);
-        $node = new Apishka_Templater_Node_If($t, $else, 1);
+        $else = Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('bar', 1), 1);
+        $node = Apishka_Templater_Node_If::apishka($t, $else, 1);
         $this->assertEquals($else, $node->getNode('else'));
     }
 
@@ -32,12 +32,12 @@ class Apishka_Templater_Tests_Node_IfTest extends Apishka_Templater_Test_NodeTes
     {
         $tests = array();
 
-        $t = new Apishka_Templater_Node(array(
-            new Apishka_Templater_Node_Expression_Constant(true, 1),
-            new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('foo', 1), 1),
+        $t = Apishka_Templater_Node::apishka(array(
+            Apishka_Templater_Node_Expression_Constant::apishka(true, 1),
+            Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('foo', 1), 1),
         ), array(), 1);
         $else = null;
-        $node = new Apishka_Templater_Node_If($t, $else, 1);
+        $node = Apishka_Templater_Node_If::apishka($t, $else, 1);
 
         $tests[] = array($node, <<<EOF
 // line 1
@@ -47,14 +47,14 @@ if (true) {
 EOF
         );
 
-        $t = new Apishka_Templater_Node(array(
-            new Apishka_Templater_Node_Expression_Constant(true, 1),
-            new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('foo', 1), 1),
-            new Apishka_Templater_Node_Expression_Constant(false, 1),
-            new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('bar', 1), 1),
+        $t = Apishka_Templater_Node::apishka(array(
+            Apishka_Templater_Node_Expression_Constant::apishka(true, 1),
+            Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('foo', 1), 1),
+            Apishka_Templater_Node_Expression_Constant::apishka(false, 1),
+            Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('bar', 1), 1),
         ), array(), 1);
         $else = null;
-        $node = new Apishka_Templater_Node_If($t, $else, 1);
+        $node = Apishka_Templater_Node_If::apishka($t, $else, 1);
 
         $tests[] = array($node, <<<EOF
 // line 1
@@ -66,12 +66,12 @@ if (true) {
 EOF
         );
 
-        $t = new Apishka_Templater_Node(array(
-            new Apishka_Templater_Node_Expression_Constant(true, 1),
-            new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('foo', 1), 1),
+        $t = Apishka_Templater_Node::apishka(array(
+            Apishka_Templater_Node_Expression_Constant::apishka(true, 1),
+            Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('foo', 1), 1),
         ), array(), 1);
-        $else = new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('bar', 1), 1);
-        $node = new Apishka_Templater_Node_If($t, $else, 1);
+        $else = Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('bar', 1), 1);
+        $node = Apishka_Templater_Node_If::apishka($t, $else, 1);
 
         $tests[] = array($node, <<<EOF
 // line 1

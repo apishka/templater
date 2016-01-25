@@ -31,7 +31,7 @@ class Apishka_Templater_NodeVisitor_Escaper extends Apishka_Templater_BaseNodeVi
     /**
      * {@inheritdoc}
      */
-    protected function doEnterNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    protected function doEnterNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if ($node instanceof Apishka_Templater_Node_Module) {
             if ($env->hasExtension('escaper') && $defaultStrategy = $env->getExtension('escaper')->getDefaultStrategy($node->getAttribute('filename'))) {
@@ -52,7 +52,7 @@ class Apishka_Templater_NodeVisitor_Escaper extends Apishka_Templater_BaseNodeVi
     /**
      * {@inheritdoc}
      */
-    protected function doLeaveNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    protected function doLeaveNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if ($node instanceof Apishka_Templater_Node_Module) {
             $this->defaultStrategy = false;
@@ -111,7 +111,7 @@ class Apishka_Templater_NodeVisitor_Escaper extends Apishka_Templater_BaseNodeVi
         return $filter;
     }
 
-    private function isSafeFor($type, Apishka_Templater_Node $expression, $env)
+    private function isSafeFor($type, Apishka_Templater_NodeAbstract $expression, $env)
     {
         $safe = $this->safeAnalysis->getSafe($expression);
 
@@ -138,13 +138,13 @@ class Apishka_Templater_NodeVisitor_Escaper extends Apishka_Templater_BaseNodeVi
         return $this->defaultStrategy ? $this->defaultStrategy : false;
     }
 
-    private function getEscaperFilter($type, Apishka_Templater_Node $node)
+    private function getEscaperFilter($type, Apishka_Templater_NodeAbstract $node)
     {
         $line = $node->getLine();
-        $name = new Apishka_Templater_Node_Expression_Constant('escape', $line);
-        $args = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Expression_Constant((string) $type, $line), new Apishka_Templater_Node_Expression_Constant(null, $line), new Apishka_Templater_Node_Expression_Constant(true, $line)));
+        $name = Apishka_Templater_Node_Expression_Constant::apishka('escape', $line);
+        $args = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Expression_Constant::apishka((string) $type, $line), Apishka_Templater_Node_Expression_Constant::apishka(null, $line), Apishka_Templater_Node_Expression_Constant::apishka(true, $line)));
 
-        return new Apishka_Templater_Node_Expression_Filter($node, $name, $args, $line);
+        return Apishka_Templater_Node_Expression_Filter::apishka($node, $name, $args, $line);
     }
 
     /**

@@ -103,7 +103,7 @@ class Apishka_Templater_Parser
             $body = $this->subparse($test, $dropNeedle);
 
             if (null !== $this->parent && null === $body = $this->filterBodyNodes($body)) {
-                $body = new Apishka_Templater_Node();
+                $body = Apishka_Templater_Node::apishka();
             }
         } catch (Apishka_Templater_Error_Syntax $e) {
             if (!$e->getTemplateFile()) {
@@ -117,7 +117,7 @@ class Apishka_Templater_Parser
             throw $e;
         }
 
-        $node = new Apishka_Templater_Node_Module(new Apishka_Templater_Node_Body(array($body)), $this->parent, new Apishka_Templater_Node($this->blocks), new Apishka_Templater_Node($this->macros), new Apishka_Templater_Node($this->traits), $this->embeddedTemplates, $this->getFilename());
+        $node = Apishka_Templater_Node_Module::apishka(Apishka_Templater_Node_Body::apishka(array($body)), $this->parent, Apishka_Templater_Node::apishka($this->blocks), Apishka_Templater_Node::apishka($this->macros), Apishka_Templater_Node::apishka($this->traits), $this->embeddedTemplates, $this->getFilename());
 
         $traverser = new Apishka_Templater_NodeTraverser($this->env, $this->visitors);
 
@@ -139,14 +139,14 @@ class Apishka_Templater_Parser
             switch ($this->getCurrentToken()->getType()) {
                 case Apishka_Templater_Token::TEXT_TYPE:
                     $token = $this->stream->next();
-                    $rv[] = new Apishka_Templater_Node_Text($token->getValue(), $token->getLine());
+                    $rv[] = Apishka_Templater_Node_Text::apishka($token->getValue(), $token->getLine());
                     break;
 
                 case Apishka_Templater_Token::VAR_START_TYPE:
                     $token = $this->stream->next();
                     $expr = $this->expressionParser->parseExpression();
                     $this->stream->expect(Apishka_Templater_Token::VAR_END_TYPE);
-                    $rv[] = new Apishka_Templater_Node_Print($expr, $token->getLine());
+                    $rv[] = Apishka_Templater_Node_Print::apishka($expr, $token->getLine());
                     break;
 
                 case Apishka_Templater_Token::BLOCK_START_TYPE:
@@ -166,7 +166,7 @@ class Apishka_Templater_Parser
                             return $rv[0];
                         }
 
-                        return new Apishka_Templater_Node($rv, array(), $lineno);
+                        return Apishka_Templater_Node::apishka($rv, array(), $lineno);
                     }
 
                     if (!isset($this->handlers[$token->getValue()])) {
@@ -202,7 +202,7 @@ class Apishka_Templater_Parser
             return $rv[0];
         }
 
-        return new Apishka_Templater_Node($rv, array(), $lineno);
+        return Apishka_Templater_Node::apishka($rv, array(), $lineno);
     }
 
     public function addHandler($name, $class)
@@ -247,7 +247,7 @@ class Apishka_Templater_Parser
 
     public function setBlock($name, Apishka_Templater_Node_Block $value)
     {
-        $this->blocks[$name] = new Apishka_Templater_Node_Body(array($value), array(), $value->getLine());
+        $this->blocks[$name] = Apishka_Templater_Node_Body::apishka(array($value), array(), $value->getLine());
     }
 
     public function hasMacro($name)
@@ -287,7 +287,7 @@ class Apishka_Templater_Parser
         $this->embeddedTemplates[] = $template;
     }
 
-    public function addImportedSymbol($type, $alias, $name = null, Apishka_Templater_Node_Expression $node = null)
+    public function addImportedSymbol($type, $alias, $name = null, Apishka_Templater_Node_ExpressionAbstract $node = null)
     {
         $this->importedSymbols[0][$type][$alias] = array('name' => $name, 'node' => $node);
     }
@@ -356,7 +356,7 @@ class Apishka_Templater_Parser
         return $this->stream->getCurrent();
     }
 
-    private function filterBodyNodes(Apishka_Templater_Node $node)
+    private function filterBodyNodes(Apishka_Templater_NodeAbstract $node)
     {
         // check that the body does not contain non-empty output nodes
         if (

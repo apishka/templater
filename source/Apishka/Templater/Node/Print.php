@@ -15,9 +15,9 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_Print extends Apishka_Templater_Node implements Apishka_Templater_NodeOutputInterface
+class Apishka_Templater_Node_Print extends Apishka_Templater_NodeAbstract implements Apishka_Templater_NodeOutputInterface
 {
-    public function __construct(Apishka_Templater_Node_Expression $expr, $lineno, $tag = null)
+    public function __construct(Apishka_Templater_Node_ExpressionAbstract $expr, $lineno, $tag = null)
     {
         parent::__construct(array('expr' => $expr), array(), $lineno, $tag);
     }

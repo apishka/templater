@@ -13,8 +13,8 @@ class Apishka_Templater_Tests_Node_AutoEscapeTest extends Apishka_Templater_Test
 {
     public function testConstructor()
     {
-        $body = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Text('foo', 1)));
-        $node = new Apishka_Templater_Node_AutoEscape(true, $body, 1);
+        $body = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Text::apishka('foo', 1)));
+        $node = Apishka_Templater_Node_AutoEscape::apishka(true, $body, 1);
 
         $this->assertEquals($body, $node->getNode('body'));
         $this->assertTrue($node->getAttribute('value'));
@@ -22,8 +22,8 @@ class Apishka_Templater_Tests_Node_AutoEscapeTest extends Apishka_Templater_Test
 
     public function getTests()
     {
-        $body = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Text('foo', 1)));
-        $node = new Apishka_Templater_Node_AutoEscape(true, $body, 1);
+        $body = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Text::apishka('foo', 1)));
+        $node = Apishka_Templater_Node_AutoEscape::apishka(true, $body, 1);
 
         return array(
             array($node, "// line 1\necho \"foo\";"),

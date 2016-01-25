@@ -13,9 +13,9 @@ class Apishka_Templater_Tests_Node_Expression_Binary_SubTest extends Apishka_Tem
 {
     public function testConstructor()
     {
-        $left = new Apishka_Templater_Node_Expression_Constant(1, 1);
-        $right = new Apishka_Templater_Node_Expression_Constant(2, 1);
-        $node = new Apishka_Templater_Node_Expression_Binary_Sub($left, $right, 1);
+        $left = Apishka_Templater_Node_Expression_Constant::apishka(1, 1);
+        $right = Apishka_Templater_Node_Expression_Constant::apishka(2, 1);
+        $node = Apishka_Templater_Node_Expression_Binary_Sub::apishka($left, $right, 1);
 
         $this->assertEquals($left, $node->getNode('left'));
         $this->assertEquals($right, $node->getNode('right'));
@@ -23,9 +23,9 @@ class Apishka_Templater_Tests_Node_Expression_Binary_SubTest extends Apishka_Tem
 
     public function getTests()
     {
-        $left = new Apishka_Templater_Node_Expression_Constant(1, 1);
-        $right = new Apishka_Templater_Node_Expression_Constant(2, 1);
-        $node = new Apishka_Templater_Node_Expression_Binary_Sub($left, $right, 1);
+        $left = Apishka_Templater_Node_Expression_Constant::apishka(1, 1);
+        $right = Apishka_Templater_Node_Expression_Constant::apishka(2, 1);
+        $node = Apishka_Templater_Node_Expression_Binary_Sub::apishka($left, $right, 1);
 
         return array(
             array($node, '(1 - 2)'),

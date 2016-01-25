@@ -9,9 +9,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Apishka_Templater_Node_Expression_Conditional extends Apishka_Templater_Node_Expression
+class Apishka_Templater_Node_Expression_Conditional extends Apishka_Templater_Node_ExpressionAbstract
 {
-    public function __construct(Apishka_Templater_Node_Expression $expr1, Apishka_Templater_Node_Expression $expr2, Apishka_Templater_Node_Expression $expr3, $lineno)
+    public function __construct(Apishka_Templater_Node_ExpressionAbstract $expr1, Apishka_Templater_Node_ExpressionAbstract $expr2, Apishka_Templater_Node_ExpressionAbstract $expr3, $lineno)
     {
         parent::__construct(array('expr1' => $expr1, 'expr2' => $expr2, 'expr3' => $expr3), array(), $lineno);
     }

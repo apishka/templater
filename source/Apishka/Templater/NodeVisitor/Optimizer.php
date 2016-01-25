@@ -49,7 +49,7 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
     /**
      * {@inheritdoc}
      */
-    protected function doEnterNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    protected function doEnterNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if (self::OPTIMIZE_FOR === (self::OPTIMIZE_FOR & $this->optimizers)) {
             $this->enterOptimizeFor($node, $env);
@@ -61,7 +61,7 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
     /**
      * {@inheritdoc}
      */
-    protected function doLeaveNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    protected function doLeaveNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if (self::OPTIMIZE_FOR === (self::OPTIMIZE_FOR & $this->optimizers)) {
             $this->leaveOptimizeFor($node, $env);
@@ -88,7 +88,7 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
      *
      * @return Apishka_Templater_NodeInterface
      */
-    private function optimizePrintNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    private function optimizePrintNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if (!$node instanceof Apishka_Templater_Node_Print) {
             return $node;
@@ -114,7 +114,7 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
      *
      * @return Apishka_Templater_Node
      */
-    private function optimizeRawFilter(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    private function optimizeRawFilter(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if ($node instanceof Apishka_Templater_Node_Expression_Filter && 'raw' == $node->getNode('filter')->getAttribute('value')) {
             return $node->getNode('node');
@@ -129,7 +129,7 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
      * @param Apishka_Templater_Node        $node A Node
      * @param Apishka_Templater_Environment $env  The current Twig environment
      */
-    private function enterOptimizeFor(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    private function enterOptimizeFor(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if ($node instanceof Apishka_Templater_Node_For) {
             // disable the loop variable by default
@@ -196,7 +196,7 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
      * @param Apishka_Templater_Node        $node A Node
      * @param Apishka_Templater_Environment $env  The current Twig environment
      */
-    private function leaveOptimizeFor(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    private function leaveOptimizeFor(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if ($node instanceof Apishka_Templater_Node_For) {
             array_shift($this->loops);

@@ -544,7 +544,7 @@ class Apishka_Templater_Environment
      *
      * @return string The compiled PHP source code
      */
-    public function compile(Apishka_Templater_Node $node)
+    public function compile(Apishka_Templater_NodeAbstract $node)
     {
         return $this->getCompiler()->compile($node)->getSource();
     }

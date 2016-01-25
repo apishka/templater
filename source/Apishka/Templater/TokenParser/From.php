@@ -42,7 +42,7 @@ class Apishka_Templater_TokenParser_From extends Apishka_Templater_TokenParser
 
         $stream->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
 
-        $node = new Apishka_Templater_Node_Import($macro, new Apishka_Templater_Node_Expression_AssignName($this->parser->getVarName(), $token->getLine()), $token->getLine(), $this->getTag());
+        $node = Apishka_Templater_Node_Import::apishka($macro, Apishka_Templater_Node_Expression_AssignName::apishka($this->parser->getVarName(), $token->getLine()), $token->getLine(), $this->getTag());
 
         foreach ($targets as $name => $alias) {
             $this->parser->addImportedSymbol('function', $alias, 'macro_' . $name, $node->getNode('var'));

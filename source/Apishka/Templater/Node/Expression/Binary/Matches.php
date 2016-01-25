@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Apishka_Templater_Node_Expression_Binary_Matches extends Apishka_Templater_Node_Expression_Binary
+class Apishka_Templater_Node_Expression_Binary_Matches extends Apishka_Templater_Node_Expression_BinaryAbstract
 {
     public function compile(Apishka_Templater_Compiler $compiler)
     {

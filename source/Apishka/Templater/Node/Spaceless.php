@@ -16,9 +16,9 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_Spaceless extends Apishka_Templater_Node
+class Apishka_Templater_Node_Spaceless extends Apishka_Templater_NodeAbstract
 {
-    public function __construct(Apishka_Templater_Node $body, $lineno, $tag = 'spaceless')
+    public function __construct(Apishka_Templater_NodeAbstract $body, $lineno, $tag = 'spaceless')
     {
         parent::__construct(array('body' => $body), array(), $lineno, $tag);
     }

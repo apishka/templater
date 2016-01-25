@@ -10,6 +10,15 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Apishka templater node expression assign name
+ *
+ * @easy-extend-base
+ *
+ * @uses Apishka_Templater_Node_Expression_Name
+ * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
+ */
+
 class Apishka_Templater_Node_Expression_AssignName extends Apishka_Templater_Node_Expression_Name
 {
     public function compile(Apishka_Templater_Compiler $compiler)

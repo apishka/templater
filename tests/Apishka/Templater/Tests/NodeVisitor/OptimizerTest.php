@@ -87,7 +87,7 @@ class Apishka_Templater_Tests_NodeVisitor_OptimizerTest extends PHPUnit_Framewor
         );
     }
 
-    public function checkForConfiguration(Apishka_Templater_Node $node = null, $target, $withLoop)
+    public function checkForConfiguration(Apishka_Templater_NodeAbstract $node = null, $target, $withLoop)
     {
         if (null === $node) {
             return;

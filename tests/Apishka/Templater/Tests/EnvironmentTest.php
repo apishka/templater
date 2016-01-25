@@ -398,12 +398,12 @@ class Apishka_Templater_Tests_EnvironmentTest_TokenParser extends Apishka_Templa
 
 class Apishka_Templater_Tests_EnvironmentTest_NodeVisitor implements Apishka_Templater_NodeVisitorInterface
 {
-    public function enterNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    public function enterNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         return $node;
     }
 
-    public function leaveNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    public function leaveNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         return $node;
     }

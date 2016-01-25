@@ -20,7 +20,7 @@ abstract class Apishka_Templater_Test_NodeTestCase extends PHPUnit_Framework_Tes
         $this->assertNodeCompilation($source, $node, $environment, $isPattern);
     }
 
-    public function assertNodeCompilation($source, Apishka_Templater_Node $node, Apishka_Templater_Environment $environment = null, $isPattern = false)
+    public function assertNodeCompilation($source, Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $environment = null, $isPattern = false)
     {
         $compiler = $this->getCompiler($environment);
         $compiler->compile($node);

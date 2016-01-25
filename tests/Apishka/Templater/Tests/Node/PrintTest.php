@@ -13,8 +13,8 @@ class Apishka_Templater_Tests_Node_PrintTest extends Apishka_Templater_Test_Node
 {
     public function testConstructor()
     {
-        $expr = new Apishka_Templater_Node_Expression_Constant('foo', 1);
-        $node = new Apishka_Templater_Node_Print($expr, 1);
+        $expr = Apishka_Templater_Node_Expression_Constant::apishka('foo', 1);
+        $node = Apishka_Templater_Node_Print::apishka($expr, 1);
 
         $this->assertEquals($expr, $node->getNode('expr'));
     }
@@ -22,7 +22,7 @@ class Apishka_Templater_Tests_Node_PrintTest extends Apishka_Templater_Test_Node
     public function getTests()
     {
         $tests = array();
-        $tests[] = array(new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Constant('foo', 1), 1), "// line 1\necho \"foo\";");
+        $tests[] = array(Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Constant::apishka('foo', 1), 1), "// line 1\necho \"foo\";");
 
         return $tests;
     }

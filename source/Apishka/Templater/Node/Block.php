@@ -15,9 +15,9 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_Block extends Apishka_Templater_Node
+class Apishka_Templater_Node_Block extends Apishka_Templater_NodeAbstract
 {
-    public function __construct($name, Apishka_Templater_Node $body, $lineno, $tag = null)
+    public function __construct($name, Apishka_Templater_NodeAbstract $body, $lineno, $tag = null)
     {
         parent::__construct(array('body' => $body), array('name' => $name), $lineno, $tag);
     }

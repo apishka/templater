@@ -56,7 +56,7 @@ class Apishka_Templater_NodeTraverser
      *
      * @return Apishka_Templater_Node
      */
-    public function traverse(Apishka_Templater_Node $node)
+    public function traverse(Apishka_Templater_NodeAbstract $node)
     {
         ksort($this->visitors);
         foreach ($this->visitors as $visitors) {
@@ -68,7 +68,7 @@ class Apishka_Templater_NodeTraverser
         return $node;
     }
 
-    private function traverseForVisitor(Apishka_Templater_NodeVisitorInterface $visitor, Apishka_Templater_Node $node = null)
+    private function traverseForVisitor(Apishka_Templater_NodeVisitorInterface $visitor, Apishka_Templater_NodeAbstract $node = null)
     {
         if (null === $node) {
             return;

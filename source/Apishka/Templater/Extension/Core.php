@@ -256,12 +256,12 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
         );
     }
 
-    public function parseNotTestExpression(Apishka_Templater_Parser $parser, Apishka_Templater_Node $node)
+    public function parseNotTestExpression(Apishka_Templater_Parser $parser, Apishka_Templater_NodeAbstract $node)
     {
-        return new Apishka_Templater_Node_Expression_Unary_Not($this->parseTestExpression($parser, $node), $parser->getCurrentToken()->getLine());
+        return Apishka_Templater_Node_Expression_Unary_Not::apishka($this->parseTestExpression($parser, $node), $parser->getCurrentToken()->getLine());
     }
 
-    public function parseTestExpression(Apishka_Templater_Parser $parser, Apishka_Templater_Node $node)
+    public function parseTestExpression(Apishka_Templater_Parser $parser, Apishka_Templater_NodeAbstract $node)
     {
         $stream = $parser->getStream();
         $test = $this->getTest($parser, $node->getLine());
@@ -1108,7 +1108,7 @@ function twig_escape_filter(Apishka_Templater_Environment $env, $string, $strate
 /**
  * @internal
  */
-function twig_escape_filter_is_safe(Apishka_Templater_Node $filterArgs)
+function twig_escape_filter_is_safe(Apishka_Templater_NodeAbstract $filterArgs)
 {
     foreach ($filterArgs as $arg) {
         if ($arg instanceof Apishka_Templater_Node_Expression_Constant) {

@@ -13,16 +13,16 @@ class Apishka_Templater_Tests_Node_Expression_Unary_NotTest extends Apishka_Temp
 {
     public function testConstructor()
     {
-        $expr = new Apishka_Templater_Node_Expression_Constant(1, 1);
-        $node = new Apishka_Templater_Node_Expression_Unary_Not($expr, 1);
+        $expr = Apishka_Templater_Node_Expression_Constant::apishka(1, 1);
+        $node = Apishka_Templater_Node_Expression_Unary_Not::apishka($expr, 1);
 
         $this->assertEquals($expr, $node->getNode('node'));
     }
 
     public function getTests()
     {
-        $node = new Apishka_Templater_Node_Expression_Constant(1, 1);
-        $node = new Apishka_Templater_Node_Expression_Unary_Not($node, 1);
+        $node = Apishka_Templater_Node_Expression_Constant::apishka(1, 1);
+        $node = Apishka_Templater_Node_Expression_Unary_Not::apishka($node, 1);
 
         return array(
             array($node, '!1'),

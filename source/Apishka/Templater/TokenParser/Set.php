@@ -56,7 +56,7 @@ class Apishka_Templater_TokenParser_Set extends Apishka_Templater_TokenParser
             $stream->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
         }
 
-        return new Apishka_Templater_Node_Set($capture, $names, $values, $lineno, $this->getTag());
+        return Apishka_Templater_Node_Set::apishka($capture, $names, $values, $lineno, $this->getTag());
     }
 
     public function decideBlockEnd(Apishka_Templater_Token $token)

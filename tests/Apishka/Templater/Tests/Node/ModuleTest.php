@@ -13,13 +13,13 @@ class Apishka_Templater_Tests_Node_ModuleTest extends Apishka_Templater_Test_Nod
 {
     public function testConstructor()
     {
-        $body = new Apishka_Templater_Node_Text('foo', 1);
-        $parent = new Apishka_Templater_Node_Expression_Constant('layout.twig', 1);
-        $blocks = new Apishka_Templater_Node();
-        $macros = new Apishka_Templater_Node();
-        $traits = new Apishka_Templater_Node();
+        $body = Apishka_Templater_Node_Text::apishka('foo', 1);
+        $parent = Apishka_Templater_Node_Expression_Constant::apishka('layout.twig', 1);
+        $blocks = Apishka_Templater_Node::apishka();
+        $macros = Apishka_Templater_Node::apishka();
+        $traits = Apishka_Templater_Node::apishka();
         $filename = 'foo.twig';
-        $node = new Apishka_Templater_Node_Module($body, $parent, $blocks, $macros, $traits, new Apishka_Templater_Node(array()), $filename);
+        $node = Apishka_Templater_Node_Module::apishka($body, $parent, $blocks, $macros, $traits, Apishka_Templater_Node::apishka(array()), $filename);
 
         $this->assertEquals($body, $node->getNode('body'));
         $this->assertEquals($blocks, $node->getNode('blocks'));
@@ -34,14 +34,14 @@ class Apishka_Templater_Tests_Node_ModuleTest extends Apishka_Templater_Test_Nod
 
         $tests = array();
 
-        $body = new Apishka_Templater_Node_Text('foo', 1);
+        $body = Apishka_Templater_Node_Text::apishka('foo', 1);
         $extends = null;
-        $blocks = new Apishka_Templater_Node();
-        $macros = new Apishka_Templater_Node();
-        $traits = new Apishka_Templater_Node();
+        $blocks = Apishka_Templater_Node::apishka();
+        $macros = Apishka_Templater_Node::apishka();
+        $traits = Apishka_Templater_Node::apishka();
         $filename = 'foo.twig';
 
-        $node = new Apishka_Templater_Node_Module($body, $extends, $blocks, $macros, $traits, new Apishka_Templater_Node(array()), $filename);
+        $node = Apishka_Templater_Node_Module::apishka($body, $extends, $blocks, $macros, $traits, Apishka_Templater_Node::apishka(array()), $filename);
         $tests[] = array($node, <<<EOF
 <?php
 
@@ -77,12 +77,12 @@ class __TwigTemplate_%x extends Apishka_Templater_Template
 EOF
         , $twig, true);
 
-        $import = new Apishka_Templater_Node_Import(new Apishka_Templater_Node_Expression_Constant('foo.twig', 1), new Apishka_Templater_Node_Expression_AssignName('macro', 1), 2);
+        $import = Apishka_Templater_Node_Import::apishka(Apishka_Templater_Node_Expression_Constant::apishka('foo.twig', 1), Apishka_Templater_Node_Expression_AssignName::apishka('macro', 1), 2);
 
-        $body = new Apishka_Templater_Node(array($import));
-        $extends = new Apishka_Templater_Node_Expression_Constant('layout.twig', 1);
+        $body = Apishka_Templater_Node::apishka(array($import));
+        $extends = Apishka_Templater_Node_Expression_Constant::apishka('layout.twig', 1);
 
-        $node = new Apishka_Templater_Node_Module($body, $extends, $blocks, $macros, $traits, new Apishka_Templater_Node(array()), $filename);
+        $node = Apishka_Templater_Node_Module::apishka($body, $extends, $blocks, $macros, $traits, Apishka_Templater_Node::apishka(array()), $filename);
         $tests[] = array($node, <<<EOF
 <?php
 
@@ -130,16 +130,16 @@ class __TwigTemplate_%x extends Apishka_Templater_Template
 EOF
         , $twig, true);
 
-        $set = new Apishka_Templater_Node_Set(false, new Apishka_Templater_Node(array(new Apishka_Templater_Node_Expression_AssignName('foo', 4))), new Apishka_Templater_Node(array(new Apishka_Templater_Node_Expression_Constant('foo', 4))), 4);
-        $body = new Apishka_Templater_Node(array($set));
-        $extends = new Apishka_Templater_Node_Expression_Conditional(
-                        new Apishka_Templater_Node_Expression_Constant(true, 2),
-                        new Apishka_Templater_Node_Expression_Constant('foo', 2),
-                        new Apishka_Templater_Node_Expression_Constant('foo', 2),
+        $set = Apishka_Templater_Node_Set::apishka(false, Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Expression_AssignName::apishka('foo', 4))), Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Expression_Constant::apishka('foo', 4))), 4);
+        $body = Apishka_Templater_Node::apishka(array($set));
+        $extends = Apishka_Templater_Node_Expression_Conditional::apishka(
+                        Apishka_Templater_Node_Expression_Constant::apishka(true, 2),
+                        Apishka_Templater_Node_Expression_Constant::apishka('foo', 2),
+                        Apishka_Templater_Node_Expression_Constant::apishka('foo', 2),
                         2
                     );
 
-        $node = new Apishka_Templater_Node_Module($body, $extends, $blocks, $macros, $traits, new Apishka_Templater_Node(array()), $filename);
+        $node = Apishka_Templater_Node_Module::apishka($body, $extends, $blocks, $macros, $traits, Apishka_Templater_Node::apishka(array()), $filename);
         $tests[] = array($node, <<<EOF
 <?php
 

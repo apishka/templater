@@ -14,7 +14,7 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_ForLoop extends Apishka_Templater_Node
+class Apishka_Templater_Node_ForLoop extends Apishka_Templater_NodeAbstract
 {
     public function __construct($lineno, $tag = null)
     {

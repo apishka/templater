@@ -9,9 +9,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Apishka_Templater_Node_Expression_GetAttr extends Apishka_Templater_Node_Expression
+class Apishka_Templater_Node_Expression_GetAttr extends Apishka_Templater_Node_ExpressionAbstract
 {
-    public function __construct(Apishka_Templater_Node_Expression $node, Apishka_Templater_Node_Expression $attribute, Apishka_Templater_Node_Expression $arguments = null, $type, $lineno)
+    public function __construct(Apishka_Templater_Node_ExpressionAbstract $node, Apishka_Templater_Node_ExpressionAbstract $attribute, Apishka_Templater_Node_ExpressionAbstract $arguments = null, $type, $lineno)
     {
         parent::__construct(array('node' => $node, 'attribute' => $attribute, 'arguments' => $arguments), array('type' => $type, 'is_defined_test' => false, 'ignore_strict_check' => false, 'disable_c_ext' => false), $lineno);
     }

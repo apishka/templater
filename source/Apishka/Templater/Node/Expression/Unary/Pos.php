@@ -9,7 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Apishka_Templater_Node_Expression_Unary_Pos extends Apishka_Templater_Node_Expression_Unary
+class Apishka_Templater_Node_Expression_Unary_Pos extends Apishka_Templater_Node_Expression_UnaryAbstract
 {
     public function operator(Apishka_Templater_Compiler $compiler)
     {

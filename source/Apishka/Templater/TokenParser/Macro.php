@@ -41,7 +41,7 @@ class Apishka_Templater_TokenParser_Macro extends Apishka_Templater_TokenParser
         $this->parser->popLocalScope();
         $stream->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
 
-        $this->parser->setMacro($name, new Apishka_Templater_Node_Macro($name, new Apishka_Templater_Node_Body(array($body)), $arguments, $lineno, $this->getTag()));
+        $this->parser->setMacro($name, Apishka_Templater_Node_Macro::apishka($name, Apishka_Templater_Node_Body::apishka(array($body)), $arguments, $lineno, $this->getTag()));
     }
 
     public function decideBlockEnd(Apishka_Templater_Token $token)

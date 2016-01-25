@@ -13,12 +13,12 @@ class Apishka_Templater_Tests_Node_Expression_GetAttrTest extends Apishka_Templa
 {
     public function testConstructor()
     {
-        $expr = new Apishka_Templater_Node_Expression_Name('foo', 1);
-        $attr = new Apishka_Templater_Node_Expression_Constant('bar', 1);
-        $args = new Apishka_Templater_Node_Expression_Array(array(), 1);
-        $args->addElement(new Apishka_Templater_Node_Expression_Name('foo', 1));
-        $args->addElement(new Apishka_Templater_Node_Expression_Constant('bar', 1));
-        $node = new Apishka_Templater_Node_Expression_GetAttr($expr, $attr, $args, Apishka_Templater_Template::ARRAY_CALL, 1);
+        $expr = Apishka_Templater_Node_Expression_Name::apishka('foo', 1);
+        $attr = Apishka_Templater_Node_Expression_Constant::apishka('bar', 1);
+        $args = Apishka_Templater_Node_Expression_Array::apishka(array(), 1);
+        $args->addElement(Apishka_Templater_Node_Expression_Name::apishka('foo', 1));
+        $args->addElement(Apishka_Templater_Node_Expression_Constant::apishka('bar', 1));
+        $node = Apishka_Templater_Node_Expression_GetAttr::apishka($expr, $attr, $args, Apishka_Templater_Template::ARRAY_CALL, 1);
 
         $this->assertEquals($expr, $node->getNode('node'));
         $this->assertEquals($attr, $node->getNode('attribute'));
@@ -30,19 +30,19 @@ class Apishka_Templater_Tests_Node_Expression_GetAttrTest extends Apishka_Templa
     {
         $tests = array();
 
-        $expr = new Apishka_Templater_Node_Expression_Name('foo', 1);
-        $attr = new Apishka_Templater_Node_Expression_Constant('bar', 1);
-        $args = new Apishka_Templater_Node_Expression_Array(array(), 1);
-        $node = new Apishka_Templater_Node_Expression_GetAttr($expr, $attr, $args, Apishka_Templater_Template::ANY_CALL, 1);
+        $expr = Apishka_Templater_Node_Expression_Name::apishka('foo', 1);
+        $attr = Apishka_Templater_Node_Expression_Constant::apishka('bar', 1);
+        $args = Apishka_Templater_Node_Expression_Array::apishka(array(), 1);
+        $node = Apishka_Templater_Node_Expression_GetAttr::apishka($expr, $attr, $args, Apishka_Templater_Template::ANY_CALL, 1);
         $tests[] = array($node, sprintf('%s%s, "bar", array())', $this->getAttributeGetter(), $this->getVariableGetter('foo', 1)));
 
-        $node = new Apishka_Templater_Node_Expression_GetAttr($expr, $attr, $args, Apishka_Templater_Template::ARRAY_CALL, 1);
+        $node = Apishka_Templater_Node_Expression_GetAttr::apishka($expr, $attr, $args, Apishka_Templater_Template::ARRAY_CALL, 1);
         $tests[] = array($node, sprintf('%s%s, "bar", array(), "array")', $this->getAttributeGetter(), $this->getVariableGetter('foo', 1)));
 
-        $args = new Apishka_Templater_Node_Expression_Array(array(), 1);
-        $args->addElement(new Apishka_Templater_Node_Expression_Name('foo', 1));
-        $args->addElement(new Apishka_Templater_Node_Expression_Constant('bar', 1));
-        $node = new Apishka_Templater_Node_Expression_GetAttr($expr, $attr, $args, Apishka_Templater_Template::METHOD_CALL, 1);
+        $args = Apishka_Templater_Node_Expression_Array::apishka(array(), 1);
+        $args->addElement(Apishka_Templater_Node_Expression_Name::apishka('foo', 1));
+        $args->addElement(Apishka_Templater_Node_Expression_Constant::apishka('bar', 1));
+        $node = Apishka_Templater_Node_Expression_GetAttr::apishka($expr, $attr, $args, Apishka_Templater_Template::METHOD_CALL, 1);
         $tests[] = array($node, sprintf('%s%s, "bar", array(0 => %s, 1 => "bar"), "method")', $this->getAttributeGetter(), $this->getVariableGetter('foo', 1), $this->getVariableGetter('foo')));
 
         return $tests;

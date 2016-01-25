@@ -22,12 +22,12 @@ class Apishka_Templater_TokenParser_Import extends Apishka_Templater_TokenParser
     {
         $macro = $this->parser->getExpressionParser()->parseExpression();
         $this->parser->getStream()->expect('as');
-        $var = new Apishka_Templater_Node_Expression_AssignName($this->parser->getStream()->expect(Apishka_Templater_Token::NAME_TYPE)->getValue(), $token->getLine());
+        $var = Apishka_Templater_Node_Expression_AssignName::apishka($this->parser->getStream()->expect(Apishka_Templater_Token::NAME_TYPE)->getValue(), $token->getLine());
         $this->parser->getStream()->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
 
         $this->parser->addImportedSymbol('template', $var->getAttribute('name'));
 
-        return new Apishka_Templater_Node_Import($macro, $var, $token->getLine(), $this->getTag());
+        return Apishka_Templater_Node_Import::apishka($macro, $var, $token->getLine(), $this->getTag());
     }
 
     public function getTag()

@@ -672,7 +672,7 @@ class Apishka_Templater_TemplateMagicMethodExceptionObject
 
 class CExtDisablingNodeVisitor implements Apishka_Templater_NodeVisitorInterface
 {
-    public function enterNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    public function enterNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if ($node instanceof Apishka_Templater_Node_Expression_GetAttr) {
             $node->setAttribute('disable_c_ext', true);
@@ -681,7 +681,7 @@ class CExtDisablingNodeVisitor implements Apishka_Templater_NodeVisitorInterface
         return $node;
     }
 
-    public function leaveNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    public function leaveNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         return $node;
     }

@@ -12,6 +12,8 @@
 /**
  * Checks if a number is odd.
  *
+ * @easy-extend-base
+ *
  * <pre>
  *  {{ var is odd }}
  * </pre>

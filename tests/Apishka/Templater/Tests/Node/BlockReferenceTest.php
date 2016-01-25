@@ -13,7 +13,7 @@ class Apishka_Templater_Tests_Node_BlockReferenceTest extends Apishka_Templater_
 {
     public function testConstructor()
     {
-        $node = new Apishka_Templater_Node_BlockReference('foo', 1);
+        $node = Apishka_Templater_Node_BlockReference::apishka('foo', 1);
 
         $this->assertEquals('foo', $node->getAttribute('name'));
     }
@@ -21,7 +21,7 @@ class Apishka_Templater_Tests_Node_BlockReferenceTest extends Apishka_Templater_
     public function getTests()
     {
         return array(
-            array(new Apishka_Templater_Node_BlockReference('foo', 1), <<<EOF
+            array(Apishka_Templater_Node_BlockReference::apishka('foo', 1), <<<EOF
 // line 1
 \$this->displayBlock('foo', \$context, \$blocks);
 EOF

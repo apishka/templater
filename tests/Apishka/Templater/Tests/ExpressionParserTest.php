@@ -72,73 +72,73 @@ class Apishka_Templater_Tests_ExpressionParserTest extends PHPUnit_Framework_Tes
     {
         return array(
             // simple array
-            array('{{ [1, 2] }}', new Apishka_Templater_Node_Expression_Array(array(
-                  new Apishka_Templater_Node_Expression_Constant(0, 1),
-                  new Apishka_Templater_Node_Expression_Constant(1, 1),
+            array('{{ [1, 2] }}', Apishka_Templater_Node_Expression_Array::apishka(array(
+                  Apishka_Templater_Node_Expression_Constant::apishka(0, 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka(1, 1),
 
-                  new Apishka_Templater_Node_Expression_Constant(1, 1),
-                  new Apishka_Templater_Node_Expression_Constant(2, 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka(1, 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka(2, 1),
                 ), 1),
             ),
 
             // array with trailing ,
-            array('{{ [1, 2, ] }}', new Apishka_Templater_Node_Expression_Array(array(
-                  new Apishka_Templater_Node_Expression_Constant(0, 1),
-                  new Apishka_Templater_Node_Expression_Constant(1, 1),
+            array('{{ [1, 2, ] }}', Apishka_Templater_Node_Expression_Array::apishka(array(
+                  Apishka_Templater_Node_Expression_Constant::apishka(0, 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka(1, 1),
 
-                  new Apishka_Templater_Node_Expression_Constant(1, 1),
-                  new Apishka_Templater_Node_Expression_Constant(2, 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka(1, 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka(2, 1),
                 ), 1),
             ),
 
             // simple hash
-            array('{{ {"a": "b", "b": "c"} }}', new Apishka_Templater_Node_Expression_Array(array(
-                  new Apishka_Templater_Node_Expression_Constant('a', 1),
-                  new Apishka_Templater_Node_Expression_Constant('b', 1),
+            array('{{ {"a": "b", "b": "c"} }}', Apishka_Templater_Node_Expression_Array::apishka(array(
+                  Apishka_Templater_Node_Expression_Constant::apishka('a', 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka('b', 1),
 
-                  new Apishka_Templater_Node_Expression_Constant('b', 1),
-                  new Apishka_Templater_Node_Expression_Constant('c', 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka('b', 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka('c', 1),
                 ), 1),
             ),
 
             // hash with trailing ,
-            array('{{ {"a": "b", "b": "c", } }}', new Apishka_Templater_Node_Expression_Array(array(
-                  new Apishka_Templater_Node_Expression_Constant('a', 1),
-                  new Apishka_Templater_Node_Expression_Constant('b', 1),
+            array('{{ {"a": "b", "b": "c", } }}', Apishka_Templater_Node_Expression_Array::apishka(array(
+                  Apishka_Templater_Node_Expression_Constant::apishka('a', 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka('b', 1),
 
-                  new Apishka_Templater_Node_Expression_Constant('b', 1),
-                  new Apishka_Templater_Node_Expression_Constant('c', 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka('b', 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka('c', 1),
                 ), 1),
             ),
 
             // hash in an array
-            array('{{ [1, {"a": "b", "b": "c"}] }}', new Apishka_Templater_Node_Expression_Array(array(
-                  new Apishka_Templater_Node_Expression_Constant(0, 1),
-                  new Apishka_Templater_Node_Expression_Constant(1, 1),
+            array('{{ [1, {"a": "b", "b": "c"}] }}', Apishka_Templater_Node_Expression_Array::apishka(array(
+                  Apishka_Templater_Node_Expression_Constant::apishka(0, 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka(1, 1),
 
-                  new Apishka_Templater_Node_Expression_Constant(1, 1),
-                  new Apishka_Templater_Node_Expression_Array(array(
-                        new Apishka_Templater_Node_Expression_Constant('a', 1),
-                        new Apishka_Templater_Node_Expression_Constant('b', 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka(1, 1),
+                  Apishka_Templater_Node_Expression_Array::apishka(array(
+                        Apishka_Templater_Node_Expression_Constant::apishka('a', 1),
+                        Apishka_Templater_Node_Expression_Constant::apishka('b', 1),
 
-                        new Apishka_Templater_Node_Expression_Constant('b', 1),
-                        new Apishka_Templater_Node_Expression_Constant('c', 1),
+                        Apishka_Templater_Node_Expression_Constant::apishka('b', 1),
+                        Apishka_Templater_Node_Expression_Constant::apishka('c', 1),
                       ), 1),
                 ), 1),
             ),
 
             // array in a hash
-            array('{{ {"a": [1, 2], "b": "c"} }}', new Apishka_Templater_Node_Expression_Array(array(
-                  new Apishka_Templater_Node_Expression_Constant('a', 1),
-                  new Apishka_Templater_Node_Expression_Array(array(
-                        new Apishka_Templater_Node_Expression_Constant(0, 1),
-                        new Apishka_Templater_Node_Expression_Constant(1, 1),
+            array('{{ {"a": [1, 2], "b": "c"} }}', Apishka_Templater_Node_Expression_Array::apishka(array(
+                  Apishka_Templater_Node_Expression_Constant::apishka('a', 1),
+                  Apishka_Templater_Node_Expression_Array::apishka(array(
+                        Apishka_Templater_Node_Expression_Constant::apishka(0, 1),
+                        Apishka_Templater_Node_Expression_Constant::apishka(1, 1),
 
-                        new Apishka_Templater_Node_Expression_Constant(1, 1),
-                        new Apishka_Templater_Node_Expression_Constant(2, 1),
+                        Apishka_Templater_Node_Expression_Constant::apishka(1, 1),
+                        Apishka_Templater_Node_Expression_Constant::apishka(2, 1),
                       ), 1),
-                  new Apishka_Templater_Node_Expression_Constant('b', 1),
-                  new Apishka_Templater_Node_Expression_Constant('c', 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka('b', 1),
+                  Apishka_Templater_Node_Expression_Constant::apishka('c', 1),
                 ), 1),
             ),
         );
@@ -172,43 +172,43 @@ class Apishka_Templater_Tests_ExpressionParserTest extends PHPUnit_Framework_Tes
     {
         return array(
             array(
-                '{{ "foo" }}', new Apishka_Templater_Node_Expression_Constant('foo', 1),
+                '{{ "foo" }}', Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
             ),
             array(
-                '{{ "foo #{bar}" }}', new Apishka_Templater_Node_Expression_Binary_Concat(
-                    new Apishka_Templater_Node_Expression_Constant('foo ', 1),
-                    new Apishka_Templater_Node_Expression_Name('bar', 1),
+                '{{ "foo #{bar}" }}', Apishka_Templater_Node_Expression_Binary_Concat::apishka(
+                    Apishka_Templater_Node_Expression_Constant::apishka('foo ', 1),
+                    Apishka_Templater_Node_Expression_Name::apishka('bar', 1),
                     1
                 ),
             ),
             array(
-                '{{ "foo #{bar} baz" }}', new Apishka_Templater_Node_Expression_Binary_Concat(
-                    new Apishka_Templater_Node_Expression_Binary_Concat(
-                        new Apishka_Templater_Node_Expression_Constant('foo ', 1),
-                        new Apishka_Templater_Node_Expression_Name('bar', 1),
+                '{{ "foo #{bar} baz" }}', Apishka_Templater_Node_Expression_Binary_Concat::apishka(
+                    Apishka_Templater_Node_Expression_Binary_Concat::apishka(
+                        Apishka_Templater_Node_Expression_Constant::apishka('foo ', 1),
+                        Apishka_Templater_Node_Expression_Name::apishka('bar', 1),
                         1
                     ),
-                    new Apishka_Templater_Node_Expression_Constant(' baz', 1),
+                    Apishka_Templater_Node_Expression_Constant::apishka(' baz', 1),
                     1
                 ),
             ),
 
             array(
-                '{{ "foo #{"foo #{bar} baz"} baz" }}', new Apishka_Templater_Node_Expression_Binary_Concat(
-                    new Apishka_Templater_Node_Expression_Binary_Concat(
-                        new Apishka_Templater_Node_Expression_Constant('foo ', 1),
-                        new Apishka_Templater_Node_Expression_Binary_Concat(
-                            new Apishka_Templater_Node_Expression_Binary_Concat(
-                                new Apishka_Templater_Node_Expression_Constant('foo ', 1),
-                                new Apishka_Templater_Node_Expression_Name('bar', 1),
+                '{{ "foo #{"foo #{bar} baz"} baz" }}', Apishka_Templater_Node_Expression_Binary_Concat::apishka(
+                    Apishka_Templater_Node_Expression_Binary_Concat::apishka(
+                        Apishka_Templater_Node_Expression_Constant::apishka('foo ', 1),
+                        Apishka_Templater_Node_Expression_Binary_Concat::apishka(
+                            Apishka_Templater_Node_Expression_Binary_Concat::apishka(
+                                Apishka_Templater_Node_Expression_Constant::apishka('foo ', 1),
+                                Apishka_Templater_Node_Expression_Name::apishka('bar', 1),
                                 1
                             ),
-                            new Apishka_Templater_Node_Expression_Constant(' baz', 1),
+                            Apishka_Templater_Node_Expression_Constant::apishka(' baz', 1),
                             1
                         ),
                         1
                     ),
-                    new Apishka_Templater_Node_Expression_Constant(' baz', 1),
+                    Apishka_Templater_Node_Expression_Constant::apishka(' baz', 1),
                     1
                 ),
             ),

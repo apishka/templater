@@ -13,13 +13,13 @@ class Apishka_Templater_Tests_Node_ForTest extends Apishka_Templater_Test_NodeTe
 {
     public function testConstructor()
     {
-        $keyTarget = new Apishka_Templater_Node_Expression_AssignName('key', 1);
-        $valueTarget = new Apishka_Templater_Node_Expression_AssignName('item', 1);
-        $seq = new Apishka_Templater_Node_Expression_Name('items', 1);
-        $ifexpr = new Apishka_Templater_Node_Expression_Constant(true, 1);
-        $body = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('foo', 1), 1)), array(), 1);
+        $keyTarget = Apishka_Templater_Node_Expression_AssignName::apishka('key', 1);
+        $valueTarget = Apishka_Templater_Node_Expression_AssignName::apishka('item', 1);
+        $seq = Apishka_Templater_Node_Expression_Name::apishka('items', 1);
+        $ifexpr = Apishka_Templater_Node_Expression_Constant::apishka(true, 1);
+        $body = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('foo', 1), 1)), array(), 1);
         $else = null;
-        $node = new Apishka_Templater_Node_For($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
+        $node = Apishka_Templater_Node_For::apishka($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
         $node->setAttribute('with_loop', false);
 
         $this->assertEquals($keyTarget, $node->getNode('key_target'));
@@ -30,8 +30,8 @@ class Apishka_Templater_Tests_Node_ForTest extends Apishka_Templater_Test_NodeTe
         $this->assertEquals($body, $node->getNode('body')->getNode('tests')->getNode(1)->getNode(0));
         $this->assertNull($node->getNode('else'));
 
-        $else = new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('foo', 1), 1);
-        $node = new Apishka_Templater_Node_For($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
+        $else = Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('foo', 1), 1);
+        $node = Apishka_Templater_Node_For::apishka($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
         $node->setAttribute('with_loop', false);
         $this->assertEquals($else, $node->getNode('else'));
     }
@@ -40,13 +40,13 @@ class Apishka_Templater_Tests_Node_ForTest extends Apishka_Templater_Test_NodeTe
     {
         $tests = array();
 
-        $keyTarget = new Apishka_Templater_Node_Expression_AssignName('key', 1);
-        $valueTarget = new Apishka_Templater_Node_Expression_AssignName('item', 1);
-        $seq = new Apishka_Templater_Node_Expression_Name('items', 1);
+        $keyTarget = Apishka_Templater_Node_Expression_AssignName::apishka('key', 1);
+        $valueTarget = Apishka_Templater_Node_Expression_AssignName::apishka('item', 1);
+        $seq = Apishka_Templater_Node_Expression_Name::apishka('items', 1);
         $ifexpr = null;
-        $body = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('foo', 1), 1)), array(), 1);
+        $body = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('foo', 1), 1)), array(), 1);
         $else = null;
-        $node = new Apishka_Templater_Node_For($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
+        $node = Apishka_Templater_Node_For::apishka($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
         $node->setAttribute('with_loop', false);
 
         $tests[] = array($node, <<<EOF
@@ -62,13 +62,13 @@ unset(\$context['_seq'], \$context['_iterated'], \$context['key'], \$context['it
 EOF
         );
 
-        $keyTarget = new Apishka_Templater_Node_Expression_AssignName('k', 1);
-        $valueTarget = new Apishka_Templater_Node_Expression_AssignName('v', 1);
-        $seq = new Apishka_Templater_Node_Expression_Name('values', 1);
+        $keyTarget = Apishka_Templater_Node_Expression_AssignName::apishka('k', 1);
+        $valueTarget = Apishka_Templater_Node_Expression_AssignName::apishka('v', 1);
+        $seq = Apishka_Templater_Node_Expression_Name::apishka('values', 1);
         $ifexpr = null;
-        $body = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('foo', 1), 1)), array(), 1);
+        $body = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('foo', 1), 1)), array(), 1);
         $else = null;
-        $node = new Apishka_Templater_Node_For($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
+        $node = Apishka_Templater_Node_For::apishka($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
         $node->setAttribute('with_loop', true);
 
         $tests[] = array($node, <<<EOF
@@ -105,13 +105,13 @@ unset(\$context['_seq'], \$context['_iterated'], \$context['k'], \$context['v'],
 EOF
         );
 
-        $keyTarget = new Apishka_Templater_Node_Expression_AssignName('k', 1);
-        $valueTarget = new Apishka_Templater_Node_Expression_AssignName('v', 1);
-        $seq = new Apishka_Templater_Node_Expression_Name('values', 1);
-        $ifexpr = new Apishka_Templater_Node_Expression_Constant(true, 1);
-        $body = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('foo', 1), 1)), array(), 1);
+        $keyTarget = Apishka_Templater_Node_Expression_AssignName::apishka('k', 1);
+        $valueTarget = Apishka_Templater_Node_Expression_AssignName::apishka('v', 1);
+        $seq = Apishka_Templater_Node_Expression_Name::apishka('values', 1);
+        $ifexpr = Apishka_Templater_Node_Expression_Constant::apishka(true, 1);
+        $body = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('foo', 1), 1)), array(), 1);
         $else = null;
-        $node = new Apishka_Templater_Node_For($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
+        $node = Apishka_Templater_Node_For::apishka($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
         $node->setAttribute('with_loop', true);
 
         $tests[] = array($node, <<<EOF
@@ -138,13 +138,13 @@ unset(\$context['_seq'], \$context['_iterated'], \$context['k'], \$context['v'],
 EOF
         );
 
-        $keyTarget = new Apishka_Templater_Node_Expression_AssignName('k', 1);
-        $valueTarget = new Apishka_Templater_Node_Expression_AssignName('v', 1);
-        $seq = new Apishka_Templater_Node_Expression_Name('values', 1);
+        $keyTarget = Apishka_Templater_Node_Expression_AssignName::apishka('k', 1);
+        $valueTarget = Apishka_Templater_Node_Expression_AssignName::apishka('v', 1);
+        $seq = Apishka_Templater_Node_Expression_Name::apishka('values', 1);
         $ifexpr = null;
-        $body = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('foo', 1), 1)), array(), 1);
-        $else = new Apishka_Templater_Node_Print(new Apishka_Templater_Node_Expression_Name('foo', 1), 1);
-        $node = new Apishka_Templater_Node_For($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
+        $body = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('foo', 1), 1)), array(), 1);
+        $else = Apishka_Templater_Node_Print::apishka(Apishka_Templater_Node_Expression_Name::apishka('foo', 1), 1);
+        $node = Apishka_Templater_Node_For::apishka($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, 1);
         $node->setAttribute('with_loop', true);
 
         $tests[] = array($node, <<<EOF

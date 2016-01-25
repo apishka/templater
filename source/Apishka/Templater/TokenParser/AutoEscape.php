@@ -33,7 +33,7 @@ class Apishka_Templater_TokenParser_AutoEscape extends Apishka_Templater_TokenPa
         $body = $this->parser->subparse(array($this, 'decideBlockEnd'), true);
         $stream->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
 
-        return new Apishka_Templater_Node_AutoEscape($value, $body, $lineno, $this->getTag());
+        return Apishka_Templater_Node_AutoEscape::apishka($value, $body, $lineno, $this->getTag());
     }
 
     public function decideBlockEnd(Apishka_Templater_Token $token)

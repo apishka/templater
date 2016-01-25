@@ -17,6 +17,8 @@
  * and if the sandbox is enabled, we need to check that the __toString()
  * method is allowed if 'article' is an object.
  *
+ * @easy-extend-base
+ *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_SandboxedPrint extends Apishka_Templater_Node_Print

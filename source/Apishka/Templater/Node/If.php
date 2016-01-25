@@ -15,9 +15,9 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_If extends Apishka_Templater_Node
+class Apishka_Templater_Node_If extends Apishka_Templater_NodeAbstract
 {
-    public function __construct(Apishka_Templater_Node $tests, Apishka_Templater_Node $else = null, $lineno, $tag = null)
+    public function __construct(Apishka_Templater_NodeAbstract $tests, Apishka_Templater_NodeAbstract $else = null, $lineno, $tag = null)
     {
         parent::__construct(array('tests' => $tests, 'else' => $else), array(), $lineno, $tag);
     }

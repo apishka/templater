@@ -13,8 +13,8 @@ class Apishka_Templater_Tests_Node_DoTest extends Apishka_Templater_Test_NodeTes
 {
     public function testConstructor()
     {
-        $expr = new Apishka_Templater_Node_Expression_Constant('foo', 1);
-        $node = new Apishka_Templater_Node_Do($expr, 1);
+        $expr = Apishka_Templater_Node_Expression_Constant::apishka('foo', 1);
+        $node = Apishka_Templater_Node_Do::apishka($expr, 1);
 
         $this->assertEquals($expr, $node->getNode('expr'));
     }
@@ -23,8 +23,8 @@ class Apishka_Templater_Tests_Node_DoTest extends Apishka_Templater_Test_NodeTes
     {
         $tests = array();
 
-        $expr = new Apishka_Templater_Node_Expression_Constant('foo', 1);
-        $node = new Apishka_Templater_Node_Do($expr, 1);
+        $expr = Apishka_Templater_Node_Expression_Constant::apishka('foo', 1);
+        $node = Apishka_Templater_Node_Do::apishka($expr, 1);
         $tests[] = array($node, "// line 1\n\"foo\";");
 
         return $tests;

@@ -8,7 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-abstract class Apishka_Templater_Node_Expression_Call extends Apishka_Templater_Node_Expression
+
+/**
+ * Apishka templater node expression call
+ *
+ * @easy-extend-base
+ *
+ * @uses Apishka_Templater_Node_ExpressionAbstract
+ * @abstract
+ * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
+ */
+
+abstract class Apishka_Templater_Node_Expression_Call extends Apishka_Templater_Node_ExpressionAbstract
 {
     protected function compileCallable(Apishka_Templater_Compiler $compiler)
     {
@@ -155,7 +166,7 @@ abstract class Apishka_Templater_Node_Expression_Call extends Apishka_Templater_
                 $optionalArguments = array();
                 ++$pos;
             } elseif ($callableParameter->isDefaultValueAvailable()) {
-                $optionalArguments[] = new Apishka_Templater_Node_Expression_Constant($callableParameter->getDefaultValue(), -1);
+                $optionalArguments[] = Apishka_Templater_Node_Expression_Constant::apishka($callableParameter->getDefaultValue(), -1);
             } elseif ($callableParameter->isOptional()) {
                 if (empty($parameters)) {
                     break;
@@ -168,12 +179,12 @@ abstract class Apishka_Templater_Node_Expression_Call extends Apishka_Templater_
         }
 
         if ($isVariadic) {
-            $arbitraryArguments = new Apishka_Templater_Node_Expression_Array(array(), -1);
+            $arbitraryArguments = Apishka_Templater_Node_Expression_Array::apishka(array(), -1);
             foreach ($parameters as $key => $value) {
                 if (is_int($key)) {
                     $arbitraryArguments->addElement($value);
                 } else {
-                    $arbitraryArguments->addElement($value, new Apishka_Templater_Node_Expression_Constant($key, -1));
+                    $arbitraryArguments->addElement($value, Apishka_Templater_Node_Expression_Constant::apishka($key, -1));
                 }
                 unset($parameters[$key]);
             }
@@ -187,7 +198,7 @@ abstract class Apishka_Templater_Node_Expression_Call extends Apishka_Templater_
         if (!empty($parameters)) {
             $unknownParameter = null;
             foreach ($parameters as $parameter) {
-                if ($parameter instanceof Apishka_Templater_Node) {
+                if ($parameter instanceof Apishka_Templater_NodeAbstract) {
                     $unknownParameter = $parameter;
                     break;
                 }

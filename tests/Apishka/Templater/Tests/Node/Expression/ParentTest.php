@@ -13,7 +13,7 @@ class Apishka_Templater_Tests_Node_Expression_ParentTest extends Apishka_Templat
 {
     public function testConstructor()
     {
-        $node = new Apishka_Templater_Node_Expression_Parent('foo', 1);
+        $node = Apishka_Templater_Node_Expression_Parent::apishka('foo', 1);
 
         $this->assertEquals('foo', $node->getAttribute('name'));
     }
@@ -21,7 +21,7 @@ class Apishka_Templater_Tests_Node_Expression_ParentTest extends Apishka_Templat
     public function getTests()
     {
         $tests = array();
-        $tests[] = array(new Apishka_Templater_Node_Expression_Parent('foo', 1), '$this->renderParentBlock("foo", $context, $blocks)');
+        $tests[] = array(Apishka_Templater_Node_Expression_Parent::apishka('foo', 1), '$this->renderParentBlock("foo", $context, $blocks)');
 
         return $tests;
     }

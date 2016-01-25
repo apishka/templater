@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Apishka_Templater_Node_Expression_MethodCall extends Apishka_Templater_Node_Expression
+class Apishka_Templater_Node_Expression_MethodCall extends Apishka_Templater_Node_ExpressionAbstract
 {
-    public function __construct(Apishka_Templater_Node_Expression $node, $method, Apishka_Templater_Node_Expression_Array $arguments, $lineno)
+    public function __construct(Apishka_Templater_Node_ExpressionAbstract $node, $method, Apishka_Templater_Node_Expression_Array $arguments, $lineno)
     {
         parent::__construct(array('node' => $node, 'arguments' => $arguments), array('method' => $method, 'safe' => false), $lineno);
 

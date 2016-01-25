@@ -32,7 +32,7 @@ class Apishka_Templater_TokenParser_Spaceless extends Apishka_Templater_TokenPar
         $body = $this->parser->subparse(array($this, 'decideSpacelessEnd'), true);
         $this->parser->getStream()->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
 
-        return new Apishka_Templater_Node_Spaceless($body, $lineno, $this->getTag());
+        return Apishka_Templater_Node_Spaceless::apishka($body, $lineno, $this->getTag());
     }
 
     public function decideSpacelessEnd(Apishka_Templater_Token $token)

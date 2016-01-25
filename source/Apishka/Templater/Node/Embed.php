@@ -12,14 +12,16 @@
 /**
  * Represents an embed node.
  *
+ * @easy-extend-base
+ *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Embed extends Apishka_Templater_Node_Include
 {
     // we don't inject the module to avoid node visitors to traverse it twice (as it will be already visited in the main module)
-    public function __construct($filename, $index, Apishka_Templater_Node_Expression $variables = null, $only = false, $ignoreMissing = false, $lineno, $tag = null)
+    public function __construct($filename, $index, Apishka_Templater_Node_ExpressionAbstract $variables = null, $only = false, $ignoreMissing = false, $lineno, $tag = null)
     {
-        parent::__construct(new Apishka_Templater_Node_Expression_Constant('not_used', $lineno), $variables, $only, $ignoreMissing, $lineno, $tag);
+        parent::__construct(Apishka_Templater_Node_Expression_Constant::apishka('not_used', $lineno), $variables, $only, $ignoreMissing, $lineno, $tag);
 
         $this->setAttribute('filename', $filename);
         $this->setAttribute('index', $index);

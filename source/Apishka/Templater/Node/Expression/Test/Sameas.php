@@ -12,6 +12,8 @@
 /**
  * Checks if a variable is the same as another one (=== in PHP).
  *
+ * @easy-extend-base
+ *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Expression_Test_Sameas extends Apishka_Templater_Node_Expression_Test

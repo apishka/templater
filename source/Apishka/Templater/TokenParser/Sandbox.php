@@ -41,7 +41,7 @@ class Apishka_Templater_TokenParser_Sandbox extends Apishka_Templater_TokenParse
             }
         }
 
-        return new Apishka_Templater_Node_Sandbox($body, $token->getLine(), $this->getTag());
+        return Apishka_Templater_Node_Sandbox::apishka($body, $token->getLine(), $this->getTag());
     }
 
     public function decideBlockEnd(Apishka_Templater_Token $token)

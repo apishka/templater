@@ -15,9 +15,9 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_Expression_BlockReference extends Apishka_Templater_Node_Expression
+class Apishka_Templater_Node_Expression_BlockReference extends Apishka_Templater_Node_ExpressionAbstract
 {
-    public function __construct(Apishka_Templater_Node $name, $asString = false, $lineno, $tag = null)
+    public function __construct(Apishka_Templater_NodeAbstract $name, $asString = false, $lineno, $tag = null)
     {
         parent::__construct(array('name' => $name), array('as_string' => $asString, 'output' => false), $lineno, $tag);
     }

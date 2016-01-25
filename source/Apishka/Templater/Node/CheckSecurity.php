@@ -12,7 +12,7 @@
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_CheckSecurity extends Apishka_Templater_Node
+class Apishka_Templater_Node_CheckSecurity extends Apishka_Templater_NodeAbstract
 {
     private $usedFilters;
     private $usedTags;
@@ -32,7 +32,7 @@ class Apishka_Templater_Node_CheckSecurity extends Apishka_Templater_Node
         $tags = $filters = $functions = array();
         foreach (array('tags', 'filters', 'functions') as $type) {
             foreach ($this->{'used' . ucfirst($type)} as $name => $node) {
-                if ($node instanceof Apishka_Templater_Node) {
+                if ($node instanceof Apishka_Templater_NodeAbstract) {
                     ${$type}[$name] = $node->getLine();
                 } else {
                     ${$type}[$node] = null;

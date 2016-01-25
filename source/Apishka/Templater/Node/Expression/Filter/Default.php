@@ -12,6 +12,8 @@
 /**
  * Returns the value or the default value when it is undefined or empty.
  *
+ * @easy-extend-base
+ *
  * <pre>
  *  {{ var.foo|default('foo item on var is not defined') }}
  * </pre>
@@ -20,15 +22,15 @@
  */
 class Apishka_Templater_Node_Expression_Filter_Default extends Apishka_Templater_Node_Expression_Filter
 {
-    public function __construct(Apishka_Templater_Node $node, Apishka_Templater_Node_Expression_Constant $filterName, Apishka_Templater_Node $arguments, $lineno, $tag = null)
+    public function __construct(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Node_Expression_Constant $filterName, Apishka_Templater_NodeAbstract $arguments, $lineno, $tag = null)
     {
-        $default = new Apishka_Templater_Node_Expression_Filter($node, new Apishka_Templater_Node_Expression_Constant('default', $node->getLine()), $arguments, $node->getLine());
+        $default = Apishka_Templater_Node_Expression_Filter::apishka($node, Apishka_Templater_Node_Expression_Constant::apishka('default', $node->getLine()), $arguments, $node->getLine());
 
         if ('default' === $filterName->getAttribute('value') && ($node instanceof Apishka_Templater_Node_Expression_Name || $node instanceof Apishka_Templater_Node_Expression_GetAttr)) {
-            $test = new Apishka_Templater_Node_Expression_Test_Defined(clone $node, 'defined', new Apishka_Templater_Node(), $node->getLine());
-            $false = count($arguments) ? $arguments->getNode(0) : new Apishka_Templater_Node_Expression_Constant('', $node->getLine());
+            $test = Apishka_Templater_Node_Expression_Test_Defined::apishka(clone $node, 'defined', Apishka_Templater_Node::apishka(), $node->getLine());
+            $false = count($arguments) ? $arguments->getNode(0) : Apishka_Templater_Node_Expression_Constant::apishka('', $node->getLine());
 
-            $node = new Apishka_Templater_Node_Expression_Conditional($test, $default, $false, $node->getLine());
+            $node = Apishka_Templater_Node_Expression_Conditional::apishka($test, $default, $false, $node->getLine());
         } else {
             $node = $default;
         }

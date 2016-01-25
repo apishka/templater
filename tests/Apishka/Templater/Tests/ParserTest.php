@@ -58,15 +58,15 @@ class Apishka_Templater_Tests_ParserTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                new Apishka_Templater_Node(array(new Apishka_Templater_Node_Text('   ', 1))),
-                new Apishka_Templater_Node(array()),
+                Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Text::apishka('   ', 1))),
+                Apishka_Templater_Node::apishka(array()),
             ),
             array(
-                $input = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Set(false, new Apishka_Templater_Node(), new Apishka_Templater_Node(), 1))),
+                $input = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Set::apishka(false, Apishka_Templater_Node::apishka(), Apishka_Templater_Node::apishka(), 1))),
                 $input,
             ),
             array(
-                $input = new Apishka_Templater_Node(array(new Apishka_Templater_Node_Set(true, new Apishka_Templater_Node(), new Apishka_Templater_Node(array(new Apishka_Templater_Node(array(new Apishka_Templater_Node_Text('foo', 1))))), 1))),
+                $input = Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Set::apishka(true, Apishka_Templater_Node::apishka(), Apishka_Templater_Node::apishka(array(Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Text::apishka('foo', 1))))), 1))),
                 $input,
             ),
         );
@@ -89,8 +89,8 @@ class Apishka_Templater_Tests_ParserTest extends PHPUnit_Framework_TestCase
     public function getFilterBodyNodesDataThrowsException()
     {
         return array(
-            array(new Apishka_Templater_Node_Text('foo', 1)),
-            array(new Apishka_Templater_Node(array(new Apishka_Templater_Node(array(new Apishka_Templater_Node_Text('foo', 1)))))),
+            array(Apishka_Templater_Node_Text::apishka('foo', 1)),
+            array(Apishka_Templater_Node::apishka(array(Apishka_Templater_Node::apishka(array(Apishka_Templater_Node_Text::apishka('foo', 1)))))),
         );
     }
 
@@ -104,7 +104,7 @@ class Apishka_Templater_Tests_ParserTest extends PHPUnit_Framework_TestCase
 
         $m = new ReflectionMethod($parser, 'filterBodyNodes');
         $m->setAccessible(true);
-        $m->invoke($parser, new Apishka_Templater_Node_Text(chr(0xEF) . chr(0xBB) . chr(0xBF), 1));
+        $m->invoke($parser, Apishka_Templater_Node_Text::apishka(chr(0xEF) . chr(0xBB) . chr(0xBF), 1));
     }
 
     public function testParseIsReentrant()
@@ -153,7 +153,7 @@ EOF
     protected function getParser()
     {
         $parser = new Apishka_Templater_Parser(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
-        $parser->setParent(new Apishka_Templater_Node());
+        $parser->setParent(Apishka_Templater_Node::apishka());
         $p = new ReflectionProperty($parser, 'stream');
         $p->setAccessible(true);
         $p->setValue($parser, $this->getMockBuilder('Apishka_Templater_TokenStream')->disableOriginalConstructor()->getMock());
@@ -177,7 +177,7 @@ class TestTokenParser extends Apishka_Templater_TokenParser
 
         $this->parser->getStream()->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
 
-        return new Apishka_Templater_Node(array());
+        return Apishka_Templater_Node::apishka(array());
     }
 
     public function getTag()

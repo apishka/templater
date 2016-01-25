@@ -13,7 +13,7 @@ class Apishka_Templater_Tests_Node_Expression_ConstantTest extends Apishka_Templ
 {
     public function testConstructor()
     {
-        $node = new Apishka_Templater_Node_Expression_Constant('foo', 1);
+        $node = Apishka_Templater_Node_Expression_Constant::apishka('foo', 1);
 
         $this->assertEquals('foo', $node->getAttribute('value'));
     }
@@ -22,7 +22,7 @@ class Apishka_Templater_Tests_Node_Expression_ConstantTest extends Apishka_Templ
     {
         $tests = array();
 
-        $node = new Apishka_Templater_Node_Expression_Constant('foo', 1);
+        $node = Apishka_Templater_Node_Expression_Constant::apishka('foo', 1);
         $tests[] = array($node, '"foo"');
 
         return $tests;

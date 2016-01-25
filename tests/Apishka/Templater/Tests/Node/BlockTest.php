@@ -13,8 +13,8 @@ class Apishka_Templater_Tests_Node_BlockTest extends Apishka_Templater_Test_Node
 {
     public function testConstructor()
     {
-        $body = new Apishka_Templater_Node_Text('foo', 1);
-        $node = new Apishka_Templater_Node_Block('foo', $body, 1);
+        $body = Apishka_Templater_Node_Text::apishka('foo', 1);
+        $node = Apishka_Templater_Node_Block::apishka('foo', $body, 1);
 
         $this->assertEquals($body, $node->getNode('body'));
         $this->assertEquals('foo', $node->getAttribute('name'));
@@ -22,8 +22,8 @@ class Apishka_Templater_Tests_Node_BlockTest extends Apishka_Templater_Test_Node
 
     public function getTests()
     {
-        $body = new Apishka_Templater_Node_Text('foo', 1);
-        $node = new Apishka_Templater_Node_Block('foo', $body, 1);
+        $body = Apishka_Templater_Node_Text::apishka('foo', 1);
+        $node = Apishka_Templater_Node_Block::apishka('foo', $body, 1);
 
         return array(
             array($node, <<<EOF

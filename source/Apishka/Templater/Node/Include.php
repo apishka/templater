@@ -15,9 +15,9 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_Include extends Apishka_Templater_Node implements Apishka_Templater_NodeOutputInterface
+class Apishka_Templater_Node_Include extends Apishka_Templater_NodeAbstract implements Apishka_Templater_NodeOutputInterface
 {
-    public function __construct(Apishka_Templater_Node_Expression $expr, Apishka_Templater_Node_Expression $variables = null, $only = false, $ignoreMissing = false, $lineno, $tag = null)
+    public function __construct(Apishka_Templater_Node_ExpressionAbstract $expr, Apishka_Templater_Node_ExpressionAbstract $variables = null, $only = false, $ignoreMissing = false, $lineno, $tag = null)
     {
         parent::__construct(array('expr' => $expr, 'variables' => $variables), array('only' => (bool) $only, 'ignore_missing' => (bool) $ignoreMissing), $lineno, $tag);
     }

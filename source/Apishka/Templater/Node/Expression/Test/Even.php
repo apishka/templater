@@ -12,6 +12,8 @@
 /**
  * Checks if a number is even.
  *
+ * @easy-extend-base
+ *
  * <pre>
  *  {{ var is even }}
  * </pre>

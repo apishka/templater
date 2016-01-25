@@ -20,9 +20,9 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_AutoEscape extends Apishka_Templater_Node
+class Apishka_Templater_Node_AutoEscape extends Apishka_Templater_NodeAbstract
 {
-    public function __construct($value, Apishka_Templater_Node $body, $lineno, $tag = 'autoescape')
+    public function __construct($value, Apishka_Templater_NodeAbstract $body, $lineno, $tag = 'autoescape')
     {
         parent::__construct(array('body' => $body), array('value' => $value), $lineno, $tag);
     }

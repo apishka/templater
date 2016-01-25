@@ -13,14 +13,14 @@ class Apishka_Templater_Tests_Node_Expression_AssignNameTest extends Apishka_Tem
 {
     public function testConstructor()
     {
-        $node = new Apishka_Templater_Node_Expression_AssignName('foo', 1);
+        $node = Apishka_Templater_Node_Expression_AssignName::apishka('foo', 1);
 
         $this->assertEquals('foo', $node->getAttribute('name'));
     }
 
     public function getTests()
     {
-        $node = new Apishka_Templater_Node_Expression_AssignName('foo', 1);
+        $node = Apishka_Templater_Node_Expression_AssignName::apishka('foo', 1);
 
         return array(
             array($node, '$context["foo"]'),

@@ -12,6 +12,8 @@
 /**
  * Checks if a variable is defined in the current context.
  *
+ * @easy-extend-base
+ *
  * <pre>
  * {# defined works with variable names and variable attributes #}
  * {% if foo is defined %}
@@ -23,7 +25,7 @@
  */
 class Apishka_Templater_Node_Expression_Test_Defined extends Apishka_Templater_Node_Expression_Test
 {
-    public function __construct(Apishka_Templater_Node $node, $name, Apishka_Templater_Node $arguments = null, $lineno)
+    public function __construct(Apishka_Templater_NodeAbstract $node, $name, Apishka_Templater_NodeAbstract $arguments = null, $lineno)
     {
         parent::__construct($node, $name, $arguments, $lineno);
 

@@ -24,7 +24,7 @@ class Apishka_Templater_Profiler_NodeVisitor_Profiler extends Apishka_Templater_
     /**
      * {@inheritdoc}
      */
-    protected function doEnterNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    protected function doEnterNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         return $node;
     }
@@ -32,22 +32,22 @@ class Apishka_Templater_Profiler_NodeVisitor_Profiler extends Apishka_Templater_
     /**
      * {@inheritdoc}
      */
-    protected function doLeaveNode(Apishka_Templater_Node $node, Apishka_Templater_Environment $env)
+    protected function doLeaveNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
         if ($node instanceof Apishka_Templater_Node_Module) {
             $varName = $this->getVarName();
-            $node->setNode('display_start', new Apishka_Templater_Node(array(new Apishka_Templater_Profiler_Node_EnterProfile($this->extensionName, Apishka_Templater_Profiler_Profile::TEMPLATE, $node->getAttribute('filename'), $varName), $node->getNode('display_start'))));
-            $node->setNode('display_end', new Apishka_Templater_Node(array(new Apishka_Templater_Profiler_Node_LeaveProfile($varName), $node->getNode('display_end'))));
+            $node->setNode('display_start', Apishka_Templater_Node::apishka(array(new Apishka_Templater_Profiler_Node_EnterProfile($this->extensionName, Apishka_Templater_Profiler_Profile::TEMPLATE, $node->getAttribute('filename'), $varName), $node->getNode('display_start'))));
+            $node->setNode('display_end', Apishka_Templater_Node::apishka(array(new Apishka_Templater_Profiler_Node_LeaveProfile($varName), $node->getNode('display_end'))));
         } elseif ($node instanceof Apishka_Templater_Node_Block) {
             $varName = $this->getVarName();
-            $node->setNode('body', new Apishka_Templater_Node_Body(array(
+            $node->setNode('body', Apishka_Templater_Node_Body::apishka(array(
                 new Apishka_Templater_Profiler_Node_EnterProfile($this->extensionName, Apishka_Templater_Profiler_Profile::BLOCK, $node->getAttribute('name'), $varName),
                 $node->getNode('body'),
                 new Apishka_Templater_Profiler_Node_LeaveProfile($varName),
             )));
         } elseif ($node instanceof Apishka_Templater_Node_Macro) {
             $varName = $this->getVarName();
-            $node->setNode('body', new Apishka_Templater_Node_Body(array(
+            $node->setNode('body', Apishka_Templater_Node_Body::apishka(array(
                 new Apishka_Templater_Profiler_Node_EnterProfile($this->extensionName, Apishka_Templater_Profiler_Profile::MACRO, $node->getAttribute('name'), $varName),
                 $node->getNode('body'),
                 new Apishka_Templater_Profiler_Node_LeaveProfile($varName),

@@ -13,20 +13,20 @@ class Apishka_Templater_Tests_Node_Expression_Unary_NegTest extends Apishka_Temp
 {
     public function testConstructor()
     {
-        $expr = new Apishka_Templater_Node_Expression_Constant(1, 1);
-        $node = new Apishka_Templater_Node_Expression_Unary_Neg($expr, 1);
+        $expr = Apishka_Templater_Node_Expression_Constant::apishka(1, 1);
+        $node = Apishka_Templater_Node_Expression_Unary_Neg::apishka($expr, 1);
 
         $this->assertEquals($expr, $node->getNode('node'));
     }
 
     public function getTests()
     {
-        $node = new Apishka_Templater_Node_Expression_Constant(1, 1);
-        $node = new Apishka_Templater_Node_Expression_Unary_Neg($node, 1);
+        $node = Apishka_Templater_Node_Expression_Constant::apishka(1, 1);
+        $node = Apishka_Templater_Node_Expression_Unary_Neg::apishka($node, 1);
 
         return array(
             array($node, '-1'),
-            array(new Apishka_Templater_Node_Expression_Unary_Neg($node, 1), '- -1'),
+            array(Apishka_Templater_Node_Expression_Unary_Neg::apishka($node, 1), '- -1'),
         );
     }
 }

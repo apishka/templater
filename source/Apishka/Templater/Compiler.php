@@ -69,7 +69,7 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */
-    public function compile(Apishka_Templater_Node $node, $indentation = 0)
+    public function compile(Apishka_Templater_NodeAbstract $node, $indentation = 0)
     {
         $this->lastLine = null;
         $this->source = '';
@@ -88,7 +88,7 @@ class Apishka_Templater_Compiler
         return $this;
     }
 
-    public function subcompile(Apishka_Templater_Node $node, $raw = true)
+    public function subcompile(Apishka_Templater_NodeAbstract $node, $raw = true)
     {
         if (false === $raw) {
             $this->addIndentation();
@@ -205,7 +205,7 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */
-    public function addDebugInfo(Apishka_Templater_Node $node)
+    public function addDebugInfo(Apishka_Templater_NodeAbstract $node)
     {
         if ($node->getLine() != $this->lastLine) {
             $this->write(sprintf("// line %d\n", $node->getLine()));

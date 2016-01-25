@@ -13,8 +13,8 @@ class Apishka_Templater_Tests_Node_Expression_ArrayTest extends Apishka_Template
 {
     public function testConstructor()
     {
-        $elements = array(new Apishka_Templater_Node_Expression_Constant('foo', 1), $foo = new Apishka_Templater_Node_Expression_Constant('bar', 1));
-        $node = new Apishka_Templater_Node_Expression_Array($elements, 1);
+        $elements = array(Apishka_Templater_Node_Expression_Constant::apishka('foo', 1), $foo = Apishka_Templater_Node_Expression_Constant::apishka('bar', 1));
+        $node = Apishka_Templater_Node_Expression_Array::apishka($elements, 1);
 
         $this->assertEquals($foo, $node->getNode(1));
     }
@@ -22,13 +22,13 @@ class Apishka_Templater_Tests_Node_Expression_ArrayTest extends Apishka_Template
     public function getTests()
     {
         $elements = array(
-            new Apishka_Templater_Node_Expression_Constant('foo', 1),
-            new Apishka_Templater_Node_Expression_Constant('bar', 1),
+            Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
+            Apishka_Templater_Node_Expression_Constant::apishka('bar', 1),
 
-            new Apishka_Templater_Node_Expression_Constant('bar', 1),
-            new Apishka_Templater_Node_Expression_Constant('foo', 1),
+            Apishka_Templater_Node_Expression_Constant::apishka('bar', 1),
+            Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
         );
-        $node = new Apishka_Templater_Node_Expression_Array($elements, 1);
+        $node = Apishka_Templater_Node_Expression_Array::apishka($elements, 1);
 
         return array(
             array($node, 'array("foo" => "bar", "bar" => "foo")'),

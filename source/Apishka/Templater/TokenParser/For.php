@@ -48,13 +48,13 @@ class Apishka_Templater_TokenParser_For extends Apishka_Templater_TokenParser
 
         if (count($targets) > 1) {
             $keyTarget = $targets->getNode(0);
-            $keyTarget = new Apishka_Templater_Node_Expression_AssignName($keyTarget->getAttribute('name'), $keyTarget->getLine());
+            $keyTarget = Apishka_Templater_Node_Expression_AssignName::apishka($keyTarget->getAttribute('name'), $keyTarget->getLine());
             $valueTarget = $targets->getNode(1);
-            $valueTarget = new Apishka_Templater_Node_Expression_AssignName($valueTarget->getAttribute('name'), $valueTarget->getLine());
+            $valueTarget = Apishka_Templater_Node_Expression_AssignName::apishka($valueTarget->getAttribute('name'), $valueTarget->getLine());
         } else {
-            $keyTarget = new Apishka_Templater_Node_Expression_AssignName('_key', $lineno);
+            $keyTarget = Apishka_Templater_Node_Expression_AssignName::apishka('_key', $lineno);
             $valueTarget = $targets->getNode(0);
-            $valueTarget = new Apishka_Templater_Node_Expression_AssignName($valueTarget->getAttribute('name'), $valueTarget->getLine());
+            $valueTarget = Apishka_Templater_Node_Expression_AssignName::apishka($valueTarget->getAttribute('name'), $valueTarget->getLine());
         }
 
         if ($ifexpr) {
@@ -62,7 +62,7 @@ class Apishka_Templater_TokenParser_For extends Apishka_Templater_TokenParser
             $this->checkLoopUsageBody($stream, $body);
         }
 
-        return new Apishka_Templater_Node_For($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, $lineno, $this->getTag());
+        return Apishka_Templater_Node_For::apishka($keyTarget, $valueTarget, $seq, $ifexpr, $body, $else, $lineno, $this->getTag());
     }
 
     public function decideForFork(Apishka_Templater_Token $token)
@@ -76,7 +76,7 @@ class Apishka_Templater_TokenParser_For extends Apishka_Templater_TokenParser
     }
 
     // the loop variable cannot be used in the condition
-    private function checkLoopUsageCondition(Apishka_Templater_TokenStream $stream, Apishka_Templater_Node $node)
+    private function checkLoopUsageCondition(Apishka_Templater_TokenStream $stream, Apishka_Templater_NodeAbstract $node)
     {
         if ($node instanceof Apishka_Templater_Node_Expression_GetAttr && $node->getNode('node') instanceof Apishka_Templater_Node_Expression_Name && 'loop' == $node->getNode('node')->getAttribute('name')) {
             throw new Apishka_Templater_Error_Syntax('The "loop" variable cannot be used in a looping condition.', $node->getLine(), $stream->getFilename());
@@ -93,7 +93,7 @@ class Apishka_Templater_TokenParser_For extends Apishka_Templater_TokenParser
 
     // check usage of non-defined loop-items
     // it does not catch all problems (for instance when a for is included into another or when the variable is used in an include)
-    private function checkLoopUsageBody(Apishka_Templater_TokenStream $stream, Apishka_Templater_Node $node)
+    private function checkLoopUsageBody(Apishka_Templater_TokenStream $stream, Apishka_Templater_NodeAbstract $node)
     {
         if ($node instanceof Apishka_Templater_Node_Expression_GetAttr && $node->getNode('node') instanceof Apishka_Templater_Node_Expression_Name && 'loop' == $node->getNode('node')->getAttribute('name')) {
             $attribute = $node->getNode('attribute');

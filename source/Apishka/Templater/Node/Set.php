@@ -14,9 +14,9 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_Set extends Apishka_Templater_Node
+class Apishka_Templater_Node_Set extends Apishka_Templater_NodeAbstract
 {
-    public function __construct($capture, Apishka_Templater_Node $names, Apishka_Templater_Node $values, $lineno, $tag = null)
+    public function __construct($capture, Apishka_Templater_NodeAbstract $names, Apishka_Templater_NodeAbstract $values, $lineno, $tag = null)
     {
         parent::__construct(array('names' => $names, 'values' => $values), array('capture' => $capture, 'safe' => false), $lineno, $tag);
 
@@ -30,7 +30,7 @@ class Apishka_Templater_Node_Set extends Apishka_Templater_Node
 
             $values = $this->getNode('values');
             if ($values instanceof Apishka_Templater_Node_Text) {
-                $this->setNode('values', new Apishka_Templater_Node_Expression_Constant($values->getAttribute('data'), $values->getLine()));
+                $this->setNode('values', Apishka_Templater_Node_Expression_Constant::apishka($values->getAttribute('data'), $values->getLine()));
                 $this->setAttribute('capture', false);
             }
         }

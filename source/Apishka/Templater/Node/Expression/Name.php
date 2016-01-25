@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of Twig.
  *
  * (c) 2009 Fabien Potencier
@@ -9,7 +9,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Apishka_Templater_Node_Expression_Name extends Apishka_Templater_Node_Expression
+
+/**
+ * Apishka templater node expression name
+ *
+ * @easy-extend-base
+ *
+ * @uses Apishka_Templater_Node_ExpressionAbstract
+ * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
+ */
+
+class Apishka_Templater_Node_Expression_Name extends Apishka_Templater_Node_ExpressionAbstract
 {
     private $specialVars = array(
         '_self'    => '$this->getTemplateName()',

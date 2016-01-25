@@ -19,9 +19,9 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_Node_Module extends Apishka_Templater_Node
+class Apishka_Templater_Node_Module extends Apishka_Templater_NodeAbstract
 {
-    public function __construct(Apishka_Templater_Node $body, Apishka_Templater_Node_Expression $parent = null, Apishka_Templater_Node $blocks, Apishka_Templater_Node $macros, Apishka_Templater_Node $traits, $embeddedTemplates, $filename)
+    public function __construct(Apishka_Templater_NodeAbstract $body, Apishka_Templater_Node_ExpressionAbstract $parent = null, Apishka_Templater_NodeAbstract $blocks, Apishka_Templater_NodeAbstract $macros, Apishka_Templater_NodeAbstract $traits, $embeddedTemplates, $filename)
     {
         // embedded templates are set as attributes so that they are only visited once by the visitors
         parent::__construct(array(
@@ -30,11 +30,11 @@ class Apishka_Templater_Node_Module extends Apishka_Templater_Node
             'blocks'            => $blocks,
             'macros'            => $macros,
             'traits'            => $traits,
-            'display_start'     => new Apishka_Templater_Node(),
-            'display_end'       => new Apishka_Templater_Node(),
-            'constructor_start' => new Apishka_Templater_Node(),
-            'constructor_end'   => new Apishka_Templater_Node(),
-            'class_end'         => new Apishka_Templater_Node(),
+            'display_start'     => Apishka_Templater_Node::apishka(),
+            'display_end'       => Apishka_Templater_Node::apishka(),
+            'constructor_start' => Apishka_Templater_Node::apishka(),
+            'constructor_end'   => Apishka_Templater_Node::apishka(),
+            'class_end'         => Apishka_Templater_Node::apishka(),
         ), array(
             'filename'           => $filename,
             'index'              => null,
@@ -349,7 +349,7 @@ class Apishka_Templater_Node_Module extends Apishka_Templater_Node
             }
 
             if (!count($nodes)) {
-                $nodes = new Apishka_Templater_Node(array($nodes));
+                $nodes = Apishka_Templater_Node::apishka(array($nodes));
             }
 
             foreach ($nodes as $node) {

@@ -9,9 +9,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-abstract class Apishka_Templater_Node_Expression_Binary extends Apishka_Templater_Node_Expression
+abstract class Apishka_Templater_Node_Expression_BinaryAbstract extends Apishka_Templater_Node_ExpressionAbstract
 {
-    public function __construct(Apishka_Templater_Node $left, Apishka_Templater_Node $right, $lineno)
+    public function __construct(Apishka_Templater_NodeAbstract $left, Apishka_Templater_NodeAbstract $right, $lineno)
     {
         parent::__construct(array('left' => $left, 'right' => $right), array(), $lineno);
     }

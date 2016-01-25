@@ -30,7 +30,7 @@ class Apishka_Templater_TokenParser_Block extends Apishka_Templater_TokenParser
         if ($this->parser->hasBlock($name)) {
             throw new Apishka_Templater_Error_Syntax(sprintf("The block '%s' has already been defined line %d.", $name, $this->parser->getBlock($name)->getLine()), $stream->getCurrent()->getLine(), $stream->getFilename());
         }
-        $this->parser->setBlock($name, $block = new Apishka_Templater_Node_Block($name, new Apishka_Templater_Node(array()), $lineno));
+        $this->parser->setBlock($name, $block = Apishka_Templater_Node_Block::apishka($name, Apishka_Templater_Node::apishka(array()), $lineno));
         $this->parser->pushLocalScope();
         $this->parser->pushBlockStack($name);
 
@@ -44,8 +44,8 @@ class Apishka_Templater_TokenParser_Block extends Apishka_Templater_TokenParser
                 }
             }
         } else {
-            $body = new Apishka_Templater_Node(array(
-                new Apishka_Templater_Node_Print($this->parser->getExpressionParser()->parseExpression(), $lineno),
+            $body = Apishka_Templater_Node::apishka(array(
+                Apishka_Templater_Node_Print::apishka($this->parser->getExpressionParser()->parseExpression(), $lineno),
             ));
         }
         $stream->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
@@ -54,7 +54,7 @@ class Apishka_Templater_TokenParser_Block extends Apishka_Templater_TokenParser
         $this->parser->popBlockStack();
         $this->parser->popLocalScope();
 
-        return new Apishka_Templater_Node_BlockReference($name, $lineno, $this->getTag());
+        return Apishka_Templater_Node_BlockReference::apishka($name, $lineno, $this->getTag());
     }
 
     public function decideBlockEnd(Apishka_Templater_Token $token)

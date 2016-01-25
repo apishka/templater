@@ -13,10 +13,10 @@ class Apishka_Templater_Tests_Node_Expression_ConditionalTest extends Apishka_Te
 {
     public function testConstructor()
     {
-        $expr1 = new Apishka_Templater_Node_Expression_Constant(1, 1);
-        $expr2 = new Apishka_Templater_Node_Expression_Constant(2, 1);
-        $expr3 = new Apishka_Templater_Node_Expression_Constant(3, 1);
-        $node = new Apishka_Templater_Node_Expression_Conditional($expr1, $expr2, $expr3, 1);
+        $expr1 = Apishka_Templater_Node_Expression_Constant::apishka(1, 1);
+        $expr2 = Apishka_Templater_Node_Expression_Constant::apishka(2, 1);
+        $expr3 = Apishka_Templater_Node_Expression_Constant::apishka(3, 1);
+        $node = Apishka_Templater_Node_Expression_Conditional::apishka($expr1, $expr2, $expr3, 1);
 
         $this->assertEquals($expr1, $node->getNode('expr1'));
         $this->assertEquals($expr2, $node->getNode('expr2'));
@@ -27,10 +27,10 @@ class Apishka_Templater_Tests_Node_Expression_ConditionalTest extends Apishka_Te
     {
         $tests = array();
 
-        $expr1 = new Apishka_Templater_Node_Expression_Constant(1, 1);
-        $expr2 = new Apishka_Templater_Node_Expression_Constant(2, 1);
-        $expr3 = new Apishka_Templater_Node_Expression_Constant(3, 1);
-        $node = new Apishka_Templater_Node_Expression_Conditional($expr1, $expr2, $expr3, 1);
+        $expr1 = Apishka_Templater_Node_Expression_Constant::apishka(1, 1);
+        $expr2 = Apishka_Templater_Node_Expression_Constant::apishka(2, 1);
+        $expr3 = Apishka_Templater_Node_Expression_Constant::apishka(3, 1);
+        $node = Apishka_Templater_Node_Expression_Conditional::apishka($expr1, $expr2, $expr3, 1);
         $tests[] = array($node, '((1) ? (2) : (3))');
 
         return $tests;
