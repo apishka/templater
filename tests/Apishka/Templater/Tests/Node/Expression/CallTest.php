@@ -115,6 +115,6 @@ class Apishka_Templater_Tests_Node_Expression_CallTest extends PHPUnit_Framework
     }
 }
 
-class Apishka_Templater_Tests_Node_Expression_Call extends Apishka_Templater_Node_Expression_Call
+class Apishka_Templater_Tests_Node_Expression_Call extends Apishka_Templater_Node_Expression_CallAbstract
 {
 }

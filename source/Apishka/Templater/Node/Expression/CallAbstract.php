@@ -20,7 +20,7 @@
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
-abstract class Apishka_Templater_Node_Expression_Call extends Apishka_Templater_Node_ExpressionAbstract
+abstract class Apishka_Templater_Node_Expression_CallAbstract extends Apishka_Templater_Node_ExpressionAbstract
 {
     /**
      * Compile callable

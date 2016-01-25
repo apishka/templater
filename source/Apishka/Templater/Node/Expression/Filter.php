@@ -15,12 +15,12 @@
  *
  * @easy-extend-base
  *
- * @uses Apishka_Templater_Node_Expression_Call
+ * @uses Apishka_Templater_Node_Expression_CallAbstract
  *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
-class Apishka_Templater_Node_Expression_Filter extends Apishka_Templater_Node_Expression_Call
+class Apishka_Templater_Node_Expression_Filter extends Apishka_Templater_Node_Expression_CallAbstract
 {
     public function __construct(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Node_Expression_Constant $filterName, Apishka_Templater_NodeAbstract $arguments, $lineno, $tag = null)
     {
