@@ -23,10 +23,37 @@ if (!defined('ENT_SUBSTITUTE'))
 
 class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
 {
-    private $dateFormats = array('F j, Y H:i', '%d days');
-    private $numberFormat = array(0, '.', ',');
-    private $timezone = null;
-    private $escapers = array();
+    /**
+     * Date formats
+     *
+     * @var array
+     */
+
+    private $_date_formats = array('F j, Y H:i', '%d days');
+
+    /**
+     * Number format
+     *
+     * @var array
+     */
+
+    private $_number_format = array(0, '.', ',');
+
+    /**
+     * Timezone
+     *
+     * @var string
+     */
+
+    private $_timezone = null;
+
+    /**
+     * Escapers
+     *
+     * @var array
+     */
+
+    private $_escapers = array();
 
     /**
      * Defines a new escaper to be used via the escape filter.
@@ -37,7 +64,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
 
     public function setEscaper($strategy, Callable $callable)
     {
-        $this->escapers[$strategy] = $callable;
+        $this->_escapers[$strategy] = $callable;
     }
 
     /**
@@ -48,7 +75,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
 
     public function getEscapers()
     {
-        return $this->escapers;
+        return $this->_escapers;
     }
 
     /**
@@ -61,10 +88,10 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
     public function setDateFormat($format = null, $date_interval_format = null)
     {
         if (null !== $format)
-            $this->dateFormats[0] = $format;
+            $this->_date_formats[0] = $format;
 
         if (null !== $date_interval_format)
-            $this->dateFormats[1] = $date_interval_format;
+            $this->_date_formats[1] = $date_interval_format;
     }
 
     /**
@@ -75,7 +102,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
 
     public function getDateFormat()
     {
-        return $this->dateFormats;
+        return $this->_date_formats;
     }
 
     /**
@@ -86,7 +113,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
 
     public function setTimezone($timezone)
     {
-        $this->timezone = $timezone instanceof DateTimeZone ? $timezone : new DateTimeZone($timezone);
+        $this->_timezone = $timezone instanceof DateTimeZone ? $timezone : new DateTimeZone($timezone);
     }
 
     /**
@@ -97,10 +124,10 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
 
     public function getTimezone()
     {
-        if (null === $this->timezone)
-            $this->timezone = new DateTimeZone(date_default_timezone_get());
+        if (null === $this->_timezone)
+            $this->_timezone = new DateTimeZone(date_default_timezone_get());
 
-        return $this->timezone;
+        return $this->_timezone;
     }
 
     /**
@@ -113,7 +140,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
 
     public function setNumberFormat($decimal, $decimalPoint, $thousandSep)
     {
-        $this->numberFormat = array($decimal, $decimalPoint, $thousandSep);
+        $this->_number_format = array($decimal, $decimalPoint, $thousandSep);
     }
 
     /**
@@ -124,7 +151,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
 
     public function getNumberFormat()
     {
-        return $this->numberFormat;
+        return $this->_number_format;
     }
 
     /**
