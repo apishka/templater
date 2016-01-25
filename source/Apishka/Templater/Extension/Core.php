@@ -1,9 +1,8 @@
 <?php
 
-if (!defined('ENT_SUBSTITUTE')) {
-    // use 0 as hhvm does not support several flags yet
+// use 0 as hhvm does not support several flags yet
+if (!defined('ENT_SUBSTITUTE'))
     define('ENT_SUBSTITUTE', 0);
-}
 
 /*
  * This file is part of Twig.
@@ -33,10 +32,10 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
      * Defines a new escaper to be used via the escape filter.
      *
      * @param string   $strategy The strategy name that should be used as a strategy in the escape call
-     * @param callable $callable A valid PHP callable
+     * @param Callable $callable A valid PHP callable
      */
 
-    public function setEscaper($strategy, callable $callable)
+    public function setEscaper($strategy, Callable $callable)
     {
         $this->escapers[$strategy] = $callable;
     }
