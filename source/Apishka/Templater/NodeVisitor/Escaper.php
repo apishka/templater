@@ -12,9 +12,12 @@
 /**
  * Apishka_Templater_NodeVisitor_Escaper implements output escaping.
  *
+ * @uses Apishka_Templater_BaseNodeVisitorAbstract
+ *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_NodeVisitor_Escaper extends Apishka_Templater_BaseNodeVisitor
+
+class Apishka_Templater_NodeVisitor_Escaper extends Apishka_Templater_BaseNodeVisitorAbstract
 {
     private $statusStack = array();
     private $blocks = array();

@@ -8,6 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+/**
+ * Apishka templater test node test case
+ *
+ * @uses PHPUnit_Framework_TestCase
+ * @abstract
+ * @author Evgeny Reykh <evgeny@reykh.com>
+ */
+
 abstract class Apishka_Templater_Test_NodeTestCase extends PHPUnit_Framework_TestCase
 {
     abstract public function getTests();

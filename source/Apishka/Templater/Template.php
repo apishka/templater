@@ -15,6 +15,7 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
+
 abstract class Apishka_Templater_Template
 {
     const ANY_CALL = 'any';

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseNodeVisitor
+class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseNodeVisitorAbstract
 {
     private $data = array();
     private $safeVars = array();

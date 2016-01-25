@@ -19,7 +19,7 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNodeVisitor
+class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNodeVisitorAbstract
 {
     const OPTIMIZE_ALL = -1;
     const OPTIMIZE_NONE = 0;

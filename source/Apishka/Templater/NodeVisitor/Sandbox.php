@@ -14,7 +14,7 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Apishka_Templater_NodeVisitor_Sandbox extends Apishka_Templater_BaseNodeVisitor
+class Apishka_Templater_NodeVisitor_Sandbox extends Apishka_Templater_BaseNodeVisitorAbstract
 {
     private $inAModule = false;
     private $tags;
