@@ -58,13 +58,16 @@ class Apishka_Templater_Lexer
     {
         $this->env = $env;
 
-        $this->options = array_merge(array(
-            'tag_comment'     => array('{#', '#}'),
-            'tag_block'       => array('{%', '%}'),
-            'tag_variable'    => array('{{', '}}'),
-            'whitespace_trim' => '-',
-            'interpolation'   => array('#{', '}'),
-        ), $options);
+        $this->options = array_merge(
+            array(
+                'tag_comment'     => array('{#', '#}'),
+                'tag_block'       => array('{%', '%}'),
+                'tag_variable'    => array('{{', '}}'),
+                'whitespace_trim' => '-',
+                'interpolation'   => array('#{', '}'),
+            ),
+            $options
+        );
 
         $this->regexes = array(
             'lex_var'             => '/\s*' . preg_quote($this->options['whitespace_trim'] . $this->options['tag_variable'][1], '/') . '\s*|\s*' . preg_quote($this->options['tag_variable'][1], '/') . '/A',
