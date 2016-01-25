@@ -10,13 +10,14 @@
  */
 
 /**
- * Enables usage of the deprecated Apishka_Templater_Extension::getGlobals() method.
+ * Enables usage of the deprecated Apishka_Templater_ExtensionAbstract::getGlobals() method.
  *
  * Explicitly implement this interface if you really need to implement the
  * deprecated getGlobals() method in your extensions.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
+
 interface Apishka_Templater_Extension_GlobalsInterface
 {
     /**

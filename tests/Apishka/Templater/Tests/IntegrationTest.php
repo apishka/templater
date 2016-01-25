@@ -124,7 +124,7 @@ class TwigTestTokenParser_§ extends Apishka_Templater_TokenParser
     }
 }
 
-class TwigTestExtension extends Apishka_Templater_Extension
+class TwigTestExtension extends Apishka_Templater_ExtensionAbstract
 {
     public function getTokenParsers()
     {

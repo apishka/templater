@@ -311,7 +311,7 @@ class Apishka_Templater_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class Apishka_Templater_Tests_EnvironmentTest_Extension_WithGlobals extends Apishka_Templater_Extension
+class Apishka_Templater_Tests_EnvironmentTest_Extension_WithGlobals extends Apishka_Templater_ExtensionAbstract
 {
     public function getGlobals()
     {
@@ -326,7 +326,7 @@ class Apishka_Templater_Tests_EnvironmentTest_Extension_WithGlobals extends Apis
     }
 }
 
-class Apishka_Templater_Tests_EnvironmentTest_Extension extends Apishka_Templater_Extension implements Apishka_Templater_Extension_GlobalsInterface
+class Apishka_Templater_Tests_EnvironmentTest_Extension extends Apishka_Templater_ExtensionAbstract implements Apishka_Templater_Extension_GlobalsInterface
 {
     public function getTokenParsers()
     {
@@ -414,7 +414,7 @@ class Apishka_Templater_Tests_EnvironmentTest_NodeVisitor implements Apishka_Tem
     }
 }
 
-class Apishka_Templater_Tests_EnvironmentTest_ExtensionWithDeprecationInitRuntime extends Apishka_Templater_Extension
+class Apishka_Templater_Tests_EnvironmentTest_ExtensionWithDeprecationInitRuntime extends Apishka_Templater_ExtensionAbstract
 {
     public function initRuntime(Apishka_Templater_Environment $env)
     {
@@ -426,7 +426,7 @@ class Apishka_Templater_Tests_EnvironmentTest_ExtensionWithDeprecationInitRuntim
     }
 }
 
-class Apishka_Templater_Tests_EnvironmentTest_ExtensionWithoutDeprecationInitRuntime extends Apishka_Templater_Extension implements Apishka_Templater_Extension_InitRuntimeInterface
+class Apishka_Templater_Tests_EnvironmentTest_ExtensionWithoutDeprecationInitRuntime extends Apishka_Templater_ExtensionAbstract implements Apishka_Templater_Extension_InitRuntimeInterface
 {
     public function initRuntime(Apishka_Templater_Environment $env)
     {

@@ -8,7 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Apishka_Templater_Extension_Debug extends Apishka_Templater_Extension
+
+/**
+ * Apishka templater extension debug
+ *
+ * @uses Apishka_Templater_ExtensionAbstract
+ *
+ * @author Evgeny Reykh <evgeny@reykh.com>
+ */
+
+class Apishka_Templater_Extension_Debug extends Apishka_Templater_ExtensionAbstract
 {
     public function getFunctions()
     {

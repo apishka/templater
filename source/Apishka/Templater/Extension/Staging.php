@@ -16,7 +16,8 @@
  *
  * @internal
  */
-final class Apishka_Templater_Extension_Staging extends Apishka_Templater_Extension
+
+final class Apishka_Templater_Extension_Staging extends Apishka_Templater_ExtensionAbstract
 {
     private $functions = array();
     private $filters = array();

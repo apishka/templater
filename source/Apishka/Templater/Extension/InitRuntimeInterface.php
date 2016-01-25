@@ -10,7 +10,7 @@
  */
 
 /**
- * Enables usage of the deprecated Apishka_Templater_Extension::initRuntime() method.
+ * Enables usage of the deprecated Apishka_Templater_ExtensionAbstract::initRuntime() method.
  *
  * Explicitly implement this interface if you really need to implement the
  * deprecated initRuntime() method in your extensions.
@@ -19,6 +19,7 @@
  *
  * @deprecated to be removed in 3.0
  */
+
 interface Apishka_Templater_Extension_InitRuntimeInterface
 {
     /**

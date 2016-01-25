@@ -16,12 +16,12 @@ if (!defined('ENT_SUBSTITUTE'))
 /**
  * Apishka templater extension core
  *
- * @uses Apishka_Templater_Extension
+ * @uses Apishka_Templater_ExtensionAbstract
  *
  * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
-class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
+class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstract
 {
     /**
      * Date formats
