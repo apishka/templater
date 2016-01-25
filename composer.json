@@ -3,12 +3,12 @@
     "type": "library",
     "require": {
         "php": ">=5.6",
-        "symfony/polyfill-mbstring": "~1.0"
+        "symfony/polyfill-mbstring": "^1.0"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "~2.7",
-        "symfony/debug": "~2.7",
-        "apishka/cs": "~1.0.0",
+        "symfony/phpunit-bridge": "^3.0.1",
+        "symfony/debug": "^3.0.1",
+        "apishka/cs": "^1.0.0",
         "phpunit/phpunit": "^5.1.4"
     },
     "autoload": {

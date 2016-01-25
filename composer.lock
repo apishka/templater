@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a2261679e94f00184041b5df4505dc97",
-    "content-hash": "d457b18ed054a0067574cf52f2decfd7",
+    "hash": "665499fc50bec2e41f1f818f389dfb0c",
+    "content-hash": "f0b8e551d7b76946b4a8423718015815",
     "packages": [
         {
             "name": "symfony/polyfill-mbstring",
@@ -1127,33 +1127,33 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v2.8.2",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "386364a0e71158615ab9ae76b74bf84efc0bac7e"
+                "reference": "73612266ac709769effdbfc0762e5b07cfd2ac2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/386364a0e71158615ab9ae76b74bf84efc0bac7e",
-                "reference": "386364a0e71158615ab9ae76b74bf84efc0bac7e",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/73612266ac709769effdbfc0762e5b07cfd2ac2a",
+                "reference": "73612266ac709769effdbfc0762e5b07cfd2ac2a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9",
+                "php": ">=5.5.9",
                 "psr/log": "~1.0"
             },
             "conflict": {
                 "symfony/http-kernel": ">=2.3,<2.3.24|~2.4.0|>=2.5,<2.5.9|>=2.6,<2.6.2"
             },
             "require-dev": {
-                "symfony/class-loader": "~2.2|~3.0.0",
-                "symfony/http-kernel": "~2.3.24|~2.5.9|~2.6,>=2.6.2|~3.0.0"
+                "symfony/class-loader": "~2.8|~3.0",
+                "symfony/http-kernel": "~2.8|~3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -1180,24 +1180,24 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-13 10:28:07"
+            "time": "2015-12-26 13:39:53"
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v2.8.2",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "855dc0e829fad123966347612b4183e307338c11"
+                "reference": "0226673bcf0be649c03db2998752c5b2082e0ad4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/855dc0e829fad123966347612b4183e307338c11",
-                "reference": "855dc0e829fad123966347612b4183e307338c11",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/0226673bcf0be649c03db2998752c5b2082e0ad4",
+                "reference": "0226673bcf0be649c03db2998752c5b2082e0ad4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.5.9"
             },
             "suggest": {
                 "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
@@ -1205,7 +1205,7 @@
             "type": "symfony-bridge",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -1235,7 +1235,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2016-01-06 09:59:23"
+            "time": "2015-12-15 02:03:07"
         },
         {
             "name": "symfony/yaml",
