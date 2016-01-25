@@ -13,6 +13,15 @@ if (!defined('ENT_SUBSTITUTE')) {
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+/**
+ * Apishka templater extension core
+ *
+ * @uses Apishka_Templater_Extension
+ *
+ * @author Evgeny Reykh <evgeny@reykh.com>
+ */
+
 class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
 {
     private $dateFormats = array('F j, Y H:i', '%d days');
@@ -26,6 +35,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
      * @param string   $strategy The strategy name that should be used as a strategy in the escape call
      * @param callable $callable A valid PHP callable
      */
+
     public function setEscaper($strategy, callable $callable)
     {
         $this->escapers[$strategy] = $callable;
@@ -36,6 +46,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
      *
      * @return callable[] An array of escapers
      */
+
     public function getEscapers()
     {
         return $this->escapers;
@@ -44,18 +55,17 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
     /**
      * Sets the default format to be used by the date filter.
      *
-     * @param string $format             The default date format string
-     * @param string $dateIntervalFormat The default date interval format string
+     * @param string $format               The default date format string
+     * @param string $date_interval_format The default date interval format string
      */
-    public function setDateFormat($format = null, $dateIntervalFormat = null)
-    {
-        if (null !== $format) {
-            $this->dateFormats[0] = $format;
-        }
 
-        if (null !== $dateIntervalFormat) {
-            $this->dateFormats[1] = $dateIntervalFormat;
-        }
+    public function setDateFormat($format = null, $date_interval_format = null)
+    {
+        if (null !== $format)
+            $this->dateFormats[0] = $format;
+
+        if (null !== $date_interval_format)
+            $this->dateFormats[1] = $date_interval_format;
     }
 
     /**
@@ -63,6 +73,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
      *
      * @return array The default date format string and the default date interval format string
      */
+
     public function getDateFormat()
     {
         return $this->dateFormats;
@@ -73,6 +84,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
      *
      * @param DateTimeZone|string $timezone The default timezone string or a DateTimeZone object
      */
+
     public function setTimezone($timezone)
     {
         $this->timezone = $timezone instanceof DateTimeZone ? $timezone : new DateTimeZone($timezone);
@@ -83,11 +95,11 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
      *
      * @return DateTimeZone The default timezone currently in use
      */
+
     public function getTimezone()
     {
-        if (null === $this->timezone) {
+        if (null === $this->timezone)
             $this->timezone = new DateTimeZone(date_default_timezone_get());
-        }
 
         return $this->timezone;
     }
@@ -99,6 +111,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
      * @param string $decimalPoint The character(s) to use for the decimal point.
      * @param string $thousandSep  The character(s) to use for the thousands separator.
      */
+
     public function setNumberFormat($decimal, $decimalPoint, $thousandSep)
     {
         $this->numberFormat = array($decimal, $decimalPoint, $thousandSep);
@@ -109,10 +122,17 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
      *
      * @return array The arguments for number_format()
      */
+
     public function getNumberFormat()
     {
         return $this->numberFormat;
     }
+
+    /**
+     * Get token parsers
+     *
+     * @return array
+     */
 
     public function getTokenParsers()
     {
@@ -134,6 +154,12 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
             new Apishka_Templater_TokenParser_Embed(),
         );
     }
+
+    /**
+     * Get filters
+     *
+     * @return array
+     */
 
     public function getFilters()
     {
@@ -185,6 +211,12 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
         );
     }
 
+    /**
+     * Get functions
+     *
+     * @return array
+     */
+
     public function getFunctions()
     {
         return array(
@@ -199,6 +231,12 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
             new Apishka_Templater_Function('source', 'twig_source', array('needs_environment' => true, 'is_safe' => array('all'))),
         );
     }
+
+    /**
+     * Get tests
+     *
+     * @return array
+     */
 
     public function getTests()
     {
@@ -215,6 +253,12 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
             new Apishka_Templater_Test('iterable', 'twig_test_iterable'),
         );
     }
+
+    /**
+     * Get operators
+     *
+     * @return array
+     */
 
     public function getOperators()
     {
@@ -256,10 +300,28 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
         );
     }
 
+    /**
+     * Parse not test expression
+     *
+     * @param Apishka_Templater_Parser       $parser
+     * @param Apishka_Templater_NodeAbstract $node
+     *
+     * @return Apishka_Templater_Node_Expression_Unary_Not
+     */
+
     public function parseNotTestExpression(Apishka_Templater_Parser $parser, Apishka_Templater_NodeAbstract $node)
     {
         return Apishka_Templater_Node_Expression_Unary_Not::apishka($this->parseTestExpression($parser, $node), $parser->getCurrentToken()->getLine());
     }
+
+    /**
+     * Parse test expression
+     *
+     * @param Apishka_Templater_Parser       $parser
+     * @param Apishka_Templater_NodeAbstract $node
+     *
+     * @return Apishka_Templater_NodeAbstract
+     */
 
     public function parseTestExpression(Apishka_Templater_Parser $parser, Apishka_Templater_NodeAbstract $node)
     {
@@ -267,12 +329,21 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
         $test = $this->getTest($parser, $node->getLine());
         $class = $test->getNodeClass();
         $arguments = null;
-        if ($stream->test(Apishka_Templater_Token::PUNCTUATION_TYPE, '(')) {
+
+        if ($stream->test(Apishka_Templater_Token::PUNCTUATION_TYPE, '('))
             $arguments = $parser->getExpressionParser()->parseArguments(true);
-        }
 
         return new $class($node, $test->getName(), $arguments, $parser->getCurrentToken()->getLine());
     }
+
+    /**
+     * Get test
+     *
+     * @param Apishka_Templater_Parser $parser
+     * @param mixed                    $line
+     *
+     * @return mixed
+     */
 
     private function getTest(Apishka_Templater_Parser $parser, $line)
     {
@@ -280,15 +351,16 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
         $name = $stream->expect(Apishka_Templater_Token::NAME_TYPE)->getValue();
         $env = $parser->getEnvironment();
 
-        if ($test = $env->getTest($name)) {
+        if ($test = $env->getTest($name))
             return $test;
-        }
 
-        if ($stream->test(Apishka_Templater_Token::NAME_TYPE)) {
+        if ($stream->test(Apishka_Templater_Token::NAME_TYPE))
+        {
             // try 2-words tests
             $name = $name . ' ' . $parser->getCurrentToken()->getValue();
 
-            if ($test = $env->getTest($name)) {
+            if ($test = $env->getTest($name))
+            {
                 $parser->getStream()->next();
 
                 return $test;
@@ -300,6 +372,12 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
 
         throw $e;
     }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
 
     public function getName()
     {
