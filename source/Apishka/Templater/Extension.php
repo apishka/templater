@@ -8,6 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+/**
+ * Apishka templater extension
+ *
+ * @uses Apishka_Templater_ExtensionInterface
+ * @abstract
+ *
+ * @author Evgeny Reykh <evgeny@reykh.com>
+ */
+
 abstract class Apishka_Templater_Extension implements Apishka_Templater_ExtensionInterface
 {
     /**
