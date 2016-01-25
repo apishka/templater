@@ -62,7 +62,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_Extension
      * @param Callable $callable A valid PHP callable
      */
 
-    public function setEscaper($strategy, Callable $callable)
+    public function setEscaper($strategy, callable $callable)
     {
         $this->_escapers[$strategy] = $callable;
     }

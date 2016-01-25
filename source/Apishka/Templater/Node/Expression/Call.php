@@ -136,7 +136,7 @@ abstract class Apishka_Templater_Node_Expression_Call extends Apishka_Templater_
      * @param array    $arguments
      */
 
-    protected function getArguments(Callable $callable = null, $arguments)
+    protected function getArguments(callable $callable = null, $arguments)
     {
         $callType = $this->getAttribute('type');
         $callName = $this->getAttribute('name');

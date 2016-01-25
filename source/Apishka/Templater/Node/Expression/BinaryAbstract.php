@@ -26,7 +26,7 @@ abstract class Apishka_Templater_Node_Expression_BinaryAbstract extends Apishka_
      *
      * @param Apishka_Templater_NodeAbstract $left
      * @param Apishka_Templater_NodeAbstract $right
-     * @param mixed $lineno
+     * @param mixed                          $lineno
      */
 
     public function __construct(Apishka_Templater_NodeAbstract $left, Apishka_Templater_NodeAbstract $right, $lineno)
