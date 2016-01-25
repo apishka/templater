@@ -17,7 +17,7 @@
  * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
-abstract class Apishka_Templater_Test_NodeTestCase extends PHPUnit_Framework_TestCase
+abstract class Apishka_Templater_Test_NodeTestCaseAbstract extends PHPUnit_Framework_TestCase
 {
     abstract public function getTests();
 

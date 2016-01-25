@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-class Apishka_Templater_Tests_Node_Expression_FilterTest extends Apishka_Templater_Test_NodeTestCase
+class Apishka_Templater_Tests_Node_Expression_FilterTest extends Apishka_Templater_Test_NodeTestCaseAbstract
 {
     public function testConstructor()
     {

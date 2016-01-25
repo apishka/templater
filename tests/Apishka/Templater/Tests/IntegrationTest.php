@@ -16,7 +16,7 @@ function html()
     return 'foo';
 }
 
-class Apishka_Templater_Tests_IntegrationTest extends Apishka_Templater_Test_IntegrationTestCase
+class Apishka_Templater_Tests_IntegrationTest extends Apishka_Templater_Test_IntegrationTestCaseAbstract
 {
     public function getExtensions()
     {
