@@ -65,7 +65,7 @@ class Apishka_Templater_Compiler
      * Compiles a node.
      *
      * @param Apishka_Templater_Node $node        The node to compile
-     * @param int       $indentation The current indentation
+     * @param int                    $indentation The current indentation
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */

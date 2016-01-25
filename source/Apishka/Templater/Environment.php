@@ -82,7 +82,7 @@ class Apishka_Templater_Environment
      *                   set it to 0 to disable).
      *
      * @param Apishka_Templater_LoaderInterface $loader  A Apishka_Templater_LoaderInterface instance
-     * @param array                $options An array of options
+     * @param array                             $options An array of options
      */
     public function __construct(Apishka_Templater_LoaderInterface $loader, $options = array())
     {
@@ -216,8 +216,8 @@ class Apishka_Templater_Environment
      * @param bool $original Whether to return the original cache option or the real cache instance
      *
      * @return Apishka_Templater_CacheInterface|string|false A Apishka_Templater_CacheInterface implementation,
-     *                                          an absolute path to the compiled templates,
-     *                                          or false to disable cache
+     *                                                       an absolute path to the compiled templates,
+     *                                                       or false to disable cache
      */
     public function getCache($original = true)
     {
@@ -228,8 +228,8 @@ class Apishka_Templater_Environment
      * Sets the current cache implementation.
      *
      * @param Apishka_Templater_CacheInterface|string|false $cache A Apishka_Templater_CacheInterface implementation,
-     *                                                an absolute path to the compiled templates,
-     *                                                or false to disable cache
+     *                                                             an absolute path to the compiled templates,
+     *                                                             or false to disable cache
      */
     public function setCache($cache)
     {

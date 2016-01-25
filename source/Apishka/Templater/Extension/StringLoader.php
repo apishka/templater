@@ -31,7 +31,7 @@ class Apishka_Templater_Extension_StringLoader extends Apishka_Templater_Extensi
  * </pre>
  *
  * @param Apishka_Templater_Environment $env      A Apishka_Templater_Environment instance
- * @param string           $template A template as a string or object implementing __toString()
+ * @param string                        $template A template as a string or object implementing __toString()
  *
  * @return Apishka_Templater_Template A Apishka_Templater_Template instance
  */

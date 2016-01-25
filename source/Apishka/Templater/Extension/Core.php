@@ -330,8 +330,8 @@ function twig_cycle($values, $position)
  * - a random character from a string
  * - a random integer between 0 and the integer parameter.
  *
- * @param Apishka_Templater_Environment             $env    A Apishka_Templater_Environment instance
- * @param Traversable|array|int|string $values The values to pick a random item from
+ * @param Apishka_Templater_Environment $env    A Apishka_Templater_Environment instance
+ * @param Traversable|array|int|string  $values The values to pick a random item from
  *
  * @throws Apishka_Templater_Error_Runtime When $values is an empty array (does not apply to an empty string which is returned as is).
  *
@@ -389,7 +389,7 @@ function twig_random(Apishka_Templater_Environment $env, $values = null)
  *   {{ post.published_at|date("m/d/Y") }}
  * </pre>
  *
- * @param Apishka_Templater_Environment                      $env      A Apishka_Templater_Environment instance
+ * @param Apishka_Templater_Environment         $env      A Apishka_Templater_Environment instance
  * @param DateTimeInterface|DateInterval|string $date     A date
  * @param string|null                           $format   The target format, null to use the default
  * @param DateTimeZone|string|null|false        $timezone The target timezone, null to use the default, false to leave unchanged
@@ -417,9 +417,9 @@ function twig_date_format_filter(Apishka_Templater_Environment $env, $date, $for
  *   {{ post.published_at|date_modify("-1day")|date("m/d/Y") }}
  * </pre>
  *
- * @param Apishka_Templater_Environment         $env      A Apishka_Templater_Environment instance
- * @param DateTimeInterface|string $date     A date
- * @param string                   $modifier A modifier string
+ * @param Apishka_Templater_Environment $env      A Apishka_Templater_Environment instance
+ * @param DateTimeInterface|string      $date     A date
+ * @param string                        $modifier A modifier string
  *
  * @return DateTimeInterface A new date object
  */
@@ -439,7 +439,7 @@ function twig_date_modify_filter(Apishka_Templater_Environment $env, $date, $mod
  *    {% endif %}
  * </pre>
  *
- * @param Apishka_Templater_Environment               $env      A Apishka_Templater_Environment instance
+ * @param Apishka_Templater_Environment  $env      A Apishka_Templater_Environment instance
  * @param DateTimeInterface|string|null  $date     A date or null to use the current time
  * @param DateTimeZone|string|null|false $timezone The target timezone, null to use the default, false to leave unchanged
  *
@@ -537,10 +537,10 @@ function twig_round($value, $precision = 0, $method = 'common')
  * environment object.
  *
  * @param Apishka_Templater_Environment $env          A Apishka_Templater_Environment instance
- * @param mixed            $number       A float/int/string of the number to format
- * @param int              $decimal      The number of decimal points to display.
- * @param string           $decimalPoint The character(s) to use for the decimal point.
- * @param string           $thousandSep  The character(s) to use for the thousands separator.
+ * @param mixed                         $number       A float/int/string of the number to format
+ * @param int                           $decimal      The number of decimal points to display.
+ * @param string                        $decimalPoint The character(s) to use for the decimal point.
+ * @param string                        $thousandSep  The character(s) to use for the thousands separator.
  *
  * @return string The formatted number
  */
@@ -619,10 +619,10 @@ function twig_array_merge($arr1, $arr2)
  * Slices a variable.
  *
  * @param Apishka_Templater_Environment $env          A Apishka_Templater_Environment instance
- * @param mixed            $item         A variable
- * @param int              $start        Start of the slice
- * @param int              $length       Size of the slice
- * @param bool             $preserveKeys Whether to preserve key or not (when the input is an array)
+ * @param mixed                         $item         A variable
+ * @param int                           $start        Start of the slice
+ * @param int                           $length       Size of the slice
+ * @param bool                          $preserveKeys Whether to preserve key or not (when the input is an array)
  *
  * @return mixed The sliced variable
  */
@@ -657,7 +657,7 @@ function twig_slice(Apishka_Templater_Environment $env, $item, $start, $length =
  * Returns the first element of the item.
  *
  * @param Apishka_Templater_Environment $env  A Apishka_Templater_Environment instance
- * @param mixed            $item A variable
+ * @param mixed                         $item A variable
  *
  * @return mixed The first element of the item
  */
@@ -672,7 +672,7 @@ function twig_first(Apishka_Templater_Environment $env, $item)
  * Returns the last element of the item.
  *
  * @param Apishka_Templater_Environment $env  A Apishka_Templater_Environment instance
- * @param mixed            $item A variable
+ * @param mixed                         $item A variable
  *
  * @return mixed The last element of the item
  */
@@ -728,9 +728,9 @@ function twig_join_filter($value, $glue = '')
  * </pre>
  *
  * @param Apishka_Templater_Environment $env       A Apishka_Templater_Environment instance
- * @param string           $value     A string
- * @param string           $delimiter The delimiter
- * @param int              $limit     The limit
+ * @param string                        $value     A string
+ * @param string                        $delimiter The delimiter
+ * @param int                           $limit     The limit
  *
  * @return array The split string as an array
  */
@@ -803,9 +803,9 @@ function twig_get_array_keys_filter($array)
 /**
  * Reverses a variable.
  *
- * @param Apishka_Templater_Environment         $env          A Apishka_Templater_Environment instance
- * @param array|Traversable|string $item         An array, a Traversable instance, or a string
- * @param bool                     $preserveKeys Whether to preserve key or not
+ * @param Apishka_Templater_Environment $env          A Apishka_Templater_Environment instance
+ * @param array|Traversable|string      $item         An array, a Traversable instance, or a string
+ * @param bool                          $preserveKeys Whether to preserve key or not
  *
  * @return mixed The reversed input
  */
@@ -878,10 +878,10 @@ function twig_in_filter($value, $compare)
  * Escapes a string.
  *
  * @param Apishka_Templater_Environment $env        A Apishka_Templater_Environment instance
- * @param string           $string     The value to be escaped
- * @param string           $strategy   The escaping strategy
- * @param string           $charset    The charset
- * @param bool             $autoescape Whether the function is called by the auto-escaping feature (true) or by the developer (false)
+ * @param string                        $string     The value to be escaped
+ * @param string                        $strategy   The escaping strategy
+ * @param string                        $charset    The charset
+ * @param bool                          $autoescape Whether the function is called by the auto-escaping feature (true) or by the developer (false)
  *
  * @return string
  */
@@ -1130,7 +1130,7 @@ function twig_convert_encoding($string, $to, $from)
  * Returns the length of a variable.
  *
  * @param Apishka_Templater_Environment $env   A Apishka_Templater_Environment instance
- * @param mixed            $thing A variable
+ * @param mixed                         $thing A variable
  *
  * @return int The length of the value
  */
@@ -1143,7 +1143,7 @@ function twig_length_filter(Apishka_Templater_Environment $env, $thing)
  * Converts a string to uppercase.
  *
  * @param Apishka_Templater_Environment $env    A Apishka_Templater_Environment instance
- * @param string           $string A string
+ * @param string                        $string A string
  *
  * @return string The uppercased string
  */
@@ -1156,7 +1156,7 @@ function twig_upper_filter(Apishka_Templater_Environment $env, $string)
  * Converts a string to lowercase.
  *
  * @param Apishka_Templater_Environment $env    A Apishka_Templater_Environment instance
- * @param string           $string A string
+ * @param string                        $string A string
  *
  * @return string The lowercased string
  */
@@ -1169,7 +1169,7 @@ function twig_lower_filter(Apishka_Templater_Environment $env, $string)
  * Returns a titlecased string.
  *
  * @param Apishka_Templater_Environment $env    A Apishka_Templater_Environment instance
- * @param string           $string A string
+ * @param string                        $string A string
  *
  * @return string The titlecased string
  */
@@ -1182,7 +1182,7 @@ function twig_title_string_filter(Apishka_Templater_Environment $env, $string)
  * Returns a capitalized string.
  *
  * @param Apishka_Templater_Environment $env    A Apishka_Templater_Environment instance
- * @param string           $string A string
+ * @param string                        $string A string
  *
  * @return string The capitalized string
  */
@@ -1251,12 +1251,12 @@ function twig_test_iterable($value)
  * Renders a template.
  *
  * @param Apishka_Templater_Environment $env
- * @param array            $context
- * @param string|array     $template      The template to render or an array of templates to try consecutively
- * @param array            $variables     The variables to pass to the template
- * @param bool             $withContext
- * @param bool             $ignoreMissing Whether to ignore missing templates or not
- * @param bool             $sandboxed     Whether to sandbox the template or not
+ * @param array                         $context
+ * @param string|array                  $template      The template to render or an array of templates to try consecutively
+ * @param array                         $variables     The variables to pass to the template
+ * @param bool                          $withContext
+ * @param bool                          $ignoreMissing Whether to ignore missing templates or not
+ * @param bool                          $sandboxed     Whether to sandbox the template or not
  *
  * @return string The rendered template
  */
@@ -1299,8 +1299,8 @@ function twig_include(Apishka_Templater_Environment $env, $context, $template, $
  * Returns a template content without rendering it.
  *
  * @param Apishka_Templater_Environment $env
- * @param string           $name          The template name
- * @param bool             $ignoreMissing Whether to ignore missing templates or not
+ * @param string                        $name          The template name
+ * @param bool                          $ignoreMissing Whether to ignore missing templates or not
  *
  * @return string The template source
  */

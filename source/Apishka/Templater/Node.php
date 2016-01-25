@@ -166,7 +166,7 @@ class Apishka_Templater_Node implements Countable, IteratorAggregate
     /**
      * Sets a node.
      *
-     * @param string    $name
+     * @param string                 $name
      * @param Apishka_Templater_Node $node
      */
     public function setNode($name, $node = null)
