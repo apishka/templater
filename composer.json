@@ -18,7 +18,7 @@
     },
     "autoload-dev": {
         "psr-0" : {
-            "Twig_Tests_" : "test/"
+            "Twig_Tests_" : "tests/"
         }
     },
     "extra": {
