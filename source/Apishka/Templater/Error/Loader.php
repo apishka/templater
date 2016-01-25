@@ -16,7 +16,7 @@
  * if a template cannot be loaded, there is nothing to guess.
  * However, when a template is loaded from another one, then, we need
  * to find the current context and this is automatically done by
- * Apishka_Templater_Template::displayWithErrorHandling().
+ * Apishka_Templater_TemplateAbstract::displayWithErrorHandling().
  *
  * This strategy makes Apishka_Templater_Environment::resolveTemplate() much faster.
  *

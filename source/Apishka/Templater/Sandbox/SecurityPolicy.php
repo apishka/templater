@@ -82,7 +82,7 @@ class Apishka_Templater_Sandbox_SecurityPolicy implements Apishka_Templater_Sand
 
     public function checkMethodAllowed($obj, $method)
     {
-        if ($obj instanceof Apishka_Templater_Template || $obj instanceof Apishka_Templater_Markup) {
+        if ($obj instanceof Apishka_Templater_TemplateAbstract || $obj instanceof Apishka_Templater_Markup) {
             return true;
         }
 

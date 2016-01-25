@@ -35,7 +35,7 @@ class Apishka_Templater_Node_Expression_GetAttr extends Apishka_Templater_Node_E
         // only generate optional arguments when needed (to make generated code more readable)
         $needFourth = $this->getAttribute('ignore_strict_check');
         $needThird = $needFourth || $this->getAttribute('is_defined_test');
-        $needSecond = $needThird || Apishka_Templater_Template::ANY_CALL !== $this->getAttribute('type');
+        $needSecond = $needThird || Apishka_Templater_TemplateAbstract::ANY_CALL !== $this->getAttribute('type');
         $needFirst = $needSecond || null !== $this->getNode('arguments');
 
         if ($needFirst) {

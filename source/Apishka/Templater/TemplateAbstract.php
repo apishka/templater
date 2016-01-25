@@ -16,7 +16,7 @@
  * @author Fabien Potencier <fabien@symfony.com>
  */
 
-abstract class Apishka_Templater_Template
+abstract class Apishka_Templater_TemplateAbstract
 {
     const ANY_CALL = 'any';
     const ARRAY_CALL = 'array';
@@ -55,7 +55,7 @@ abstract class Apishka_Templater_Template
      *
      * @param array $context
      *
-     * @return Apishka_Templater_Template|false The parent template or false if there is no parent
+     * @return Apishka_Templater_TemplateAbstract|false The parent template or false if there is no parent
      *
      * @internal
      */
@@ -151,7 +151,7 @@ abstract class Apishka_Templater_Template
         if (null !== $template) {
             // avoid RCEs when sandbox is enabled
             if (!$template instanceof self) {
-                throw new LogicException('A block must be a method on a Apishka_Templater_Template instance.');
+                throw new LogicException('A block must be a method on a Apishka_Templater_TemplateAbstract instance.');
             }
 
             try {
@@ -421,7 +421,7 @@ abstract class Apishka_Templater_Template
      * @param mixed  $object            The object or array from where to get the item
      * @param mixed  $item              The item to get from the array or object
      * @param array  $arguments         An array of arguments to pass if the item is an object method
-     * @param string $type              The type of attribute (@see Apishka_Templater_Template constants)
+     * @param string $type              The type of attribute (@see Apishka_Templater_TemplateAbstract constants)
      * @param bool   $isDefinedTest     Whether this is only a defined check
      * @param bool   $ignoreStrictCheck Whether to ignore the strict attribute check or not
      *
@@ -499,7 +499,7 @@ abstract class Apishka_Templater_Template
         }
 
         // object property
-        if (self::METHOD_CALL !== $type && !$object instanceof self) { // Apishka_Templater_Template does not have public properties, and we don't want to allow access to internal ones
+        if (self::METHOD_CALL !== $type && !$object instanceof self) { // Apishka_Templater_TemplateAbstract does not have public properties, and we don't want to allow access to internal ones
             if (isset($object->$item) || array_key_exists((string) $item, $object)) {
                 if ($isDefinedTest) {
                     return true;

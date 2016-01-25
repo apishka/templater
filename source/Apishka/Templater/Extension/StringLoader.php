@@ -42,7 +42,7 @@ class Apishka_Templater_Extension_StringLoader extends Apishka_Templater_Extensi
  * @param Apishka_Templater_Environment $env      A Apishka_Templater_Environment instance
  * @param string                        $template A template as a string or object implementing __toString()
  *
- * @return Apishka_Templater_Template A Apishka_Templater_Template instance
+ * @return Apishka_Templater_TemplateAbstract A Apishka_Templater_TemplateAbstract instance
  */
 function twig_template_from_string(Apishka_Templater_Environment $env, $template)
 {

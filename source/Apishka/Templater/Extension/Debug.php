@@ -54,7 +54,7 @@ function twig_var_dump(Apishka_Templater_Environment $env, $context)
     if (2 === $count) {
         $vars = array();
         foreach ($context as $key => $value) {
-            if (!$value instanceof Apishka_Templater_Template) {
+            if (!$value instanceof Apishka_Templater_TemplateAbstract) {
                 $vars[$key] = $value;
             }
         }

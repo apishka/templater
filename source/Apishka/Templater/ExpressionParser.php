@@ -333,7 +333,7 @@ class Apishka_Templater_ExpressionParser
                     throw new Apishka_Templater_Error_Syntax('The "attribute" function takes at least two arguments (the variable and the attributes).', $line, $this->parser->getFilename());
                 }
 
-                return Apishka_Templater_Node_Expression_GetAttr::apishka($args->getNode(0), $args->getNode(1), count($args) > 2 ? $args->getNode(2) : null, Apishka_Templater_Template::ANY_CALL, $line);
+                return Apishka_Templater_Node_Expression_GetAttr::apishka($args->getNode(0), $args->getNode(1), count($args) > 2 ? $args->getNode(2) : null, Apishka_Templater_TemplateAbstract::ANY_CALL, $line);
             default:
                 if (null !== $alias = $this->parser->getImportedSymbol('function', $name)) {
                     $arguments = Apishka_Templater_Node_Expression_Array::apishka(array(), $line);
@@ -360,7 +360,7 @@ class Apishka_Templater_ExpressionParser
         $token = $stream->next();
         $lineno = $token->getLine();
         $arguments = Apishka_Templater_Node_Expression_Array::apishka(array(), $lineno);
-        $type = Apishka_Templater_Template::ANY_CALL;
+        $type = Apishka_Templater_TemplateAbstract::ANY_CALL;
         if ($token->getValue() == '.') {
             $token = $stream->next();
             if (
@@ -373,7 +373,7 @@ class Apishka_Templater_ExpressionParser
                 $arg = Apishka_Templater_Node_Expression_Constant::apishka($token->getValue(), $lineno);
 
                 if ($stream->test(Apishka_Templater_Token::PUNCTUATION_TYPE, '(')) {
-                    $type = Apishka_Templater_Template::METHOD_CALL;
+                    $type = Apishka_Templater_TemplateAbstract::METHOD_CALL;
                     foreach ($this->parseArguments() as $n) {
                         $arguments->addElement($n);
                     }
@@ -395,7 +395,7 @@ class Apishka_Templater_ExpressionParser
                 return $node;
             }
         } else {
-            $type = Apishka_Templater_Template::ARRAY_CALL;
+            $type = Apishka_Templater_TemplateAbstract::ARRAY_CALL;
 
             // slice?
             $slice = false;

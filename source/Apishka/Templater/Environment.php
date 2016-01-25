@@ -58,7 +58,7 @@ class Apishka_Templater_Environment
      *  * charset: The charset used by the templates (default to UTF-8).
      *
      *  * base_template_class: The base template class to use for generated
-     *                         templates (default to Apishka_Templater_Template).
+     *                         templates (default to Apishka_Templater_TemplateAbstract).
      *
      *  * cache: An absolute path where to store the compiled templates,
      *           a Apishka_Templater_Cache_Interface implementation,
@@ -91,7 +91,7 @@ class Apishka_Templater_Environment
         $options = array_merge(array(
             'debug'               => false,
             'charset'             => 'UTF-8',
-            'base_template_class' => 'Apishka_Templater_Template',
+            'base_template_class' => 'Apishka_Templater_TemplateAbstract',
             'strict_variables'    => false,
             'autoescape'          => 'html',
             'cache'               => false,
@@ -310,7 +310,7 @@ class Apishka_Templater_Environment
      * @throws Apishka_Templater_Error_Loader When the template cannot be found
      * @throws Apishka_Templater_Error_Syntax When an error occurred during compilation
      *
-     * @return Apishka_Templater_Template A template instance representing the given template name
+     * @return Apishka_Templater_TemplateAbstract A template instance representing the given template name
      */
     public function loadTemplate($name, $index = null)
     {
@@ -352,7 +352,7 @@ class Apishka_Templater_Environment
      * @throws Apishka_Templater_Error_Loader When the template cannot be found
      * @throws Apishka_Templater_Error_Syntax When an error occurred during compilation
      *
-     * @return Apishka_Templater_Template A template instance representing the given template name
+     * @return Apishka_Templater_TemplateAbstract A template instance representing the given template name
      */
     public function createTemplate($template)
     {
@@ -402,15 +402,15 @@ class Apishka_Templater_Environment
     /**
      * Tries to load a template consecutively from an array.
      *
-     * Similar to loadTemplate() but it also accepts Apishka_Templater_Template instances and an array
+     * Similar to loadTemplate() but it also accepts Apishka_Templater_TemplateAbstract instances and an array
      * of templates where each is tried to be loaded.
      *
-     * @param string|Apishka_Templater_Template|array $names A template or an array of templates to try consecutively
+     * @param string|Apishka_Templater_TemplateAbstract|array $names A template or an array of templates to try consecutively
      *
      * @throws Apishka_Templater_Error_Loader When none of the templates can be found
      * @throws Apishka_Templater_Error_Syntax When an error occurred during compilation
      *
-     * @return Apishka_Templater_Template
+     * @return Apishka_Templater_TemplateAbstract
      */
     public function resolveTemplate($names)
     {
@@ -419,7 +419,7 @@ class Apishka_Templater_Environment
         }
 
         foreach ($names as $name) {
-            if ($name instanceof Apishka_Templater_Template) {
+            if ($name instanceof Apishka_Templater_TemplateAbstract) {
                 return $name;
             }
 

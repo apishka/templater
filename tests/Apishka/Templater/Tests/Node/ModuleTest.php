@@ -46,7 +46,7 @@ class Apishka_Templater_Tests_Node_ModuleTest extends Apishka_Templater_Test_Nod
 <?php
 
 /* foo.twig */
-class __TwigTemplate_%x extends Apishka_Templater_Template
+class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
 {
     public function __construct(Apishka_Templater_Environment \$env)
     {
@@ -87,7 +87,7 @@ EOF
 <?php
 
 /* foo.twig */
-class __TwigTemplate_%x extends Apishka_Templater_Template
+class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
 {
     public function __construct(Apishka_Templater_Environment \$env)
     {
@@ -144,7 +144,7 @@ EOF
 <?php
 
 /* foo.twig */
-class __TwigTemplate_%x extends Apishka_Templater_Template
+class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
 {
     protected function doGetParent(array \$context)
     {
