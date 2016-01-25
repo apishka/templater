@@ -15,7 +15,7 @@
  * @author Fabien Potencier <fabien@symfony.com>
  */
 
-abstract class Apishka_Templater_TokenParser implements Apishka_Templater_TokenParserInterface
+abstract class Apishka_Templater_TokenParserAbstract implements Apishka_Templater_TokenParserInterface
 {
     /**
      * @var Apishka_Templater_Parser

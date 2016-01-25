@@ -17,7 +17,7 @@
  *  {% extends "base.html" %}
  * </pre>
  */
-class Apishka_Templater_TokenParser_Extends extends Apishka_Templater_TokenParser
+class Apishka_Templater_TokenParser_Extends extends Apishka_Templater_TokenParserAbstract
 {
     public function parse(Apishka_Templater_Token $token)
     {

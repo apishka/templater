@@ -162,7 +162,7 @@ EOF
     }
 }
 
-class TestTokenParser extends Apishka_Templater_TokenParser
+class TestTokenParser extends Apishka_Templater_TokenParserAbstract
 {
     public function parse(Apishka_Templater_Token $token)
     {

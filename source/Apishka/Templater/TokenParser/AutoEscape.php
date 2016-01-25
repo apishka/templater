@@ -12,7 +12,7 @@
 /**
  * Marks a section of a template to be escaped or not.
  */
-class Apishka_Templater_TokenParser_AutoEscape extends Apishka_Templater_TokenParser
+class Apishka_Templater_TokenParser_AutoEscape extends Apishka_Templater_TokenParserAbstract
 {
     public function parse(Apishka_Templater_Token $token)
     {

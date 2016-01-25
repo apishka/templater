@@ -384,7 +384,7 @@ class Apishka_Templater_Tests_EnvironmentTest_Extension extends Apishka_Template
     }
 }
 
-class Apishka_Templater_Tests_EnvironmentTest_TokenParser extends Apishka_Templater_TokenParser
+class Apishka_Templater_Tests_EnvironmentTest_TokenParser extends Apishka_Templater_TokenParserAbstract
 {
     public function parse(Apishka_Templater_Token $token)
     {

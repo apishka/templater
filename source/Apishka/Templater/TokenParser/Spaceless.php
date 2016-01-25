@@ -22,7 +22,7 @@
  * {# output will be <div><strong>foo</strong></div> #}
  * </pre>
  */
-class Apishka_Templater_TokenParser_Spaceless extends Apishka_Templater_TokenParser
+class Apishka_Templater_TokenParser_Spaceless extends Apishka_Templater_TokenParserAbstract
 {
     public function parse(Apishka_Templater_Token $token)
     {
