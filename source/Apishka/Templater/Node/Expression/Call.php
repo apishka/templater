@@ -16,6 +16,7 @@
  *
  * @uses Apishka_Templater_Node_ExpressionAbstract
  * @abstract
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 

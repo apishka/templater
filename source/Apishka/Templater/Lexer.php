@@ -51,7 +51,7 @@ class Apishka_Templater_Lexer
      * Construct
      *
      * @param Apishka_Templater_Environment $env
-     * @param array $options
+     * @param array                         $options
      */
 
     public function __construct(Apishka_Templater_Environment $env, array $options = array())
@@ -424,7 +424,7 @@ class Apishka_Templater_Lexer
     /**
      * Push token
      *
-     * @param mixed $type
+     * @param mixed  $type
      * @param string $value
      */
 

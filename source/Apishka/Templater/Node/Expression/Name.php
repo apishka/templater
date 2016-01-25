@@ -16,6 +16,7 @@
  * @easy-extend-base
  *
  * @uses Apishka_Templater_Node_ExpressionAbstract
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
