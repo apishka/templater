@@ -52,7 +52,7 @@ class Twig_NodeVisitor_SafeAnalysis extends Twig_BaseNodeVisitor
             }
         }
         $this->data[$hash][] = array(
-            'key' => $node,
+            'key'   => $node,
             'value' => $safe,
         );
     }

@@ -403,9 +403,9 @@ abstract class Twig_Template
      *
      * This is an implementation detail due to a PHP limitation before version 7.0.
      *
-     * @return mixed The content of the context variable
-     *
      * @throws Twig_Error_Runtime if the variable does not exist and Twig is running in strict mode
+     *
+     * @return mixed The content of the context variable
      *
      * @internal
      */
@@ -424,9 +424,9 @@ abstract class Twig_Template
      * @param bool   $isDefinedTest     Whether this is only a defined check
      * @param bool   $ignoreStrictCheck Whether to ignore the strict attribute check or not
      *
-     * @return mixed The attribute value, or a Boolean when $isDefinedTest is true, or null when the attribute is not set and $ignoreStrictCheck is true
-     *
      * @throws Twig_Error_Runtime if the attribute does not exist and Twig is running in strict mode and $isDefinedTest is false
+     *
+     * @return mixed The attribute value, or a Boolean when $isDefinedTest is true, or null when the attribute is not set and $ignoreStrictCheck is true
      */
     protected function getAttribute($object, $item, array $arguments = array(), $type = self::ANY_CALL, $isDefinedTest = false, $ignoreStrictCheck = false)
     {
@@ -535,10 +535,10 @@ abstract class Twig_Template
         $lcItem = strtolower($item);
         if (isset(self::$cache[$class]['methods'][$lcItem])) {
             $method = (string) $item;
-        } elseif (isset(self::$cache[$class]['methods']['get'.$lcItem])) {
-            $method = 'get'.$item;
-        } elseif (isset(self::$cache[$class]['methods']['is'.$lcItem])) {
-            $method = 'is'.$item;
+        } elseif (isset(self::$cache[$class]['methods']['get' . $lcItem])) {
+            $method = 'get' . $item;
+        } elseif (isset(self::$cache[$class]['methods']['is' . $lcItem])) {
+            $method = 'is' . $item;
         } elseif (isset(self::$cache[$class]['methods']['__call'])) {
             $method = (string) $item;
             $call = true;

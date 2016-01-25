@@ -389,7 +389,7 @@ class Twig_ExpressionParser
 
                 $name = $arg->getAttribute('value');
 
-                $node = new Twig_Node_Expression_MethodCall($node, 'macro_'.$name, $arguments, $lineno);
+                $node = new Twig_Node_Expression_MethodCall($node, 'macro_' . $name, $arguments, $lineno);
                 $node->setAttribute('safe', true);
 
                 return $node;
@@ -471,9 +471,9 @@ class Twig_ExpressionParser
      * @param bool $namedArguments Whether to allow named arguments or not
      * @param bool $definition     Whether we are parsing arguments for a function definition
      *
-     * @return Twig_Node
-     *
      * @throws Twig_Error_Syntax
+     *
+     * @return Twig_Node
      */
     public function parseArguments($namedArguments = false, $definition = false)
     {

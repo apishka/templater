@@ -61,11 +61,11 @@ class Twig_Tests_LexerTest extends PHPUnit_Framework_TestCase
     public function testLineDirective()
     {
         $template = "foo\n"
-            ."bar\n"
-            ."{% line 10 %}\n"
-            ."{{\n"
-            ."baz\n"
-            ."}}\n";
+            . "bar\n"
+            . "{% line 10 %}\n"
+            . "{{\n"
+            . "baz\n"
+            . "}}\n";
 
         $lexer = new Twig_Lexer(new Twig_Environment($this->getMock('Twig_LoaderInterface')));
         $stream = $lexer->tokenize($template);
@@ -83,9 +83,9 @@ class Twig_Tests_LexerTest extends PHPUnit_Framework_TestCase
     public function testLineDirectiveInline()
     {
         $template = "foo\n"
-            ."bar{% line 10 %}{{\n"
-            ."baz\n"
-            ."}}\n";
+            . "bar{% line 10 %}{{\n"
+            . "baz\n"
+            . "}}\n";
 
         $lexer = new Twig_Lexer(new Twig_Environment($this->getMock('Twig_LoaderInterface')));
         $stream = $lexer->tokenize($template);
@@ -100,7 +100,7 @@ class Twig_Tests_LexerTest extends PHPUnit_Framework_TestCase
 
     public function testLongComments()
     {
-        $template = '{# '.str_repeat('*', 100000).' #}';
+        $template = '{# ' . str_repeat('*', 100000) . ' #}';
 
         $lexer = new Twig_Lexer(new Twig_Environment($this->getMock('Twig_LoaderInterface')));
         $lexer->tokenize($template);
@@ -110,7 +110,7 @@ class Twig_Tests_LexerTest extends PHPUnit_Framework_TestCase
 
     public function testLongVerbatim()
     {
-        $template = '{% verbatim %}'.str_repeat('*', 100000).'{% endverbatim %}';
+        $template = '{% verbatim %}' . str_repeat('*', 100000) . '{% endverbatim %}';
 
         $lexer = new Twig_Lexer(new Twig_Environment($this->getMock('Twig_LoaderInterface')));
         $lexer->tokenize($template);
@@ -120,7 +120,7 @@ class Twig_Tests_LexerTest extends PHPUnit_Framework_TestCase
 
     public function testLongVar()
     {
-        $template = '{{ '.str_repeat('x', 100000).' }}';
+        $template = '{{ ' . str_repeat('x', 100000) . ' }}';
 
         $lexer = new Twig_Lexer(new Twig_Environment($this->getMock('Twig_LoaderInterface')));
         $lexer->tokenize($template);
@@ -130,7 +130,7 @@ class Twig_Tests_LexerTest extends PHPUnit_Framework_TestCase
 
     public function testLongBlock()
     {
-        $template = '{% '.str_repeat('x', 100000).' %}';
+        $template = '{% ' . str_repeat('x', 100000) . ' %}';
 
         $lexer = new Twig_Lexer(new Twig_Environment($this->getMock('Twig_LoaderInterface')));
         $lexer->tokenize($template);

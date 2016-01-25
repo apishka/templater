@@ -16,7 +16,7 @@ class Twig_Tests_ErrorTest extends PHPUnit_Framework_TestCase
         $error = new Twig_Error('foo');
         $error->setTemplateFile(new SplFileInfo(__FILE__));
 
-        $this->assertContains('tests'.DIRECTORY_SEPARATOR.'Twig'.DIRECTORY_SEPARATOR.'Tests'.DIRECTORY_SEPARATOR.'ErrorTest.php', $error->getMessage());
+        $this->assertContains('tests' . DIRECTORY_SEPARATOR . 'Twig' . DIRECTORY_SEPARATOR . 'Tests' . DIRECTORY_SEPARATOR . 'ErrorTest.php', $error->getMessage());
     }
 
     public function testErrorWithArrayFilename()
@@ -29,7 +29,7 @@ class Twig_Tests_ErrorTest extends PHPUnit_Framework_TestCase
 
     public function testTwigExceptionAddsFileAndLineWhenMissingWithInheritanceOnDisk()
     {
-        $loader = new Twig_Loader_Filesystem(__DIR__.'/Fixtures/errors');
+        $loader = new Twig_Loader_Filesystem(__DIR__ . '/Fixtures/errors');
         $twig = new Twig_Environment($loader, array('strict_variables' => true, 'debug' => true, 'cache' => false));
 
         $template = $twig->loadTemplate('index.html');
@@ -99,7 +99,7 @@ class Twig_Tests_ErrorTest extends PHPUnit_Framework_TestCase
             // error occurs in an included template
             array(
                 array(
-                    'index' => "{% include 'partial' %}",
+                    'index'   => "{% include 'partial' %}",
                     'partial' => '{{ foo.bar }}',
                 ),
                 'partial', 1,

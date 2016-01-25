@@ -28,9 +28,9 @@ interface Twig_TokenParserInterface
      *
      * @param Twig_Token $token A Twig_Token instance
      *
-     * @return Twig_Node A Twig_Node instance
-     *
      * @throws Twig_Error_Syntax
+     *
+     * @return Twig_Node A Twig_Node instance
      */
     public function parse(Twig_Token $token);
 

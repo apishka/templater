@@ -29,7 +29,7 @@ class Twig_TemplateIterator implements IteratorAggregate
                         if (Twig_Loader_Filesystem::MAIN_NAMESPACE === $namespace) {
                             $templates[] = substr($file->getPathname(), strlen($path) + 1);
                         } else {
-                            $templates[] = '@'.$namespace.'/'.$file->getPathname();
+                            $templates[] = '@' . $namespace . '/' . $file->getPathname();
                         }
                     }
                 }

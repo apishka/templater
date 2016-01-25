@@ -136,9 +136,9 @@ class Twig_Error extends Exception
      * @param string $method    The method name
      * @param array  $arguments The parameters to be passed to the method
      *
-     * @return Exception The previous exception or null
-     *
      * @throws BadMethodCallException
+     *
+     * @return Exception The previous exception or null
      */
     public function __call($method, $arguments)
     {

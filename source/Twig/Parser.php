@@ -265,7 +265,7 @@ class Twig_Parser
      */
     public function isReservedMacroName($name)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.0 and will be removed in 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The ' . __METHOD__ . ' method is deprecated since version 2.0 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         return false;
     }
@@ -364,7 +364,7 @@ class Twig_Parser
             ||
             (!$node instanceof Twig_Node_Text && !$node instanceof Twig_Node_BlockReference && $node instanceof Twig_NodeOutputInterface)
         ) {
-            if (false !== strpos((string) $node, chr(0xEF).chr(0xBB).chr(0xBF))) {
+            if (false !== strpos((string) $node, chr(0xEF) . chr(0xBB) . chr(0xBF))) {
                 throw new Twig_Error_Syntax('A template that extends another one cannot have a body but a byte order mark (BOM) has been detected; it must be removed.', $node->getLine(), $this->getFilename());
             }
 

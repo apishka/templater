@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-require_once dirname(__DIR__).'/FilesystemHelper.php';
+require_once dirname(__DIR__) . '/FilesystemHelper.php';
 
 class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
 {
@@ -20,8 +20,8 @@ class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $nonce = hash('sha256', uniqid(mt_rand(), true));
-        $this->classname = '__Twig_Tests_Cache_FilesystemTest_Template_'.$nonce;
-        $this->directory = sys_get_temp_dir().'/twig-test';
+        $this->classname = '__Twig_Tests_Cache_FilesystemTest_Template_' . $nonce;
+        $this->directory = sys_get_temp_dir() . '/twig-test';
         $this->cache = new Twig_Cache_Filesystem($this->directory);
     }
 
@@ -34,7 +34,7 @@ class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
 
     public function testLoad()
     {
-        $key = $this->directory.'/cache/cachefile.php';
+        $key = $this->directory . '/cache/cachefile.php';
 
         $dir = dirname($key);
         @mkdir($dir, 0777, true);
@@ -51,7 +51,7 @@ class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
 
     public function testLoadMissing()
     {
-        $key = $this->directory.'/cache/cachefile.php';
+        $key = $this->directory . '/cache/cachefile.php';
 
         $this->assertFalse(class_exists($this->classname, false));
 
@@ -62,7 +62,7 @@ class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
 
     public function testWrite()
     {
-        $key = $this->directory.'/cache/cachefile.php';
+        $key = $this->directory . '/cache/cachefile.php';
         $content = $this->generateSource();
 
         $this->assertFalse(file_exists($key));
@@ -85,7 +85,7 @@ class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Read-only directories not possible on Windows.');
         }
 
-        $key = $this->directory.'/cache/cachefile.php';
+        $key = $this->directory . '/cache/cachefile.php';
         $content = $this->generateSource();
 
         $this->assertFalse(file_exists($key));
@@ -107,7 +107,7 @@ class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Read-only directories not possible on Windows.');
         }
 
-        $key = $this->directory.'/cache/cachefile.php';
+        $key = $this->directory . '/cache/cachefile.php';
         $content = $this->generateSource();
 
         $this->assertFalse(file_exists($key));
@@ -115,8 +115,8 @@ class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
         // Create root directory.
         @mkdir($this->directory, 0777, true);
         // Create read-only subdirectory.
-        @mkdir($this->directory.'/cache' , 0555);
-        $this->assertTrue(is_dir($this->directory.'/cache'));
+        @mkdir($this->directory . '/cache', 0555);
+        $this->assertTrue(is_dir($this->directory . '/cache'));
 
         $this->cache->write($key, $content);
     }
@@ -127,7 +127,7 @@ class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
      */
     public function testWriteFailWriteFile()
     {
-        $key = $this->directory.'/cache/cachefile.php';
+        $key = $this->directory . '/cache/cachefile.php';
         $content = $this->generateSource();
 
         $this->assertFalse(file_exists($key));
@@ -141,7 +141,7 @@ class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
 
     public function testGetTimestamp()
     {
-        $key = $this->directory.'/cache/cachefile.php';
+        $key = $this->directory . '/cache/cachefile.php';
 
         $dir = dirname($key);
         @mkdir($dir, 0777, true);
@@ -155,7 +155,7 @@ class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
 
     public function testGetTimestampMissingFile()
     {
-        $key = $this->directory.'/cache/cachefile.php';
+        $key = $this->directory . '/cache/cachefile.php';
         $this->assertSame(0, $this->cache->getTimestamp($key));
     }
 
@@ -180,7 +180,7 @@ class Twig_Tests_Cache_FilesystemTest extends PHPUnit_Framework_TestCase
             array($pattern, 'a/b\\'),
             array($pattern, 'a/b\\/'),
             array($pattern, 'a/b\\//'),
-            array('#/'.substr($pattern, 1), '/a/b'),
+            array('#/' . substr($pattern, 1), '/a/b'),
         );
     }
 

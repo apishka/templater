@@ -104,13 +104,13 @@ class Twig_Tests_ParserTest extends PHPUnit_Framework_TestCase
 
         $m = new ReflectionMethod($parser, 'filterBodyNodes');
         $m->setAccessible(true);
-        $m->invoke($parser, new Twig_Node_Text(chr(0xEF).chr(0xBB).chr(0xBF), 1));
+        $m->invoke($parser, new Twig_Node_Text(chr(0xEF) . chr(0xBB) . chr(0xBF), 1));
     }
 
     public function testParseIsReentrant()
     {
         $twig = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array(
-            'autoescape' => false,
+            'autoescape'    => false,
             'optimizations' => 0,
         ));
         $twig->addTokenParser(new TestTokenParser());
@@ -136,7 +136,7 @@ class Twig_Tests_ParserTest extends PHPUnit_Framework_TestCase
     public function testGetVarName()
     {
         $twig = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array(
-            'autoescape' => false,
+            'autoescape'    => false,
             'optimizations' => 0,
         ));
 

@@ -89,14 +89,14 @@ class Twig_Environment
         $this->setLoader($loader);
 
         $options = array_merge(array(
-            'debug' => false,
-            'charset' => 'UTF-8',
+            'debug'               => false,
+            'charset'             => 'UTF-8',
             'base_template_class' => 'Twig_Template',
-            'strict_variables' => false,
-            'autoescape' => 'html',
-            'cache' => false,
-            'auto_reload' => null,
-            'optimizations' => -1,
+            'strict_variables'    => false,
+            'autoescape'          => 'html',
+            'cache'               => false,
+            'auto_reload'         => null,
+            'optimizations'       => -1,
         ), $options);
 
         $this->debug = (bool) $options['debug'];
@@ -266,7 +266,7 @@ class Twig_Environment
         $key .= json_encode(array_keys($this->extensions));
         $key .= function_exists('twig_template_get_attributes');
 
-        return $this->templateClassPrefix.hash('sha256', $key).(null === $index ? '' : '_'.$index);
+        return $this->templateClassPrefix . hash('sha256', $key) . (null === $index ? '' : '_' . $index);
     }
 
     /**
@@ -275,11 +275,11 @@ class Twig_Environment
      * @param string $name    The template name
      * @param array  $context An array of parameters to pass to the template
      *
-     * @return string The rendered template
-     *
      * @throws Twig_Error_Loader  When the template cannot be found
      * @throws Twig_Error_Syntax  When an error occurred during compilation
      * @throws Twig_Error_Runtime When an error occurred during rendering
+     *
+     * @return string The rendered template
      */
     public function render($name, array $context = array())
     {
@@ -307,10 +307,10 @@ class Twig_Environment
      * @param string $name  The template name
      * @param int    $index The index if it is an embedded template
      *
-     * @return Twig_Template A template instance representing the given template name
-     *
      * @throws Twig_Error_Loader When the template cannot be found
      * @throws Twig_Error_Syntax When an error occurred during compilation
+     *
+     * @return Twig_Template A template instance representing the given template name
      */
     public function loadTemplate($name, $index = null)
     {
@@ -331,7 +331,7 @@ class Twig_Environment
                 $content = $this->compileSource($this->getLoader()->getSource($name), $name);
                 $this->cache->write($key, $content);
 
-                eval('?>'.$content);
+                eval('?>' . $content);
             }
         }
 
@@ -349,10 +349,10 @@ class Twig_Environment
      *
      * @param string $template The template name
      *
-     * @return Twig_Template A template instance representing the given template name
-     *
      * @throws Twig_Error_Loader When the template cannot be found
      * @throws Twig_Error_Syntax When an error occurred during compilation
+     *
+     * @return Twig_Template A template instance representing the given template name
      */
     public function createTemplate($template)
     {
@@ -407,10 +407,10 @@ class Twig_Environment
      *
      * @param string|Twig_Template|array $names A template or an array of templates to try consecutively
      *
-     * @return Twig_Template
-     *
      * @throws Twig_Error_Loader When none of the templates can be found
      * @throws Twig_Error_Syntax When an error occurred during compilation
+     *
+     * @return Twig_Template
      */
     public function resolveTemplate($names)
     {
@@ -466,9 +466,9 @@ class Twig_Environment
      * @param string $source The template source code
      * @param string $name   The template name
      *
-     * @return Twig_TokenStream A Twig_TokenStream instance
-     *
      * @throws Twig_Error_Syntax When the code is syntactically wrong
+     *
+     * @return Twig_TokenStream A Twig_TokenStream instance
      */
     public function tokenize($source, $name = null)
     {
@@ -504,9 +504,9 @@ class Twig_Environment
      *
      * @param Twig_TokenStream $stream A token stream instance
      *
-     * @return Twig_Node_Module A node tree
-     *
      * @throws Twig_Error_Syntax When the token stream is syntactically or semantically wrong
+     *
+     * @return Twig_Node_Module A node tree
      */
     public function parse(Twig_TokenStream $stream)
     {
@@ -555,9 +555,9 @@ class Twig_Environment
      * @param string $source The template source code
      * @param string $name   The template name
      *
-     * @return string The compiled PHP source code
-     *
      * @throws Twig_Error_Syntax When there was an error during tokenizing, parsing or compiling
+     *
+     * @return string The compiled PHP source code
      */
     public function compileSource($source, $name = null)
     {
@@ -565,7 +565,7 @@ class Twig_Environment
             $compiled = $this->compile($this->parse($this->tokenize($source, $name)), $source);
 
             if (isset($source[0])) {
-                $compiled .= '/* '.str_replace(array('*/', "\r\n", "\r", "\n"), array('*//* ', "\n", "\n", "*/\n/* "), $source)."*/\n";
+                $compiled .= '/* ' . str_replace(array('*/', "\r\n", "\r", "\n"), array('*//* ', "\n", "\n", "*/\n/* "), $source) . "*/\n";
             }
 
             return $compiled;
@@ -817,7 +817,7 @@ class Twig_Environment
             $pattern = str_replace('\\*', '(.*?)', preg_quote($pattern, '#'), $count);
 
             if ($count) {
-                if (preg_match('#^'.$pattern.'$#', $name, $matches)) {
+                if (preg_match('#^' . $pattern . '$#', $name, $matches)) {
                     array_shift($matches);
                     $filter->setArguments($matches);
 
@@ -944,7 +944,7 @@ class Twig_Environment
             $pattern = str_replace('\\*', '(.*?)', preg_quote($pattern, '#'), $count);
 
             if ($count) {
-                if (preg_match('#^'.$pattern.'$#', $name, $matches)) {
+                if (preg_match('#^' . $pattern . '$#', $name, $matches)) {
                     array_shift($matches);
                     $function->setArguments($matches);
 

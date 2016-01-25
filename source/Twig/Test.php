@@ -35,8 +35,8 @@ class Twig_Test
         $this->callable = $callable;
         $this->options = array_merge(array(
             'is_variadic' => false,
-            'node_class' => 'Twig_Node_Expression_Test',
-            'deprecated' => false,
+            'node_class'  => 'Twig_Node_Expression_Test',
+            'deprecated'  => false,
             'alternative' => null,
         ), $options);
     }

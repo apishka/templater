@@ -15,12 +15,12 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
     {
         $loader = new Twig_Loader_Array(array(
             'html' => '{{ foo }} {{ foo }}',
-            'js' => '{{ bar }} {{ bar }}',
+            'js'   => '{{ bar }} {{ bar }}',
         ));
 
         $twig = new Twig_Environment($loader, array(
-            'debug' => true,
-            'cache' => false,
+            'debug'      => true,
+            'cache'      => false,
             'autoescape' => array($this, 'escapingStrategyCallback'),
         ));
 
@@ -139,7 +139,7 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
 
     public function testExtensionsAreNotInitializedWhenRenderingACompiledTemplate()
     {
-        $cache = new Twig_Cache_Filesystem($dir = sys_get_temp_dir().'/twig');
+        $cache = new Twig_Cache_Filesystem($dir = sys_get_temp_dir() . '/twig');
         $options = array('cache' => $cache, 'auto_reload' => false, 'debug' => false);
 
         // force compilation

@@ -30,7 +30,7 @@ class Twig_Profiler_Node_EnterProfile extends Twig_Node
             ->write(sprintf('$%s = $this->env->getExtension(', $this->getAttribute('var_name')))
             ->repr($this->getAttribute('extension_name'))
             ->raw(");\n")
-            ->write(sprintf('$%s->enter($%s = new Twig_Profiler_Profile($this->getTemplateName(), ', $this->getAttribute('var_name'), $this->getAttribute('var_name').'_prof'))
+            ->write(sprintf('$%s->enter($%s = new Twig_Profiler_Profile($this->getTemplateName(), ', $this->getAttribute('var_name'), $this->getAttribute('var_name') . '_prof'))
             ->repr($this->getAttribute('type'))
             ->raw(', ')
             ->repr($this->getAttribute('name'))

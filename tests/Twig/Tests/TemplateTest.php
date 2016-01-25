@@ -24,9 +24,9 @@ class Twig_Tests_TemplateTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAttributeExceptions($template, $message, $useExt)
     {
-        $name = 'index_'.($useExt ? 1 : 0);
+        $name = 'index_' . ($useExt ? 1 : 0);
         $templates = array(
-            $name => $template.$useExt, // appending $useExt makes the template content unique
+            $name => $template . $useExt, // appending $useExt makes the template content unique
         );
 
         $env = new Twig_Environment(new Twig_Loader_Array($templates), array('strict_variables' => true));
@@ -36,13 +36,13 @@ class Twig_Tests_TemplateTest extends PHPUnit_Framework_TestCase
         $template = $env->loadTemplate($name);
 
         $context = array(
-            'string' => 'foo',
-            'null' => null,
-            'empty_array' => array(),
-            'array' => array('foo' => 'foo'),
-            'array_access' => new Twig_TemplateArrayAccessObject(),
+            'string'          => 'foo',
+            'null'            => null,
+            'empty_array'     => array(),
+            'array'           => array('foo' => 'foo'),
+            'array_access'    => new Twig_TemplateArrayAccessObject(),
             'magic_exception' => new Twig_TemplateMagicPropertyObjectWithException(),
-            'object' => new stdClass(),
+            'object'          => new stdClass(),
         );
 
         try {
@@ -282,12 +282,12 @@ class Twig_Tests_TemplateTest extends PHPUnit_Framework_TestCase
     {
         $array = array(
             'defined' => 'defined',
-            'zero' => 0,
-            'null' => null,
-            '1' => 1,
-            'bar' => true,
-            '09' => '09',
-            '+4' => '+4',
+            'zero'    => 0,
+            'null'    => null,
+            '1'       => 1,
+            'bar'     => true,
+            '09'      => '09',
+            '+4'      => '+4',
         );
 
         $objectArray = new Twig_TemplateArrayAccessObject();
@@ -479,12 +479,12 @@ class Twig_TemplateArrayAccessObject implements ArrayAccess
 
     public $attributes = array(
         'defined' => 'defined',
-        'zero' => 0,
-        'null' => null,
-        '1' => 1,
-        'bar' => true,
-        '09' => '09',
-        '+4' => '+4',
+        'zero'    => 0,
+        'null'    => null,
+        '1'       => 1,
+        'bar'     => true,
+        '09'      => '09',
+        '+4'      => '+4',
     );
 
     public function offsetExists($name)
@@ -513,10 +513,10 @@ class Twig_TemplateMagicPropertyObject
     public $attributes = array(
         'zero' => 0,
         'null' => null,
-        '1' => 1,
-        'bar' => true,
-        '09' => '09',
-        '+4' => '+4',
+        '1'    => 1,
+        'bar'  => true,
+        '09'   => '09',
+        '+4'   => '+4',
     );
 
     protected $protected = 'protected';
@@ -658,7 +658,7 @@ class Twig_TemplateMagicMethodObject
 {
     public function __call($method, $arguments)
     {
-        return '__call_'.$method;
+        return '__call_' . $method;
     }
 }
 

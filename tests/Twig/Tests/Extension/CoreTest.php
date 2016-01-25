@@ -146,5 +146,5 @@ class Twig_Tests_Extension_CoreTest extends PHPUnit_Framework_TestCase
 
 function foo_escaper_for_test(Twig_Environment $env, $string, $charset)
 {
-    return $string.$charset;
+    return $string . $charset;
 }

@@ -15,15 +15,15 @@
 class Twig_Profiler_Dumper_Html extends Twig_Profiler_Dumper_Text
 {
     private static $colors = array(
-        'block' => '#dfd',
-        'macro' => '#ddf',
+        'block'    => '#dfd',
+        'macro'    => '#ddf',
         'template' => '#ffd',
-        'big' => '#d44',
+        'big'      => '#d44',
     );
 
     public function dump(Twig_Profiler_Profile $profile)
     {
-        return '<pre>'.parent::dump($profile).'</pre>';
+        return '<pre>' . parent::dump($profile) . '</pre>';
     }
 
     protected function formatTemplate(Twig_Profiler_Profile $profile, $prefix)

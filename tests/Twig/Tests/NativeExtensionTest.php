@@ -18,8 +18,8 @@ class Twig_Tests_NativeExtensionTest extends PHPUnit_Framework_TestCase
         }
 
         $twig = new Twig_Environment(new Twig_Loader_Array(array('index' => '{{ d1.date }}{{ d2.date }}')), array(
-            'debug' => true,
-            'cache' => false,
+            'debug'      => true,
+            'cache'      => false,
             'autoescape' => false,
         ));
 
@@ -28,6 +28,6 @@ class Twig_Tests_NativeExtensionTest extends PHPUnit_Framework_TestCase
         $output = $twig->render('index', compact('d1', 'd2'));
 
         // If it fails, PHP will crash.
-        $this->assertEquals($output, $d1->date.$d2->date);
+        $this->assertEquals($output, $d1->date . $d2->date);
     }
 }

@@ -21,9 +21,9 @@ interface Twig_LoaderInterface
      *
      * @param string $name The name of the template to load
      *
-     * @return string The template source code
-     *
      * @throws Twig_Error_Loader When $name is not found
+     *
+     * @return string The template source code
      */
     public function getSource($name);
 
@@ -32,9 +32,9 @@ interface Twig_LoaderInterface
      *
      * @param string $name The name of the template to load
      *
-     * @return string The cache key
-     *
      * @throws Twig_Error_Loader When $name is not found
+     *
+     * @return string The cache key
      */
     public function getCacheKey($name);
 
@@ -45,9 +45,9 @@ interface Twig_LoaderInterface
      * @param int    $time Timestamp of the last modification time of the
      *                     cached template
      *
-     * @return bool true if the template is fresh, false otherwise
-     *
      * @throws Twig_Error_Loader When $name is not found
+     *
+     * @return bool true if the template is fresh, false otherwise
      */
     public function isFresh($name, $time);
 

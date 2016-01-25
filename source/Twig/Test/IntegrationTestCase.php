@@ -100,10 +100,10 @@ abstract class Twig_Test_IntegrationTestCase extends PHPUnit_Framework_TestCase
                 $exception = false;
                 preg_match_all('/--DATA--(.*?)(?:--CONFIG--(.*?))?--EXPECT--(.*?)(?=\-\-DATA\-\-|$)/s', $test, $outputs, PREG_SET_ORDER);
             } else {
-                throw new InvalidArgumentException(sprintf('Test "%s" is not valid.', str_replace($fixturesDir.'/', '', $file)));
+                throw new InvalidArgumentException(sprintf('Test "%s" is not valid.', str_replace($fixturesDir . '/', '', $file)));
             }
 
-            $tests[] = array(str_replace($fixturesDir.'/', '', $file), $message, $condition, $templates, $exception, $outputs);
+            $tests[] = array(str_replace($fixturesDir . '/', '', $file), $message, $condition, $templates, $exception, $outputs);
         }
 
         if ($legacyTests && empty($tests)) {
@@ -122,7 +122,7 @@ abstract class Twig_Test_IntegrationTestCase extends PHPUnit_Framework_TestCase
     protected function doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs)
     {
         if ($condition) {
-            eval('$ret = '.$condition.';');
+            eval('$ret = ' . $condition . ';');
             if (!$ret) {
                 $this->markTestSkipped($condition);
             }
@@ -132,9 +132,9 @@ abstract class Twig_Test_IntegrationTestCase extends PHPUnit_Framework_TestCase
 
         foreach ($outputs as $i => $match) {
             $config = array_merge(array(
-                'cache' => false,
+                'cache'            => false,
                 'strict_variables' => true,
-            ), $match[2] ? eval($match[2].';') : array());
+            ), $match[2] ? eval($match[2] . ';') : array());
             $twig = new Twig_Environment($loader, $config);
             $twig->addGlobal('global', 'global');
             foreach ($this->getExtensions() as $extension) {
@@ -156,7 +156,7 @@ abstract class Twig_Test_IntegrationTestCase extends PHPUnit_Framework_TestCase
             // avoid using the same PHP class name for different cases
             $p = new ReflectionProperty($twig, 'templateClassPrefix');
             $p->setAccessible(true);
-            $p->setValue($twig, '__TwigTemplate_'.hash('sha256', uniqid(mt_rand(), true), false).'_');
+            $p->setValue($twig, '__TwigTemplate_' . hash('sha256', uniqid(mt_rand(), true), false) . '_');
 
             try {
                 $template = $twig->loadTemplate('index.twig');
@@ -179,7 +179,7 @@ abstract class Twig_Test_IntegrationTestCase extends PHPUnit_Framework_TestCase
             }
 
             try {
-                $output = trim($template->render(eval($match[1].';')), "\n ");
+                $output = trim($template->render(eval($match[1] . ';')), "\n ");
             } catch (Exception $e) {
                 if (false !== $exception) {
                     $this->assertSame(trim($exception), trim(sprintf('%s: %s', get_class($e), $e->getMessage())));
@@ -212,7 +212,7 @@ abstract class Twig_Test_IntegrationTestCase extends PHPUnit_Framework_TestCase
                     echo $twig->compile($twig->parse($twig->tokenize($source, $name)));
                 }
             }
-            $this->assertEquals($expected, $output, $message.' (in '.$file.')');
+            $this->assertEquals($expected, $output, $message . ' (in ' . $file . ')');
         }
     }
 

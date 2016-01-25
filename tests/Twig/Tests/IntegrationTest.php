@@ -32,7 +32,7 @@ class Twig_Tests_IntegrationTest extends Twig_Test_IntegrationTestCase
 
     public function getFixturesDir()
     {
-        return __DIR__.'/Fixtures/';
+        return __DIR__ . '/Fixtures/';
     }
 }
 
@@ -50,7 +50,7 @@ class TwigTestFoo implements Iterator
 
     public function bar($param1 = null, $param2 = null)
     {
-        return 'bar'.($param1 ? '_'.$param1 : '').($param2 ? '-'.$param2 : '');
+        return 'bar' . ($param1 ? '_' . $param1 : '') . ($param2 ? '-' . $param2 : '');
     }
 
     public function getFoo()
@@ -143,7 +143,7 @@ class TwigTestExtension extends Twig_Extension
             new Twig_Filter('preserves_safety', array($this, 'preserves_safety'), array('preserves_safety' => array('html'))),
             new Twig_Filter('*_path', array($this, 'dynamic_path')),
             new Twig_Filter('*_foo_*_bar', array($this, 'dynamic_foo')),
-            new Twig_Filter('anon_foo', function ($name) { return '*'.$name.'*'; }),
+            new Twig_Filter('anon_foo', function ($name) { return '*' . $name . '*'; }),
         );
     }
 
@@ -155,7 +155,7 @@ class TwigTestExtension extends Twig_Extension
             new Twig_Function('unsafe_br', array($this, 'br')),
             new Twig_Function('*_path', array($this, 'dynamic_path')),
             new Twig_Function('*_foo_*_bar', array($this, 'dynamic_foo')),
-            new Twig_Function('anon_foo', function ($name) { return '*'.$name.'*'; }),
+            new Twig_Function('anon_foo', function ($name) { return '*' . $name . '*'; }),
         );
     }
 
@@ -196,12 +196,12 @@ class TwigTestExtension extends Twig_Extension
 
     public function dynamic_path($element, $item)
     {
-        return $element.'/'.$item;
+        return $element . '/' . $item;
     }
 
     public function dynamic_foo($foo, $bar, $item)
     {
-        return $foo.'/'.$bar.'/'.$item;
+        return $foo . '/' . $bar . '/' . $item;
     }
 
     public function escape_something($value)
