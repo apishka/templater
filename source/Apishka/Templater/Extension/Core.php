@@ -275,8 +275,8 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
             new Apishka_Templater_Test('null', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Null')),
             new Apishka_Templater_Test('divisible by', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Divisibleby')),
             new Apishka_Templater_Test('constant', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Constant')),
-            new Apishka_Templater_Test('empty', 'twig_test_empty'),
-            new Apishka_Templater_Test('iterable', 'twig_test_iterable'),
+            new Apishka_Templater_Test('empty', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Empty')),
+            new Apishka_Templater_Test('iterable', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Iterable')),
         );
     }
 
