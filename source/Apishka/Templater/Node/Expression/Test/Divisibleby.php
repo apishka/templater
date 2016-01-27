@@ -22,6 +22,19 @@
  */
 class Apishka_Templater_Node_Expression_Test_Divisibleby extends Apishka_Templater_Node_Expression_Test
 {
+    /**
+     * Get supported names
+     *
+     * @return array
+     */
+
+    public function getSupportedNames()
+    {
+        return array(
+            'divisible by',
+        );
+    }
+
     public function compile(Apishka_Templater_Compiler $compiler)
     {
         $compiler

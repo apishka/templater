@@ -25,6 +25,19 @@
  */
 class Apishka_Templater_Node_Expression_Test_Defined extends Apishka_Templater_Node_Expression_Test
 {
+    /**
+     * Get supported names
+     *
+     * @return array
+     */
+
+    public function getSupportedNames()
+    {
+        return array(
+            'defined',
+        );
+    }
+
     public function __construct(Apishka_Templater_NodeAbstract $node, $name, Apishka_Templater_NodeAbstract $arguments = null, $lineno)
     {
         parent::__construct($node, $name, $arguments, $lineno);
