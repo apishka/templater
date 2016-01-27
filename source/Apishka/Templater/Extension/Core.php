@@ -267,16 +267,16 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
     public function getTests()
     {
         return array(
-            new Apishka_Templater_Test('even', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Even')),
-            new Apishka_Templater_Test('odd', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Odd')),
-            new Apishka_Templater_Test('defined', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Defined')),
-            new Apishka_Templater_Test('same as', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Sameas')),
-            new Apishka_Templater_Test('none', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Null')),
-            new Apishka_Templater_Test('null', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Null')),
-            new Apishka_Templater_Test('divisible by', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Divisibleby')),
-            new Apishka_Templater_Test('constant', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Constant')),
-            new Apishka_Templater_Test('empty', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Empty')),
-            new Apishka_Templater_Test('iterable', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Iterable')),
+            Apishka_Templater_Test::apishka('even', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Even')),
+            Apishka_Templater_Test::apishka('odd', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Odd')),
+            Apishka_Templater_Test::apishka('defined', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Defined')),
+            Apishka_Templater_Test::apishka('same as', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Sameas')),
+            Apishka_Templater_Test::apishka('none', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Null')),
+            Apishka_Templater_Test::apishka('null', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Null')),
+            Apishka_Templater_Test::apishka('divisible by', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Divisibleby')),
+            Apishka_Templater_Test::apishka('constant', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Constant')),
+            Apishka_Templater_Test::apishka('empty', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Empty')),
+            Apishka_Templater_Test::apishka('iterable', null, array('node_class' => 'Apishka_Templater_Node_Expression_Test_Iterable')),
         );
     }
 

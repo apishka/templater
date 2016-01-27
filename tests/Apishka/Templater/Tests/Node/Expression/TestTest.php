@@ -68,7 +68,7 @@ class Apishka_Templater_Tests_Node_Expression_TestTest extends Apishka_Templater
     protected function getEnvironment()
     {
         $env = new Apishka_Templater_Environment(new Apishka_Templater_Loader_Array(array()));
-        $env->addTest(new Apishka_Templater_Test('anonymous', function () {}));
+        $env->addTest(Apishka_Templater_Test::apishka('anonymous', function () {}));
 
         return $env;
     }

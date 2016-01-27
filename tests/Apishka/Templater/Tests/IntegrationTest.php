@@ -162,7 +162,7 @@ class TwigTestExtension extends Apishka_Templater_ExtensionAbstract
     public function getTests()
     {
         return array(
-            new Apishka_Templater_Test('multi word', array($this, 'is_multi_word')),
+            Apishka_Templater_Test::apishka('multi word', array($this, 'is_multi_word')),
         );
     }
 

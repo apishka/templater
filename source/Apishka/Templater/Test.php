@@ -18,6 +18,12 @@
  */
 class Apishka_Templater_Test
 {
+    /**
+     * Traits
+     */
+
+    use Apishka\EasyExtend\Helper\ByClassNameTrait;
+
     private $name;
     private $callable;
     private $options;

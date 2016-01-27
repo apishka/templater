@@ -352,7 +352,7 @@ class Apishka_Templater_Tests_EnvironmentTest_Extension extends Apishka_Template
     public function getTests()
     {
         return array(
-            new Apishka_Templater_Test('foo_test'),
+            Apishka_Templater_Test::apishka('foo_test'),
         );
     }
 
