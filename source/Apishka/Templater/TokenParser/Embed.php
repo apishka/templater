@@ -11,6 +11,9 @@
 
 /**
  * Embeds a template.
+ *
+ * @easy-extend-base
+ *
  */
 class Apishka_Templater_TokenParser_Embed extends Apishka_Templater_TokenParser_Include
 {

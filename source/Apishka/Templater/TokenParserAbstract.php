@@ -18,6 +18,12 @@
 abstract class Apishka_Templater_TokenParserAbstract implements Apishka_Templater_TokenParserInterface
 {
     /**
+     * Traits
+     */
+
+    use Apishka\EasyExtend\Helper\ByClassNameTrait;
+
+    /**
      * @var Apishka_Templater_Parser
      */
     protected $parser;

@@ -13,6 +13,8 @@
 /**
  * Includes a template.
  *
+ * @easy-extend-base
+ *
  * <pre>
  *   {% include 'header.html' %}
  *     Body
