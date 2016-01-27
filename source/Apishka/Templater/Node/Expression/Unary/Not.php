@@ -11,8 +11,38 @@
  */
 class Apishka_Templater_Node_Expression_Unary_Not extends Apishka_Templater_Node_Expression_UnaryAbstract
 {
+    /**
+     * Get supported names
+     *
+     * @return array
+     */
+
+    public function getSupportedNames()
+    {
+        return array(
+            'not',
+        );
+    }
+
+    /**
+     * Operator
+     *
+     * @param Apishka_Templater_Compiler $compiler
+     */
+
     public function operator(Apishka_Templater_Compiler $compiler)
     {
         $compiler->raw('!');
+    }
+
+    /**
+     * Get precedence
+     *
+     * @return int
+     */
+
+    public function getPrecedence()
+    {
+        return 500;
     }
 }

@@ -11,6 +11,49 @@
  */
 class Apishka_Templater_Node_Expression_Binary_Or extends Apishka_Templater_Node_Expression_BinaryAbstract
 {
+    /**
+     * Get supported names
+     *
+     * @return array
+     */
+
+    public function getSupportedNames()
+    {
+        return array(
+            'or',
+        );
+    }
+
+    /**
+     * Get precedence
+     *
+     * @return int
+     */
+
+    public function getPrecedence()
+    {
+        return 10;
+    }
+
+    /**
+     * Get associativity
+     *
+     * @return int
+     */
+
+    public function getAssociativity()
+    {
+        return Apishka_Templater_ExpressionParser::OPERATOR_LEFT;
+    }
+
+    /**
+     * Operator
+     *
+     * @param Apishka_Templater_Compiler $compiler
+     *
+     * @return Apishka_Templater_Compiler
+     */
+
     public function operator(Apishka_Templater_Compiler $compiler)
     {
         return $compiler->raw('||');

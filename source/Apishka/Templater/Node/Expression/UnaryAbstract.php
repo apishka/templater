@@ -14,12 +14,13 @@
  * Apishka templater node expression unary abstract
  *
  * @uses Apishka_Templater_Node_ExpressionAbstract
+ * @uses Apishka_Templater_Node_Expression_UnaryInterface
  * @abstract
  *
  * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
-abstract class Apishka_Templater_Node_Expression_UnaryAbstract extends Apishka_Templater_Node_ExpressionAbstract
+abstract class Apishka_Templater_Node_Expression_UnaryAbstract extends Apishka_Templater_Node_ExpressionAbstract implements Apishka_Templater_Node_Expression_UnaryInterface
 {
     /**
      * Construct

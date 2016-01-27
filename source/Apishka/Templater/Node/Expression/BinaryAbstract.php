@@ -14,13 +14,25 @@
  * Apishka templater node expression binary abstract
  *
  * @uses Apishka_Templater_Node_ExpressionAbstract
+ * @uses Apishka_Templater_Node_Expression_BinaryInterface
  * @abstract
  *
  * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
-abstract class Apishka_Templater_Node_Expression_BinaryAbstract extends Apishka_Templater_Node_ExpressionAbstract
+abstract class Apishka_Templater_Node_Expression_BinaryAbstract extends Apishka_Templater_Node_ExpressionAbstract implements Apishka_Templater_Node_Expression_BinaryInterface
 {
+    /**
+     * Get type name
+     *
+     * @return string
+     */
+
+    public function getTypeName()
+    {
+        return 'common';
+    }
+
     /**
      * Construct
      *

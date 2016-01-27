@@ -1,18 +1,49 @@
 <?php
 
-/*
- * This file is part of Twig.
+/**
+ * Apishka templater node expression unary neg
  *
- * (c) 2009 Fabien Potencier
- * (c) 2009 Armin Ronacher
+ * @easy-extend-base
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * @uses Apishka_Templater_Node_Expression_UnaryAbstract
+ *
+ * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
+
 class Apishka_Templater_Node_Expression_Unary_Neg extends Apishka_Templater_Node_Expression_UnaryAbstract
 {
+    /**
+     * Get supported names
+     *
+     * @return array
+     */
+
+    public function getSupportedNames()
+    {
+        return array(
+            '-',
+        );
+    }
+
+    /**
+     * Operator
+     *
+     * @param Apishka_Templater_Compiler $compiler
+     */
+
     public function operator(Apishka_Templater_Compiler $compiler)
     {
         $compiler->raw('-');
+    }
+
+    /**
+     * Get precedence
+     *
+     * @return int
+     */
+
+    public function getPrecedence()
+    {
+        return 500;
     }
 }

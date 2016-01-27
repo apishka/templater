@@ -40,14 +40,23 @@ class Apishka_Templater_ExpressionParser
     {
         $expr = $this->getPrimary();
         $token = $this->parser->getCurrentToken();
-        while ($this->isBinary($token) && $this->binaryOperators[$token->getValue()]['precedence'] >= $precedence) {
+        while ($this->isBinary($token) && $this->binaryOperators[$token->getValue()]['precedence'] >= $precedence)
+        {
             $op = $this->binaryOperators[$token->getValue()];
             $this->parser->getStream()->next();
 
-            if (isset($op['callable'])) {
+            if (isset($op['callable']))
+            {
                 $expr = $op['callable']($this->parser, $expr);
-            } else {
-                $expr1 = $this->parseExpression(self::OPERATOR_LEFT === $op['associativity'] ? $op['precedence'] + 1 : $op['precedence']);
+            }
+            else
+            {
+                $expr1 = $this->parseExpression(
+                    self::OPERATOR_LEFT === $op['associativity']
+                        ? $op['precedence'] + 1
+                        : $op['precedence']
+                );
+
                 $class = $op['class'];
                 $expr = new $class($expr, $expr1, $token->getLine());
             }

@@ -337,7 +337,10 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
 
     public function parseNotTestExpression(Apishka_Templater_Parser $parser, Apishka_Templater_NodeAbstract $node)
     {
-        return Apishka_Templater_Node_Expression_Unary_Not::apishka($this->parseTestExpression($parser, $node), $parser->getCurrentToken()->getLine());
+        return Apishka_Templater_Node_Expression_Unary_Not::apishka(
+            $this->parseTestExpression($parser, $node),
+            $parser->getCurrentToken()->getLine()
+        );
     }
 
     /**
