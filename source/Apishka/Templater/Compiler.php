@@ -15,30 +15,93 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
+
 class Apishka_Templater_Compiler
 {
-    private $lastLine;
-    private $source;
-    private $indentation;
-    private $env;
-    private $debugInfo = array();
-    private $sourceOffset;
-    private $sourceLine;
-    private $filename;
+    /**
+     * Debug info
+     *
+     * @var array
+     */
+
+    private $_debug_info = array();
+
+    /**
+     * Last line
+     *
+     * @var int
+     */
+
+    private $_last_line;
+
+    /**
+     * Indentation
+     *
+     * @var int
+     */
+
+    private $_indentation;
+
+    /**
+     * Env
+     *
+     * @var Apishka_Templater_Environment
+     */
+
+    private $_env;
+
+    /**
+     * Source
+     *
+     * @var mixed
+     */
+
+    private $_source;
+
+    /**
+     * Source offset
+     *
+     * @var int
+     */
+
+    private $_source_offset;
+
+    /**
+     * Source line
+     *
+     * @var int
+     */
+
+    private $_source_line;
+
+    /**
+     * Filename
+     *
+     * @var string
+     */
+
+    private $_filename;
 
     /**
      * Constructor.
      *
      * @param Apishka_Templater_Environment $env The twig environment instance
      */
+
     public function __construct(Apishka_Templater_Environment $env)
     {
-        $this->env = $env;
+        $this->_env = $env;
     }
+
+    /**
+     * Get filename
+     *
+     * @return string
+     */
 
     public function getFilename()
     {
-        return $this->filename;
+        return $this->_filename;
     }
 
     /**
@@ -46,9 +109,10 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Environment The environment instance
      */
+
     public function getEnvironment()
     {
-        return $this->env;
+        return $this->_env;
     }
 
     /**
@@ -56,9 +120,10 @@ class Apishka_Templater_Compiler
      *
      * @return string The PHP code
      */
+
     public function getSource()
     {
-        return $this->source;
+        return $this->_source;
     }
 
     /**
@@ -69,30 +134,38 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */
+
     public function compile(Apishka_Templater_NodeAbstract $node, $indentation = 0)
     {
-        $this->lastLine = null;
-        $this->source = '';
-        $this->debugInfo = array();
-        $this->sourceOffset = 0;
+        $this->_last_line = null;
+        $this->_source = '';
+        $this->_debug_info = array();
+        $this->_source_offset = 0;
         // source code starts at 1 (as we then increment it when we encounter new lines)
-        $this->sourceLine = 1;
-        $this->indentation = $indentation;
+        $this->_source_line = 1;
+        $this->_indentation = $indentation;
 
-        if ($node instanceof Apishka_Templater_Node_Module) {
-            $this->filename = $node->getAttribute('filename');
-        }
+        if ($node instanceof Apishka_Templater_Node_Module)
+            $this->_filename = $node->getAttribute('filename');
 
         $node->compile($this);
 
         return $this;
     }
 
+    /**
+     * Subcompile
+     *
+     * @param Apishka_Templater_NodeAbstract $node
+     * @param bool $raw
+     *
+     * @return Apishka_Templater_Compiler
+     */
+
     public function subcompile(Apishka_Templater_NodeAbstract $node, $raw = true)
     {
-        if (false === $raw) {
+        if (false === $raw)
             $this->addIndentation();
-        }
 
         $node->compile($this);
 
@@ -106,9 +179,10 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */
+
     public function raw($string)
     {
-        $this->source .= $string;
+        $this->_source .= $string;
 
         return $this;
     }
@@ -118,12 +192,14 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */
+
     public function write()
     {
         $strings = func_get_args();
-        foreach ($strings as $string) {
+        foreach ($strings as $string)
+        {
             $this->addIndentation();
-            $this->source .= $string;
+            $this->_source .= $string;
         }
 
         return $this;
@@ -134,9 +210,10 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */
+
     public function addIndentation()
     {
-        $this->source .= str_repeat(' ', $this->indentation * 4);
+        $this->_source .= str_repeat(' ', $this->_indentation * 4);
 
         return $this;
     }
@@ -148,9 +225,10 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */
+
     public function string($value)
     {
-        $this->source .= sprintf('"%s"', addcslashes($value, "\0\t\"\$\\"));
+        $this->_source .= sprintf('"%s"', addcslashes($value, "\0\t\"\$\\"));
 
         return $this;
     }
@@ -162,36 +240,46 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */
+
     public function repr($value)
     {
-        if (is_int($value) || is_float($value)) {
-            if (false !== $locale = setlocale(LC_NUMERIC, 0)) {
+        if (is_int($value) || is_float($value))
+        {
+            if (false !== $locale = setlocale(LC_NUMERIC, 0))
                 setlocale(LC_NUMERIC, 'C');
-            }
 
             $this->raw($value);
 
-            if (false !== $locale) {
+            if (false !== $locale)
                 setlocale(LC_NUMERIC, $locale);
-            }
-        } elseif (null === $value) {
+        }
+        elseif (null === $value)
+        {
             $this->raw('null');
-        } elseif (is_bool($value)) {
+        }
+        elseif (is_bool($value))
+        {
             $this->raw($value ? 'true' : 'false');
-        } elseif (is_array($value)) {
+        }
+        elseif (is_array($value))
+        {
             $this->raw('array(');
             $first = true;
-            foreach ($value as $key => $v) {
-                if (!$first) {
+            foreach ($value as $key => $v)
+            {
+                if (!$first)
                     $this->raw(', ');
-                }
+
                 $first = false;
                 $this->repr($key);
                 $this->raw(' => ');
                 $this->repr($v);
             }
+
             $this->raw(')');
-        } else {
+        }
+        else
+        {
             $this->string($value);
         }
 
@@ -205,34 +293,46 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */
+
     public function addDebugInfo(Apishka_Templater_NodeAbstract $node)
     {
-        if ($node->getLine() != $this->lastLine) {
+        if ($node->getLine() != $this->_last_line)
+        {
             $this->write(sprintf("// line %d\n", $node->getLine()));
 
             // when mbstring.func_overload is set to 2
             // mb_substr_count() replaces substr_count()
             // but they have different signatures!
-            if (((int) ini_get('mbstring.func_overload')) & 2) {
+            if (((int) ini_get('mbstring.func_overload')) & 2)
+            {
                 // this is much slower than the "right" version
-                $this->sourceLine += mb_substr_count(mb_substr($this->source, $this->sourceOffset), "\n");
-            } else {
-                $this->sourceLine += substr_count($this->source, "\n", $this->sourceOffset);
+                $this->_source_line += mb_substr_count(mb_substr($this->_source, $this->_source_offset), "\n");
             }
-            $this->sourceOffset = strlen($this->source);
-            $this->debugInfo[$this->sourceLine] = $node->getLine();
+            else
+            {
+                $this->_source_line += substr_count($this->_source, "\n", $this->_source_offset);
+            }
 
-            $this->lastLine = $node->getLine();
+            $this->_source_offset = strlen($this->_source);
+            $this->_debug_info[$this->_source_line] = $node->getLine();
+
+            $this->_last_line = $node->getLine();
         }
 
         return $this;
     }
 
+    /**
+     * Get debug info
+     *
+     * @return array
+     */
+
     public function getDebugInfo()
     {
-        ksort($this->debugInfo);
+        ksort($this->_debug_info);
 
-        return $this->debugInfo;
+        return $this->_debug_info;
     }
 
     /**
@@ -242,9 +342,10 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */
+
     public function indent($step = 1)
     {
-        $this->indentation += $step;
+        $this->_indentation += $step;
 
         return $this;
     }
@@ -258,17 +359,23 @@ class Apishka_Templater_Compiler
      *
      * @return Apishka_Templater_Compiler The current compiler instance
      */
+
     public function outdent($step = 1)
     {
         // can't outdent by more steps than the current indentation level
-        if ($this->indentation < $step) {
+        if ($this->_indentation < $step)
             throw new LogicException('Unable to call outdent() as the indentation would become negative');
-        }
 
-        $this->indentation -= $step;
+        $this->_indentation -= $step;
 
         return $this;
     }
+
+    /**
+     * Get var name
+     *
+     * @return string
+     */
 
     public function getVarName()
     {
