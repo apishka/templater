@@ -45,9 +45,11 @@ class Apishka_Templater_ExpressionParser
             $op = $this->binaryOperators[$token->getValue()];
             $this->parser->getStream()->next();
 
-            if (isset($op['callable']))
+            if ($op['type'] == 'test')
             {
-                $expr = $op['callable']($this->parser, $expr);
+                $expr = (new $op['class']($this->parser, $expr))
+                    ->parseTestExpression()
+                ;
             }
             else
             {

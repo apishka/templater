@@ -94,7 +94,7 @@ class Apishka_Templater_Node_Expression_Binary_TestIs implements Apishka_Templat
     {
         $stream = $this->_parser->getStream();
         $test   = $this->getTest(
-            $parser,
+            $this->_parser,
             $this->_node->getLine()
         );
 
@@ -105,7 +105,7 @@ class Apishka_Templater_Node_Expression_Binary_TestIs implements Apishka_Templat
             $arguments = $this->_parser->getExpressionParser()->parseArguments(true);
 
         return new $class(
-            $node,
+            $this->_node,
             $test->getName(),
             $arguments,
             $this->_parser->getCurrentToken()->getLine()
