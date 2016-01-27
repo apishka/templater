@@ -162,23 +162,14 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
 
     public function getTokenParsers()
     {
-        return array(
-            new Apishka_Templater_TokenParser_For(),
-            new Apishka_Templater_TokenParser_If(),
-            new Apishka_Templater_TokenParser_Extends(),
-            new Apishka_Templater_TokenParser_Include(),
-            new Apishka_Templater_TokenParser_Block(),
-            new Apishka_Templater_TokenParser_Use(),
-            new Apishka_Templater_TokenParser_Filter(),
-            new Apishka_Templater_TokenParser_Macro(),
-            new Apishka_Templater_TokenParser_Import(),
-            new Apishka_Templater_TokenParser_From(),
-            new Apishka_Templater_TokenParser_Set(),
-            new Apishka_Templater_TokenParser_Spaceless(),
-            new Apishka_Templater_TokenParser_Flush(),
-            new Apishka_Templater_TokenParser_Do(),
-            new Apishka_Templater_TokenParser_Embed(),
-        );
+        $result = array();
+        $data = Apishka_Templater_TokenParserRouter::apishka()->getData();
+        foreach ($data as $class => $info)
+        {
+            $result[] = $class::apishka();
+        }
+
+        return $result;
     }
 
     /**
