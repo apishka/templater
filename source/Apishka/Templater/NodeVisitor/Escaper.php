@@ -26,6 +26,12 @@ class Apishka_Templater_NodeVisitor_Escaper extends Apishka_Templater_BaseNodeVi
     private $defaultStrategy = false;
     private $safeVars = array();
 
+    /**
+     * Construct
+     *
+     * @return void
+     */
+
     public function __construct()
     {
         $this->safeAnalysis = new Apishka_Templater_NodeVisitor_SafeAnalysis();
@@ -34,19 +40,22 @@ class Apishka_Templater_NodeVisitor_Escaper extends Apishka_Templater_BaseNodeVi
     /**
      * {@inheritdoc}
      */
+
     protected function doEnterNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
-        if ($node instanceof Apishka_Templater_Node_Module) {
-            if ($env->hasExtension('escaper') && $defaultStrategy = $env->getExtension('escaper')->getDefaultStrategy($node->getAttribute('filename'))) {
+        if ($node instanceof Apishka_Templater_Node_Module)
+        {
+            if ($env->hasExtension('escaper') && $defaultStrategy = $env->getExtension('escaper')->getDefaultStrategy($node->getAttribute('filename')))
                 $this->defaultStrategy = $defaultStrategy;
-            }
             $this->safeVars = array();
-        } elseif ($node instanceof Apishka_Templater_Node_AutoEscape) {
+        }
+        elseif ($node instanceof Apishka_Templater_Node_AutoEscape)
+        {
             $this->statusStack[] = $node->getAttribute('value');
-        } elseif ($node instanceof Apishka_Templater_Node_Block) {
+        }
+        elseif ($node instanceof Apishka_Templater_Node_Block)
+        {
             $this->statusStack[] = isset($this->blocks[$node->getAttribute('name')]) ? $this->blocks[$node->getAttribute('name')] : $this->needEscaping($env);
-        } elseif ($node instanceof Apishka_Templater_Node_Import) {
-            $this->safeVars[] = $node->getNode('var')->getAttribute('name');
         }
 
         return $node;

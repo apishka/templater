@@ -77,9 +77,7 @@ class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
 EOF
         , $twig, true);
 
-        $import = Apishka_Templater_Node_Import::apishka(Apishka_Templater_Node_Expression_Constant::apishka('foo.twig', 1), Apishka_Templater_Node_Expression_AssignName::apishka('macro', 1), 2);
-
-        $body = Apishka_Templater_Node::apishka(array($import));
+        $body = Apishka_Templater_Node::apishka(array());
         $extends = Apishka_Templater_Node_Expression_Constant::apishka('layout.twig', 1);
 
         $node = Apishka_Templater_Node_Module::apishka($body, $extends, $blocks, $macros, $traits, Apishka_Templater_Node::apishka(array()), $filename);
@@ -106,9 +104,6 @@ class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
 
     protected function doDisplay(array \$context, array \$blocks = array())
     {
-        // line 2
-        \$context["macro"] = \$this->loadTemplate("foo.twig", "foo.twig", 2);
-        // line 1
         \$this->parent->display(\$context, array_merge(\$this->blocks, \$blocks));
     }
 
@@ -124,7 +119,7 @@ class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
 
     public function getDebugInfo()
     {
-        return array (  26 => 1,  24 => 2,  11 => 1,);
+        return array (  11 => 1,);
     }
 }
 EOF

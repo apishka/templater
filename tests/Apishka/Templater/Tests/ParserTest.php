@@ -130,26 +130,6 @@ class Apishka_Templater_Tests_ParserTest extends PHPUnit_Framework_TestCase
         $this->assertNull($parser->getParent());
     }
 
-    // The getVarName() must not depend on the template loaders,
-    // If this test does not throw any exception, that's good.
-    // see https://github.com/symfony/symfony/issues/4218
-    public function testGetVarName()
-    {
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array(
-            'autoescape'    => false,
-            'optimizations' => 0,
-        ));
-
-        $twig->parse($twig->tokenize(<<<EOF
-{% from _self import foo %}
-
-{% macro foo() %}
-    {{ foo }}
-{% endmacro %}
-EOF
-        ));
-    }
-
     protected function getParser()
     {
         $parser = new Apishka_Templater_Parser(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));

@@ -1,16 +1,10 @@
 --TEST--
 Twig parses postfix expressions
 --TEMPLATE--
-{% import _self as macros %}
-
-{% macro foo() %}foo{% endmacro %}
-
 {{ 'a' }}
 {{ 'a'|upper }}
 {{ ('a')|upper }}
 {{ -1|upper }}
-{{ macros.foo() }}
-{{ (macros).foo() }}
 --DATA--
 return array();
 --EXPECT--
@@ -18,5 +12,3 @@ a
 A
 A
 -1
-foo
-foo
