@@ -91,50 +91,6 @@ class Apishka_Templater_Tests_TemplateTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider getGetAttributeWithSandbox
-     */
-    public function testGetAttributeWithSandbox($object, $item, $allowed, $useExt)
-    {
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
-        $policy = new Apishka_Templater_Sandbox_SecurityPolicy(array(), array(), array(/*method*/), array(/*prop*/), array());
-        $twig->addExtension(new Apishka_Templater_Extension_Sandbox($policy, !$allowed));
-        $template = new Apishka_Templater_TemplateTest($twig, $useExt);
-
-        try {
-            $template->getAttribute($object, $item, array(), 'any');
-
-            if (!$allowed) {
-                $this->fail();
-            }
-        } catch (Apishka_Templater_Sandbox_SecurityError $e) {
-            if ($allowed) {
-                $this->fail();
-            }
-
-            $this->assertContains('is not allowed', $e->getMessage());
-        }
-    }
-
-    public function getGetAttributeWithSandbox()
-    {
-        $tests = array(
-            array(new Apishka_Templater_TemplatePropertyObject(), 'defined', false, false),
-            array(new Apishka_Templater_TemplatePropertyObject(), 'defined', true, false),
-            array(new Apishka_Templater_TemplateMethodObject(), 'defined', false, false),
-            array(new Apishka_Templater_TemplateMethodObject(), 'defined', true, false),
-        );
-
-        if (function_exists('twig_template_get_attributes')) {
-            foreach (array_slice($tests, 0) as $test) {
-                $test[3] = true;
-                $tests[] = $test;
-            }
-        }
-
-        return $tests;
-    }
-
-    /**
      * @dataProvider getGetAttributeWithTemplateAsObject
      */
     public function testGetAttributeWithTemplateAsObject($useExt)

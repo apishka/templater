@@ -24,7 +24,6 @@ class Apishka_Templater_Tests_IntegrationTest extends Apishka_Templater_Test_Int
 
         return array(
             new Apishka_Templater_Extension_Debug(),
-            new Apishka_Templater_Extension_Sandbox($policy, false),
             new Apishka_Templater_Extension_StringLoader(),
             new TwigTestExtension(),
         );
