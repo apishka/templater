@@ -47,7 +47,8 @@ class Apishka_Templater_ExpressionParser
 
             if ($op['type'] == 'test')
             {
-                $expr = (new $op['class']($this->parser, $expr))
+                $class = $op['class'];
+                $expr = $class::apishka($this->parser, $expr)
                     ->parseTestExpression()
                 ;
             }
@@ -60,7 +61,7 @@ class Apishka_Templater_ExpressionParser
                 );
 
                 $class = $op['class'];
-                $expr = new $class($expr, $expr1, $token->getLine());
+                $expr = $class::apishka($expr, $expr1, $token->getLine());
             }
 
             $token = $this->parser->getCurrentToken();
@@ -83,7 +84,7 @@ class Apishka_Templater_ExpressionParser
             $expr = $this->parseExpression($operator['precedence']);
             $class = $operator['class'];
 
-            return $this->parsePostfixExpression(new $class($expr, $token->getLine()));
+            return $this->parsePostfixExpression($class::apishka($expr, $token->getLine()));
         } elseif ($token->test(Apishka_Templater_Token::PUNCTUATION_TYPE, '(')) {
             $this->parser->getStream()->next();
             $expr = $this->parseExpression();
@@ -361,7 +362,7 @@ class Apishka_Templater_ExpressionParser
                 $args = $this->parseArguments(true);
                 $class = $this->getFunctionNodeClass($name, $line);
 
-                return new $class($name, $args, $line);
+                return $class::apishka($name, $args, $line);
         }
     }
 
@@ -430,7 +431,7 @@ class Apishka_Templater_ExpressionParser
 
                 $class = $this->getFilterNodeClass('slice', $token->getLine());
                 $arguments = Apishka_Templater_Node::apishka(array($arg, $length));
-                $filter = new $class($node, Apishka_Templater_Node_Expression_Constant::apishka('slice', $token->getLine()), $arguments, $token->getLine());
+                $filter = $class::apishka($node, Apishka_Templater_Node_Expression_Constant::apishka('slice', $token->getLine()), $arguments, $token->getLine());
 
                 $stream->expect(Apishka_Templater_Token::PUNCTUATION_TYPE, ']');
 
@@ -464,7 +465,7 @@ class Apishka_Templater_ExpressionParser
 
             $class = $this->getFilterNodeClass($name->getAttribute('value'), $token->getLine());
 
-            $node = new $class($node, $name, $arguments, $token->getLine(), $tag);
+            $node = $class::apishka($node, $name, $arguments, $token->getLine(), $tag);
 
             if (!$this->parser->getStream()->test(Apishka_Templater_Token::PUNCTUATION_TYPE, '|')) {
                 break;

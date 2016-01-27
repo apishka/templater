@@ -7,7 +7,7 @@
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
-class Apishka_Templater_Node_Expression_Binary_TestIs implements Apishka_Templater_Node_Expression_BinaryTestInterface
+class Apishka_Templater_Node_Expression_Binary_TestIs extends Apishka_Templater_Node_Expression_BinaryTestAbstract implements Apishka_Templater_Node_Expression_BinaryTestInterface
 {
     /**
      * Parser
@@ -104,7 +104,7 @@ class Apishka_Templater_Node_Expression_Binary_TestIs implements Apishka_Templat
         if ($stream->test(Apishka_Templater_Token::PUNCTUATION_TYPE, '('))
             $arguments = $this->_parser->getExpressionParser()->parseArguments(true);
 
-        return new $class(
+        return $class::apishka(
             $this->_node,
             $test->getName(),
             $arguments,

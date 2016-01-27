@@ -7,7 +7,7 @@
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
-class Apishka_Templater_Node_Expression_Binary_TestIsNot implements Apishka_Templater_Node_Expression_BinaryTestInterface
+class Apishka_Templater_Node_Expression_Binary_TestIsNot extends Apishka_Templater_Node_Expression_BinaryTestAbstract implements Apishka_Templater_Node_Expression_BinaryTestInterface
 {
     /**
      * Parser
