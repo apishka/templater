@@ -14,6 +14,7 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
+
 class Apishka_Templater_Environment
 {
     const VERSION = '2.0.0-DEV';
@@ -84,20 +85,24 @@ class Apishka_Templater_Environment
      * @param Apishka_Templater_LoaderInterface $loader  A Apishka_Templater_LoaderInterface instance
      * @param array                             $options An array of options
      */
+
     public function __construct(Apishka_Templater_LoaderInterface $loader, $options = array())
     {
         $this->setLoader($loader);
 
-        $options = array_merge(array(
-            'debug'               => false,
-            'charset'             => 'UTF-8',
-            'base_template_class' => 'Apishka_Templater_TemplateAbstract',
-            'strict_variables'    => false,
-            'autoescape'          => 'html',
-            'cache'               => false,
-            'auto_reload'         => null,
-            'optimizations'       => -1,
-        ), $options);
+        $options = array_merge(
+            array(
+                'debug'               => false,
+                'charset'             => 'UTF-8',
+                'base_template_class' => 'Apishka_Templater_TemplateAbstract',
+                'strict_variables'    => false,
+                'autoescape'          => 'html',
+                'cache'               => false,
+                'auto_reload'         => null,
+                'optimizations'       => -1,
+            ),
+            $options
+        );
 
         $this->debug = (bool) $options['debug'];
         $this->setCharset($options['charset']);
@@ -117,6 +122,7 @@ class Apishka_Templater_Environment
      *
      * @return string The base template class name
      */
+
     public function getBaseTemplateClass()
     {
         return $this->baseTemplateClass;
@@ -127,6 +133,7 @@ class Apishka_Templater_Environment
      *
      * @param string $class The base template class name
      */
+
     public function setBaseTemplateClass($class)
     {
         $this->baseTemplateClass = $class;
@@ -135,6 +142,7 @@ class Apishka_Templater_Environment
     /**
      * Enables debugging mode.
      */
+
     public function enableDebug()
     {
         $this->debug = true;
@@ -143,6 +151,7 @@ class Apishka_Templater_Environment
     /**
      * Disables debugging mode.
      */
+
     public function disableDebug()
     {
         $this->debug = false;
@@ -153,6 +162,7 @@ class Apishka_Templater_Environment
      *
      * @return bool true if debug mode is enabled, false otherwise
      */
+
     public function isDebug()
     {
         return $this->debug;
@@ -161,6 +171,7 @@ class Apishka_Templater_Environment
     /**
      * Enables the auto_reload option.
      */
+
     public function enableAutoReload()
     {
         $this->autoReload = true;
@@ -169,6 +180,7 @@ class Apishka_Templater_Environment
     /**
      * Disables the auto_reload option.
      */
+
     public function disableAutoReload()
     {
         $this->autoReload = false;
@@ -179,6 +191,7 @@ class Apishka_Templater_Environment
      *
      * @return bool true if auto_reload is enabled, false otherwise
      */
+
     public function isAutoReload()
     {
         return $this->autoReload;
@@ -187,6 +200,7 @@ class Apishka_Templater_Environment
     /**
      * Enables the strict_variables option.
      */
+
     public function enableStrictVariables()
     {
         $this->strictVariables = true;
@@ -195,6 +209,7 @@ class Apishka_Templater_Environment
     /**
      * Disables the strict_variables option.
      */
+
     public function disableStrictVariables()
     {
         $this->strictVariables = false;
@@ -205,6 +220,7 @@ class Apishka_Templater_Environment
      *
      * @return bool true if strict_variables is enabled, false otherwise
      */
+
     public function isStrictVariables()
     {
         return $this->strictVariables;
@@ -219,6 +235,7 @@ class Apishka_Templater_Environment
      *                                                       an absolute path to the compiled templates,
      *                                                       or false to disable cache
      */
+
     public function getCache($original = true)
     {
         return $original ? $this->originalCache : $this->cache;
@@ -231,17 +248,25 @@ class Apishka_Templater_Environment
      *                                                             an absolute path to the compiled templates,
      *                                                             or false to disable cache
      */
+
     public function setCache($cache)
     {
-        if (is_string($cache)) {
+        if (is_string($cache))
+        {
             $this->originalCache = $cache;
             $this->cache = new Apishka_Templater_Cache_Filesystem($cache);
-        } elseif (false === $cache) {
+        }
+        elseif (false === $cache)
+        {
             $this->originalCache = $cache;
             $this->cache = new Apishka_Templater_Cache_Null();
-        } elseif ($cache instanceof Apishka_Templater_CacheInterface) {
+        }
+        elseif ($cache instanceof Apishka_Templater_CacheInterface)
+        {
             $this->originalCache = $this->cache = $cache;
-        } else {
+        }
+        else
+        {
             throw new LogicException(sprintf('Cache can only be a string, false, or a Apishka_Templater_CacheInterface implementation.'));
         }
     }
@@ -260,6 +285,7 @@ class Apishka_Templater_Environment
      *
      * @return string The template class name
      */
+
     public function getTemplateClass($name, $index = null)
     {
         $key = $this->getLoader()->getCacheKey($name);
@@ -281,6 +307,7 @@ class Apishka_Templater_Environment
      *
      * @return string The rendered template
      */
+
     public function render($name, array $context = array())
     {
         return $this->loadTemplate($name)->render($context);
@@ -296,6 +323,7 @@ class Apishka_Templater_Environment
      * @throws Apishka_Templater_Error_Syntax  When an error occurred during compilation
      * @throws Apishka_Templater_Error_Runtime When an error occurred during rendering
      */
+
     public function display($name, array $context = array())
     {
         $this->loadTemplate($name)->display($context);
@@ -312,22 +340,23 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_TemplateAbstract A template instance representing the given template name
      */
+
     public function loadTemplate($name, $index = null)
     {
-        $cls = $this->getTemplateClass($name, $index);
+        $class = $this->getTemplateClass($name, $index);
 
-        if (isset($this->loadedTemplates[$cls])) {
-            return $this->loadedTemplates[$cls];
-        }
+        if (isset($this->loadedTemplates[$class]))
+            return $this->loadedTemplates[$class];
 
-        if (!class_exists($cls, false)) {
-            $key = $this->cache->generateKey($name, $cls);
+        if (!class_exists($class, false))
+        {
+            $key = $this->cache->generateKey($name, $class);
 
-            if (!$this->isAutoReload() || $this->isTemplateFresh($name, $this->cache->getTimestamp($key))) {
+            if (!$this->isAutoReload() || $this->isTemplateFresh($name, $this->cache->getTimestamp($key)))
                 $this->cache->load($key);
-            }
 
-            if (!class_exists($cls, false)) {
+            if (!class_exists($class, false))
+            {
                 $content = $this->compileSource($this->getLoader()->getSource($name), $name);
                 $this->cache->write($key, $content);
 
@@ -335,11 +364,10 @@ class Apishka_Templater_Environment
             }
         }
 
-        if (!$this->runtimeInitialized) {
+        if (!$this->runtimeInitialized)
             $this->initRuntime();
-        }
 
-        return $this->loadedTemplates[$cls] = new $cls($this);
+        return $this->loadedTemplates[$class] = new $class($this);
     }
 
     /**
@@ -354,19 +382,25 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_TemplateAbstract A template instance representing the given template name
      */
+
     public function createTemplate($template)
     {
         $name = sprintf('__string_template__%s', hash('sha256', uniqid(mt_rand(), true), false));
 
-        $loader = new Apishka_Templater_Loader_Chain(array(
-            new Apishka_Templater_Loader_Array(array($name => $template)),
-            $current = $this->getLoader(),
-        ));
+        $loader = new Apishka_Templater_Loader_Chain(
+            array(
+                new Apishka_Templater_Loader_Array(array($name => $template)),
+                $current = $this->getLoader(),
+            )
+        );
 
         $this->setLoader($loader);
-        try {
+        try
+        {
             $template = $this->loadTemplate($name);
-        } finally {
+        }
+        finally
+        {
             $this->setLoader($current);
         }
 
@@ -385,14 +419,16 @@ class Apishka_Templater_Environment
      *
      * @return bool true if the template is fresh, false otherwise
      */
+
     public function isTemplateFresh($name, $time)
     {
-        if (0 === $this->lastModifiedExtension) {
-            foreach ($this->extensions as $extension) {
+        if (0 === $this->lastModifiedExtension)
+        {
+            foreach ($this->extensions as $extension)
+            {
                 $r = new ReflectionObject($extension);
-                if (file_exists($r->getFileName()) && ($extensionTime = filemtime($r->getFileName())) > $this->lastModifiedExtension) {
+                if (file_exists($r->getFileName()) && ($extensionTime = filemtime($r->getFileName())) > $this->lastModifiedExtension)
                     $this->lastModifiedExtension = $extensionTime;
-                }
             }
         }
 
@@ -412,26 +448,28 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_TemplateAbstract
      */
+
     public function resolveTemplate($names)
     {
-        if (!is_array($names)) {
+        if (!is_array($names))
             $names = array($names);
-        }
 
-        foreach ($names as $name) {
-            if ($name instanceof Apishka_Templater_TemplateAbstract) {
+        foreach ($names as $name)
+        {
+            if ($name instanceof Apishka_Templater_TemplateAbstract)
                 return $name;
-            }
 
-            try {
+            try
+            {
                 return $this->loadTemplate($name);
-            } catch (Apishka_Templater_Error_Loader $e) {
+            }
+            catch (Apishka_Templater_Error_Loader $e)
+            {
             }
         }
 
-        if (1 === count($names)) {
+        if (1 === count($names))
             throw $e;
-        }
 
         throw new Apishka_Templater_Error_Loader(sprintf('Unable to find one of the following templates: "%s".', implode('", "', $names)));
     }
@@ -441,11 +479,11 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_Lexer A Apishka_Templater_Lexer instance
      */
+
     public function getLexer()
     {
-        if (null === $this->lexer) {
+        if (null === $this->lexer)
             $this->lexer = new Apishka_Templater_Lexer($this);
-        }
 
         return $this->lexer;
     }
@@ -455,6 +493,7 @@ class Apishka_Templater_Environment
      *
      * @param Apishka_Templater_Lexer $lexer A Apishka_Templater_Lexer instance
      */
+
     public function setLexer(Apishka_Templater_Lexer $lexer)
     {
         $this->lexer = $lexer;
@@ -470,6 +509,7 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_TokenStream A Apishka_Templater_TokenStream instance
      */
+
     public function tokenize($source, $name = null)
     {
         return $this->getLexer()->tokenize($source, $name);
@@ -480,11 +520,11 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_Parser A Apishka_Templater_Parser instance
      */
+
     public function getParser()
     {
-        if (null === $this->parser) {
+        if (null === $this->parser)
             $this->parser = new Apishka_Templater_Parser($this);
-        }
 
         return $this->parser;
     }
@@ -494,6 +534,7 @@ class Apishka_Templater_Environment
      *
      * @param Apishka_Templater_Parser $parser A Apishka_Templater_Parser instance
      */
+
     public function setParser(Apishka_Templater_Parser $parser)
     {
         $this->parser = $parser;
@@ -508,6 +549,7 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_Node_Module A node tree
      */
+
     public function parse(Apishka_Templater_TokenStream $stream)
     {
         return $this->getParser()->parse($stream);
@@ -518,11 +560,11 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_Compiler A Apishka_Templater_Compiler instance
      */
+
     public function getCompiler()
     {
-        if (null === $this->compiler) {
+        if (null === $this->compiler)
             $this->compiler = new Apishka_Templater_Compiler($this);
-        }
 
         return $this->compiler;
     }
@@ -532,6 +574,7 @@ class Apishka_Templater_Environment
      *
      * @param Apishka_Templater_Compiler $compiler A Apishka_Templater_Compiler instance
      */
+
     public function setCompiler(Apishka_Templater_Compiler $compiler)
     {
         $this->compiler = $compiler;
@@ -544,6 +587,7 @@ class Apishka_Templater_Environment
      *
      * @return string The compiled PHP source code
      */
+
     public function compile(Apishka_Templater_NodeAbstract $node)
     {
         return $this->getCompiler()->compile($node)->getSource();
@@ -559,20 +603,25 @@ class Apishka_Templater_Environment
      *
      * @return string The compiled PHP source code
      */
+
     public function compileSource($source, $name = null)
     {
-        try {
+        try
+        {
             $compiled = $this->compile($this->parse($this->tokenize($source, $name)), $source);
 
-            if (isset($source[0])) {
+            if (isset($source[0]))
                 $compiled .= '/* ' . str_replace(array('*/', "\r\n", "\r", "\n"), array('*//* ', "\n", "\n", "*/\n/* "), $source) . "*/\n";
-            }
 
             return $compiled;
-        } catch (Apishka_Templater_Error $e) {
+        }
+        catch (Apishka_Templater_Error $e)
+        {
             $e->setTemplateFile($name);
             throw $e;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             throw new Apishka_Templater_Error_Syntax(sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $name, $e);
         }
     }
@@ -582,6 +631,7 @@ class Apishka_Templater_Environment
      *
      * @param Apishka_Templater_LoaderInterface $loader A Apishka_Templater_LoaderInterface instance
      */
+
     public function setLoader(Apishka_Templater_LoaderInterface $loader)
     {
         $this->loader = $loader;
@@ -592,6 +642,7 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_LoaderInterface A Apishka_Templater_LoaderInterface instance
      */
+
     public function getLoader()
     {
         return $this->loader;
@@ -602,12 +653,12 @@ class Apishka_Templater_Environment
      *
      * @param string $charset The default charset
      */
+
     public function setCharset($charset)
     {
-        if ('UTF8' === $charset = strtoupper($charset)) {
-            // iconv on Windows requires "UTF-8" instead of "UTF8"
+        // iconv on Windows requires "UTF-8" instead of "UTF8"
+        if ('UTF8' === $charset = strtoupper($charset))
             $charset = 'UTF-8';
-        }
 
         $this->charset = $charset;
     }
@@ -617,6 +668,7 @@ class Apishka_Templater_Environment
      *
      * @return string The default charset
      */
+
     public function getCharset()
     {
         return $this->charset;
@@ -625,14 +677,15 @@ class Apishka_Templater_Environment
     /**
      * Initializes the runtime environment.
      */
+
     public function initRuntime()
     {
         $this->runtimeInitialized = true;
 
-        foreach ($this->getExtensions() as $extension) {
-            if ($extension instanceof Apishka_Templater_Extension_InitRuntimeInterface) {
+        foreach ($this->getExtensions() as $extension)
+        {
+            if ($extension instanceof Apishka_Templater_Extension_InitRuntimeInterface)
                 $extension->initRuntime($this);
-            }
         }
     }
 
@@ -643,6 +696,7 @@ class Apishka_Templater_Environment
      *
      * @return bool Whether the extension is registered or not
      */
+
     public function hasExtension($name)
     {
         return isset($this->extensions[$name]);
@@ -655,11 +709,11 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_ExtensionInterface A Apishka_Templater_ExtensionInterface instance
      */
+
     public function getExtension($name)
     {
-        if (!isset($this->extensions[$name])) {
+        if (!isset($this->extensions[$name]))
             throw new Apishka_Templater_Error_Runtime(sprintf('The "%s" extension is not enabled.', $name));
-        }
 
         return $this->extensions[$name];
     }
@@ -669,17 +723,16 @@ class Apishka_Templater_Environment
      *
      * @param Apishka_Templater_ExtensionInterface $extension A Apishka_Templater_ExtensionInterface instance
      */
+
     public function addExtension(Apishka_Templater_ExtensionInterface $extension)
     {
         $name = $extension->getName();
 
-        if ($this->extensionInitialized) {
+        if ($this->extensionInitialized)
             throw new LogicException(sprintf('Unable to register extension "%s" as extensions have already been initialized.', $name));
-        }
 
-        if (isset($this->extensions[$name])) {
+        if (isset($this->extensions[$name]))
             throw new LogicException(sprintf('Unable to register extension "%s" as it is already registered.', $name));
-        }
 
         $this->lastModifiedExtension = 0;
 
@@ -691,11 +744,11 @@ class Apishka_Templater_Environment
      *
      * @param array $extensions An array of extensions
      */
+
     public function setExtensions(array $extensions)
     {
-        foreach ($extensions as $extension) {
+        foreach ($extensions as $extension)
             $this->addExtension($extension);
-        }
     }
 
     /**
@@ -703,6 +756,7 @@ class Apishka_Templater_Environment
      *
      * @return array An array of extensions
      */
+
     public function getExtensions()
     {
         return $this->extensions;
@@ -713,11 +767,11 @@ class Apishka_Templater_Environment
      *
      * @param Apishka_Templater_TokenParserInterface $parser A Apishka_Templater_TokenParserInterface instance
      */
+
     public function addTokenParser(Apishka_Templater_TokenParserInterface $parser)
     {
-        if ($this->extensionInitialized) {
+        if ($this->extensionInitialized)
             throw new LogicException('Unable to add a token parser as extensions have already been initialized.');
-        }
 
         $this->staging->addTokenParser($parser);
     }
@@ -727,11 +781,11 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_TokenParserInterface[] An array of Apishka_Templater_TokenParserInterface
      */
+
     public function getTokenParsers()
     {
-        if (!$this->extensionInitialized) {
+        if (!$this->extensionInitialized)
             $this->initExtensions();
-        }
 
         return $this->parsers;
     }
@@ -741,12 +795,12 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_TokenParserInterface[] An array of Apishka_Templater_TokenParserInterface instances
      */
+
     public function getTags()
     {
         $tags = array();
-        foreach ($this->getTokenParsers() as $parser) {
+        foreach ($this->getTokenParsers() as $parser)
             $tags[$parser->getTag()] = $parser;
-        }
 
         return $tags;
     }
@@ -756,11 +810,11 @@ class Apishka_Templater_Environment
      *
      * @param Apishka_Templater_NodeVisitorInterface $visitor A Apishka_Templater_NodeVisitorInterface instance
      */
+
     public function addNodeVisitor(Apishka_Templater_NodeVisitorInterface $visitor)
     {
-        if ($this->extensionInitialized) {
+        if ($this->extensionInitialized)
             throw new LogicException('Unable to add a node visitor as extensions have already been initialized.');
-        }
 
         $this->staging->addNodeVisitor($visitor);
     }
@@ -770,11 +824,11 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_NodeVisitorInterface[] An array of Apishka_Templater_NodeVisitorInterface instances
      */
+
     public function getNodeVisitors()
     {
-        if (!$this->extensionInitialized) {
+        if (!$this->extensionInitialized)
             $this->initExtensions();
-        }
 
         return $this->visitors;
     }
@@ -784,11 +838,11 @@ class Apishka_Templater_Environment
      *
      * @param Apishka_Templater_Filter $filter A Apishka_Templater_Filter instance
      */
+
     public function addFilter(Apishka_Templater_Filter $filter)
     {
-        if ($this->extensionInitialized) {
+        if ($this->extensionInitialized)
             throw new LogicException(sprintf('Unable to add filter "%s" as extensions have already been initialized.', $filter->getName()));
-        }
 
         $this->staging->addFilter($filter);
     }
@@ -803,21 +857,23 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_Filter|false A Apishka_Templater_Filter instance or false if the filter does not exist
      */
+
     public function getFilter($name)
     {
-        if (!$this->extensionInitialized) {
+        if (!$this->extensionInitialized)
             $this->initExtensions();
-        }
 
-        if (isset($this->filters[$name])) {
+        if (isset($this->filters[$name]))
             return $this->filters[$name];
-        }
 
-        foreach ($this->filters as $pattern => $filter) {
+        foreach ($this->filters as $pattern => $filter)
+        {
             $pattern = str_replace('\\*', '(.*?)', preg_quote($pattern, '#'), $count);
 
-            if ($count) {
-                if (preg_match('#^' . $pattern . '$#', $name, $matches)) {
+            if ($count)
+            {
+                if (preg_match('#^' . $pattern . '$#', $name, $matches))
+                {
                     array_shift($matches);
                     $filter->setArguments($matches);
 
@@ -826,16 +882,22 @@ class Apishka_Templater_Environment
             }
         }
 
-        foreach ($this->filterCallbacks as $callback) {
-            if (false !== $filter = $callback($name)) {
+        foreach ($this->filterCallbacks as $callback)
+        {
+            if (false !== $filter = $callback($name))
                 return $filter;
-            }
         }
 
         return false;
     }
 
-    public function registerUndefinedFilterCallback(callable $callable)
+    /**
+     * Register undefined filter callback
+     *
+     * @param Callable $callable
+     */
+
+    public function registerUndefinedFilterCallback(Callable $callable)
     {
         $this->filterCallbacks[] = $callable;
     }
@@ -849,11 +911,11 @@ class Apishka_Templater_Environment
      *
      * @see registerUndefinedFilterCallback
      */
+
     public function getFilters()
     {
-        if (!$this->extensionInitialized) {
+        if (!$this->extensionInitialized)
             $this->initExtensions();
-        }
 
         return $this->filters;
     }
@@ -863,11 +925,11 @@ class Apishka_Templater_Environment
      *
      * @param Apishka_Templater_Test $test A Apishka_Templater_Test instance
      */
+
     public function addTest(Apishka_Templater_Test $test)
     {
-        if ($this->extensionInitialized) {
+        if ($this->extensionInitialized)
             throw new LogicException(sprintf('Unable to add test "%s" as extensions have already been initialized.', $test->getName()));
-        }
 
         $this->staging->addTest($test);
     }
@@ -877,11 +939,11 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_Test[] An array of Apishka_Templater_Test instances
      */
+
     public function getTests()
     {
-        if (!$this->extensionInitialized) {
+        if (!$this->extensionInitialized)
             $this->initExtensions();
-        }
 
         return $this->tests;
     }
@@ -893,15 +955,14 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_Test|false A Apishka_Templater_Test instance or false if the test does not exist
      */
+
     public function getTest($name)
     {
-        if (!$this->extensionInitialized) {
+        if (!$this->extensionInitialized)
             $this->initExtensions();
-        }
 
-        if (isset($this->tests[$name])) {
+        if (isset($this->tests[$name]))
             return $this->tests[$name];
-        }
 
         return false;
     }
@@ -911,11 +972,11 @@ class Apishka_Templater_Environment
      *
      * @param Apishka_Templater_Function $function A Apishka_Templater_Function instance
      */
+
     public function addFunction(Apishka_Templater_Function $function)
     {
-        if ($this->extensionInitialized) {
+        if ($this->extensionInitialized)
             throw new LogicException(sprintf('Unable to add function "%s" as extensions have already been initialized.', $function->getName()));
-        }
 
         $this->staging->addFunction($function);
     }
@@ -930,21 +991,23 @@ class Apishka_Templater_Environment
      *
      * @return Apishka_Templater_Function|false A Apishka_Templater_Function instance or false if the function does not exist
      */
+
     public function getFunction($name)
     {
-        if (!$this->extensionInitialized) {
+        if (!$this->extensionInitialized)
             $this->initExtensions();
-        }
 
-        if (isset($this->functions[$name])) {
+        if (isset($this->functions[$name]))
             return $this->functions[$name];
-        }
 
-        foreach ($this->functions as $pattern => $function) {
+        foreach ($this->functions as $pattern => $function)
+        {
             $pattern = str_replace('\\*', '(.*?)', preg_quote($pattern, '#'), $count);
 
-            if ($count) {
-                if (preg_match('#^' . $pattern . '$#', $name, $matches)) {
+            if ($count)
+            {
+                if (preg_match('#^' . $pattern . '$#', $name, $matches))
+                {
                     array_shift($matches);
                     $function->setArguments($matches);
 
@@ -953,16 +1016,22 @@ class Apishka_Templater_Environment
             }
         }
 
-        foreach ($this->functionCallbacks as $callback) {
-            if (false !== $function = $callback($name)) {
+        foreach ($this->functionCallbacks as $callback)
+        {
+            if (false !== $function = $callback($name))
                 return $function;
-            }
         }
 
         return false;
     }
 
-    public function registerUndefinedFunctionCallback(callable $callable)
+    /**
+     * Register undefined function callback
+     *
+     * @param Callable $callable
+     */
+
+    public function registerUndefinedFunctionCallback(Callable $callable)
     {
         $this->functionCallbacks[] = $callable;
     }
@@ -976,11 +1045,11 @@ class Apishka_Templater_Environment
      *
      * @see registerUndefinedFunctionCallback
      */
+
     public function getFunctions()
     {
-        if (!$this->extensionInitialized) {
+        if (!$this->extensionInitialized)
             $this->initExtensions();
-        }
 
         return $this->functions;
     }
@@ -994,20 +1063,22 @@ class Apishka_Templater_Environment
      * @param string $name  The global name
      * @param mixed  $value The global value
      */
+
     public function addGlobal($name, $value)
     {
-        if ($this->extensionInitialized || $this->runtimeInitialized) {
-            if (null === $this->globals) {
+        if ($this->extensionInitialized || $this->runtimeInitialized)
+        {
+            if (null === $this->globals)
                 $this->globals = $this->initGlobals();
-            }
 
-            if (!array_key_exists($name, $this->globals)) {
+            if (!array_key_exists($name, $this->globals))
                 throw new LogicException(sprintf('Unable to add global "%s" as the runtime or the extensions have already been initialized.', $name));
-            }
 
             // update the value
             $this->globals[$name] = $value;
-        } else {
+        }
+        else
+        {
             $this->staging->addGlobal($name, $value);
         }
     }
@@ -1017,15 +1088,14 @@ class Apishka_Templater_Environment
      *
      * @return array An array of globals
      */
+
     public function getGlobals()
     {
-        if (!$this->runtimeInitialized && !$this->extensionInitialized) {
+        if (!$this->runtimeInitialized && !$this->extensionInitialized)
             return $this->initGlobals();
-        }
 
-        if (null === $this->globals) {
+        if (null === $this->globals)
             $this->globals = $this->initGlobals();
-        }
 
         return $this->globals;
     }
@@ -1037,14 +1107,15 @@ class Apishka_Templater_Environment
      *
      * @return array The context merged with the globals
      */
+
     public function mergeGlobals(array $context)
     {
         // we don't use array_merge as the context being generally
         // bigger than globals, this code is faster.
-        foreach ($this->getGlobals() as $key => $value) {
-            if (!array_key_exists($key, $context)) {
+        foreach ($this->getGlobals() as $key => $value)
+        {
+            if (!array_key_exists($key, $context))
                 $context[$key] = $value;
-            }
         }
 
         return $context;
@@ -1055,11 +1126,11 @@ class Apishka_Templater_Environment
      *
      * @return array An array of unary operators
      */
+
     public function getUnaryOperators()
     {
-        if (!$this->extensionInitialized) {
+        if (!$this->extensionInitialized)
             $this->initExtensions();
-        }
 
         return $this->unaryOperators;
     }
@@ -1069,27 +1140,30 @@ class Apishka_Templater_Environment
      *
      * @return array An array of binary operators
      */
+
     public function getBinaryOperators()
     {
-        if (!$this->extensionInitialized) {
+        if (!$this->extensionInitialized)
             $this->initExtensions();
-        }
 
         return $this->binaryOperators;
     }
 
+    /**
+     * Init globals
+     */
+
     private function initGlobals()
     {
         $globals = array();
-        foreach ($this->extensions as $name => $extension) {
-            if (!$extension instanceof Apishka_Templater_Extension_GlobalsInterface) {
+        foreach ($this->extensions as $name => $extension)
+        {
+            if (!$extension instanceof Apishka_Templater_Extension_GlobalsInterface)
                 continue;
-            }
 
             $extGlob = $extension->getGlobals();
-            if (!is_array($extGlob)) {
+            if (!is_array($extGlob))
                 throw new UnexpectedValueException(sprintf('"%s::getGlobals()" must return an array of globals.', get_class($extension)));
-            }
 
             $globals[] = $extGlob;
         }
@@ -1099,11 +1173,14 @@ class Apishka_Templater_Environment
         return call_user_func_array('array_merge', $globals);
     }
 
+    /**
+     * Init extensions
+     */
+
     private function initExtensions()
     {
-        if ($this->extensionInitialized) {
+        if ($this->extensionInitialized)
             return;
-        }
 
         $this->extensionInitialized = true;
         $this->parsers = array();
@@ -1114,48 +1191,50 @@ class Apishka_Templater_Environment
         $this->unaryOperators = array();
         $this->binaryOperators = array();
 
-        foreach ($this->extensions as $extension) {
+        foreach ($this->extensions as $extension)
             $this->initExtension($extension);
-        }
+
         $this->initExtension($this->staging);
     }
+
+    /**
+     * Init extension
+     *
+     * @param Apishka_Templater_ExtensionInterface $extension
+     */
 
     private function initExtension(Apishka_Templater_ExtensionInterface $extension)
     {
         // filters
-        foreach ($extension->getFilters() as $filter) {
+        foreach ($extension->getFilters() as $filter)
             $this->filters[$filter->getName()] = $filter;
-        }
 
         // functions
-        foreach ($extension->getFunctions() as $function) {
+        foreach ($extension->getFunctions() as $function)
             $this->functions[$function->getName()] = $function;
-        }
 
         // tests
-        foreach ($extension->getTests() as $test) {
+        foreach ($extension->getTests() as $test)
             $this->tests[$test->getName()] = $test;
-        }
 
         // token parsers
-        foreach ($extension->getTokenParsers() as $parser) {
-            if (!$parser instanceof Apishka_Templater_TokenParserInterface) {
+        foreach ($extension->getTokenParsers() as $parser)
+        {
+            if (!$parser instanceof Apishka_Templater_TokenParserInterface)
                 throw new LogicException('getTokenParsers() must return an array of Apishka_Templater_TokenParserInterface');
-            }
 
             $this->parsers[] = $parser;
         }
 
         // node visitors
-        foreach ($extension->getNodeVisitors() as $visitor) {
+        foreach ($extension->getNodeVisitors() as $visitor)
             $this->visitors[] = $visitor;
-        }
 
         // operators
-        if ($operators = $extension->getOperators()) {
-            if (2 !== count($operators)) {
+        if ($operators = $extension->getOperators())
+        {
+            if (2 !== count($operators))
                 throw new InvalidArgumentException(sprintf('"%s::getOperators()" does not return a valid operators array.', get_class($extension)));
-            }
 
             $this->unaryOperators = array_merge($this->unaryOperators, $operators[0]);
             $this->binaryOperators = array_merge($this->binaryOperators, $operators[1]);
