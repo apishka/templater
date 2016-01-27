@@ -255,11 +255,6 @@ class Apishka_Templater_Parser
         return isset($this->macros[$name]);
     }
 
-    public function setMacro($name, Apishka_Templater_Node_Macro $node)
-    {
-        $this->macros[$name] = $node;
-    }
-
     /**
      * @deprecated since 2.0. Will be removed in 3.0. There is no reserved macro names anymore
      */

@@ -45,13 +45,6 @@ class Apishka_Templater_Profiler_NodeVisitor_Profiler extends Apishka_Templater_
                 $node->getNode('body'),
                 new Apishka_Templater_Profiler_Node_LeaveProfile($varName),
             )));
-        } elseif ($node instanceof Apishka_Templater_Node_Macro) {
-            $varName = $this->getVarName();
-            $node->setNode('body', Apishka_Templater_Node_Body::apishka(array(
-                new Apishka_Templater_Profiler_Node_EnterProfile($this->extensionName, Apishka_Templater_Profiler_Profile::MACRO, $node->getAttribute('name'), $varName),
-                $node->getNode('body'),
-                new Apishka_Templater_Profiler_Node_LeaveProfile($varName),
-            )));
         }
 
         return $node;
