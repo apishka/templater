@@ -297,4 +297,59 @@ class Apishka_Templater_Tests_ExpressionParserTest extends PHPUnit_Framework_Tes
 
         $parser->parse($env->tokenize('{{ 1 is foobar }}', 'index'));
     }
+
+    public function testBlockWithOutParam()
+    {
+    }
+
+    /**
+     * @dataProvider getTestsForBlock
+     */
+    public function testBlockExpression($template, $expected)
+    {
+        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
+        $stream = $env->tokenize($template, 'index');
+        $parser = new Apishka_Templater_Parser($env);
+
+        $this->assertEquals($expected, $parser->parse($stream)->getNode('body')->getNode(0));
+    }
+
+    public function getTestsForBlock()
+    {
+        $tests = array();
+
+        $node = Apishka_Templater_Node_Expression_BlockReference::apishka(
+            Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
+            Apishka_Templater_Node::apishka(),
+            false,
+            1
+        );
+
+        $node->setAttribute('output', true);
+
+        $tests[] = array(
+            '{{ block("foo") }}',
+            $node,
+        );
+
+        $node = Apishka_Templater_Node_Expression_BlockReference::apishka(
+            Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
+            Apishka_Templater_Node::apishka(
+                array(
+                    'named_arg' => Apishka_Templater_Node_Expression_Constant::apishka('bar', 1),
+                )
+            ),
+            false,
+            1
+        );
+
+        $node->setAttribute('output', true);
+
+        $tests[] = array(
+            '{{ block("foo", named_arg="bar") }}',
+            $node,
+        );
+
+        return $tests;
+    }
 }
