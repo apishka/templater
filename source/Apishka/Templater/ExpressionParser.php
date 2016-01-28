@@ -338,7 +338,21 @@ class Apishka_Templater_ExpressionParser
 
                 return Apishka_Templater_Node_Expression_Parent::apishka($this->parser->peekBlockStack(), $line);
             case 'block':
-                return Apishka_Templater_Node_Expression_BlockReference::apishka($this->parseArguments()->getNode(0), false, $line);
+                $args = $this->parseArguments(true, false, true);
+                if (count($args) < 1)
+                {
+                    throw new Apishka_Templater_Error_Syntax('The "block" function takes at least one argument (the variable and the attributes).', $line, $this->parser->getFilename());
+                }
+
+                $block_name = $args->getNode('__first_arg__');
+                $args->removeNode('__first_arg__');
+
+                return Apishka_Templater_Node_Expression_BlockReference::apishka(
+                    $block_name,
+                    $args,
+                    false,
+                    $line
+                );
             case 'attribute':
                 $args = $this->parseArguments();
                 if (count($args) < 2) {

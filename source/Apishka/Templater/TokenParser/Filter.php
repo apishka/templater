@@ -23,7 +23,16 @@ class Apishka_Templater_TokenParser_Filter extends Apishka_Templater_TokenParser
     public function parse(Apishka_Templater_Token $token)
     {
         $name = $this->parser->getVarName();
-        $ref = Apishka_Templater_Node_Expression_BlockReference::apishka(Apishka_Templater_Node_Expression_Constant::apishka($name, $token->getLine()), true, $token->getLine(), $this->getTag());
+        $ref = Apishka_Templater_Node_Expression_BlockReference::apishka(
+            Apishka_Templater_Node_Expression_Constant::apishka(
+                $name,
+                $token->getLine()
+            ),
+            Apishka_Templater_Node::apishka(),
+            true,
+            $token->getLine(),
+            $this->getTag()
+        );
 
         $filter = $this->parser->getExpressionParser()->parseFilterExpressionRaw($ref, $this->getTag());
         $this->parser->getStream()->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
