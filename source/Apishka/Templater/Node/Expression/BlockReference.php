@@ -26,7 +26,7 @@ class Apishka_Templater_Node_Expression_BlockReference extends Apishka_Templater
             ),
             array(
                 'as_string' => $asString,
-                'output' => false
+                'output'    => false
             ),
             $lineno,
             $tag
