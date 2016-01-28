@@ -482,62 +482,121 @@ class Apishka_Templater_ExpressionParser
      *
      * @param bool $namedArguments Whether to allow named arguments or not
      * @param bool $definition     Whether we are parsing arguments for a function definition
+     * @param bool $firstNoNamed   Whether first argument no named and other has name
      *
      * @throws Apishka_Templater_Error_Syntax
      *
      * @return Apishka_Templater_Node
      */
-    public function parseArguments($namedArguments = false, $definition = false)
+    public function parseArguments($namedArguments = false, $definition = false, $firstNoNamed = false)
     {
         $args = array();
         $stream = $this->parser->getStream();
 
         $stream->expect(Apishka_Templater_Token::PUNCTUATION_TYPE, '(', 'A list of arguments must begin with an opening parenthesis');
-        while (!$stream->test(Apishka_Templater_Token::PUNCTUATION_TYPE, ')')) {
-            if (!empty($args)) {
-                $stream->expect(Apishka_Templater_Token::PUNCTUATION_TYPE, ',', 'Arguments must be separated by a comma');
+        while (!$stream->test(Apishka_Templater_Token::PUNCTUATION_TYPE, ')'))
+        {
+            if (!empty($args))
+            {
+                $stream->expect(
+                    Apishka_Templater_Token::PUNCTUATION_TYPE,
+                    ',',
+                    'Arguments must be separated by a comma'
+                );
             }
 
-            if ($definition) {
-                $token = $stream->expect(Apishka_Templater_Token::NAME_TYPE, null, 'An argument must be a name');
-                $value = Apishka_Templater_Node_Expression_Name::apishka($token->getValue(), $this->parser->getCurrentToken()->getLine());
-            } else {
+            if ($firstNoNamed && $namedArguments && empty($args))
+            {
+                $value = $this->parseExpression();
+                $args['__first_arg__'] = $value;
+                continue;
+            }
+
+            if ($definition)
+            {
+                $token = $stream->expect(
+                    Apishka_Templater_Token::NAME_TYPE,
+                    null,
+                    'An argument must be a name'
+                );
+
+                $value = Apishka_Templater_Node_Expression_Name::apishka(
+                    $token->getValue(),
+                    $this->parser->getCurrentToken()->getLine()
+                );
+            }
+            else
+            {
                 $value = $this->parseExpression();
             }
 
             $name = null;
-            if ($namedArguments && $token = $stream->nextIf(Apishka_Templater_Token::OPERATOR_TYPE, '=')) {
-                if (!$value instanceof Apishka_Templater_Node_Expression_Name) {
-                    throw new Apishka_Templater_Error_Syntax(sprintf('A parameter name must be a string, "%s" given.', get_class($value)), $token->getLine(), $this->parser->getFilename());
+            if ($namedArguments && $token = $stream->nextIf(Apishka_Templater_Token::OPERATOR_TYPE, '='))
+            {
+                if (!$value instanceof Apishka_Templater_Node_Expression_Name)
+                {
+                    throw new Apishka_Templater_Error_Syntax(
+                        sprintf(
+                            'A parameter name must be a string, "%s" given.',
+                            get_class($value)
+                        ),
+                        $token->getLine(),
+                        $this->parser->getFilename()
+                    );
                 }
+
                 $name = $value->getAttribute('name');
 
-                if ($definition) {
+                if ($definition)
+                {
                     $value = $this->parsePrimaryExpression();
 
-                    if (!$this->checkConstantExpression($value)) {
-                        throw new Apishka_Templater_Error_Syntax(sprintf('A default value for an argument must be a constant (a boolean, a string, a number, or an array).'), $token->getLine(), $this->parser->getFilename());
+                    if (!$this->checkConstantExpression($value))
+                    {
+                        throw new Apishka_Templater_Error_Syntax(
+                            sprintf('A default value for an argument must be a constant (a boolean, a string, a number, or an array).'),
+                            $token->getLine(),
+                            $this->parser->getFilename()
+                        );
                     }
-                } else {
+                }
+                else
+                {
                     $value = $this->parseExpression();
                 }
             }
 
-            if ($definition) {
-                if (null === $name) {
+            if ($definition)
+            {
+                if (null === $name)
+                {
                     $name = $value->getAttribute('name');
-                    $value = Apishka_Templater_Node_Expression_Constant::apishka(null, $this->parser->getCurrentToken()->getLine());
+                    $value = Apishka_Templater_Node_Expression_Constant::apishka(
+                        null,
+                        $this->parser->getCurrentToken()->getLine()
+                    );
                 }
+
                 $args[$name] = $value;
-            } else {
-                if (null === $name) {
+            }
+            else
+            {
+                if (null === $name)
+                {
                     $args[] = $value;
-                } else {
+                }
+                else
+                {
                     $args[$name] = $value;
                 }
             }
         }
-        $stream->expect(Apishka_Templater_Token::PUNCTUATION_TYPE, ')', 'A list of arguments must be closed by a parenthesis');
+
+        $stream->expect(
+            Apishka_Templater_Token::PUNCTUATION_TYPE,
+            ')',
+            'A list of arguments must be closed by a parenthesis'
+        );
 
         return Apishka_Templater_Node::apishka($args);
     }
