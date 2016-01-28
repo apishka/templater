@@ -33,7 +33,7 @@ class Apishka_Templater_Tests_Node_Expression_BlockReferenceTest extends Apishka
     {
         $tests = array();
 
-        // render block compile
+        // render: no args
         $node = Apishka_Templater_Node_Expression_BlockReference::apishka(
             Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
             Apishka_Templater_Node::apishka(),
@@ -45,6 +45,22 @@ class Apishka_Templater_Tests_Node_Expression_BlockReferenceTest extends Apishka
             $node,
             '$this->renderBlock("foo", $context, $blocks)'
         );
+
+        // render: with args
+        $node = Apishka_Templater_Node_Expression_BlockReference::apishka(
+            Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
+            Apishka_Templater_Node::apishka(
+                array(
+                    'named_arg' => Apishka_Templater_Node_Expression_Constant::apishka('bar', 1),
+                )
+            ),
+            false,
+            1
+        );
+
+        $tests[] = array(
+            $node,
+            '$this->renderBlock("foo", array_replace($context, array("named_arg" => "bar",)), $blocks)');
 
         // display: no args
         $node = Apishka_Templater_Node_Expression_BlockReference::apishka(
@@ -78,16 +94,7 @@ class Apishka_Templater_Tests_Node_Expression_BlockReferenceTest extends Apishka
         $tests[] = array(
             $node,
 '// line 1
-$this->displayBlock(
-    "foo",
-    array_replace(
-        $context,
-        array(
-            "named_arg" => "bar",
-        )
-    ),
-    $blocks
-);');
+$this->displayBlock("foo", array_replace($context, array("named_arg" => "bar",)), $blocks);');
 
         return $tests;
     }

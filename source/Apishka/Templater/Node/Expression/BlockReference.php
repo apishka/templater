@@ -44,64 +44,77 @@ class Apishka_Templater_Node_Expression_BlockReference extends Apishka_Templater
         if ($this->getAttribute('as_string'))
             $compiler->raw('(string) ');
 
+        $args = $this->getNode('args');
+
         if ($this->getAttribute('output'))
         {
-            $args = $this->getNode('args');
-            if (count($args))
-            {
-                $compiler
-                    ->addDebugInfo($this)
-                    ->write('$this->displayBlock(' . PHP_EOL)
-                    ->indent()
-                        ->write('')
-                        ->subcompile($this->getNode('name'))
-                        ->raw(',' . PHP_EOL)
-                        ->write('array_replace(' . PHP_EOL)
-                        ->indent()
-                            ->write('$context,' . PHP_EOL)
-                            ->write('array(' . PHP_EOL)
-                            ->indent()
-                ;
+            $compiler
+                ->addDebugInfo($this)
+                ->write('$this->displayBlock(')
+                ->subcompile($this->getNode('name'))
+                ->raw(', ')
+            ;
 
-                foreach ($args as $name => $arg)
-                {
-                    $compiler
-                                ->write('')
-                                ->string($name)
-                                ->raw(' => ')
-                                ->subcompile($arg)
-                                ->raw(',' . PHP_EOL)
-                    ;
-                }
+            $this->compileContext($compiler, $args);
 
-                $compiler
-                            ->outdent()
-                        ->write(')' . PHP_EOL)
-                        ->outdent()
-                    ->write('),' . PHP_EOL)
-                    ->write('$blocks' . PHP_EOL)
-                    ->outdent()
-                    ->write(');' . PHP_EOL)
-                    ->raw(PHP_EOL)
-                ;
-            }
-            else
-            {
-                $compiler
-                    ->addDebugInfo($this)
-                    ->write('$this->displayBlock(')
-                    ->subcompile($this->getNode('name'))
-                    ->raw(', $context, $blocks);' . PHP_EOL)
-                ;
-            }
+            $compiler
+                ->write('$blocks);' . PHP_EOL)
+            ;
         }
         else
         {
             $compiler
                 ->raw('$this->renderBlock(')
                 ->subcompile($this->getNode('name'))
-                ->raw(', $context, $blocks)')
+                ->raw(', ')
+            ;
+
+            $this->compileContext($compiler, $args);
+
+            $compiler
+                ->write('$blocks)')
             ;
         }
+    }
+
+    /**
+     * Compile args
+     *
+     * @param Apishka_Templater_Compiler $compiler
+     * @param Apishka_Templater_NodeAbstract $args
+     */
+
+    protected function compileContext(Apishka_Templater_Compiler $compiler, Apishka_Templater_NodeAbstract $args)
+    {
+        if (!count($args))
+        {
+            $compiler
+                ->raw('$context, ')
+            ;
+
+            return;
+        }
+
+        $compiler
+            ->raw('array_replace(')
+            ->raw('$context, ')
+            ->raw('array(')
+        ;
+
+        foreach ($args as $name => $arg)
+        {
+            $compiler
+                ->write('')
+                ->string($name)
+                ->raw(' => ')
+                ->subcompile($arg)
+                ->raw(',')
+            ;
+        }
+
+        $compiler
+            ->raw(')')
+            ->raw('), ')
+        ;
     }
 }
