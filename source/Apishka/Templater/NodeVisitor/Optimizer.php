@@ -160,11 +160,6 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
             $this->addLoopToCurrent();
         }
 
-        // include without the only attribute
-        elseif ($node instanceof Apishka_Templater_Node_Include && !$node->getAttribute('only')) {
-            $this->addLoopToAll();
-        }
-
         // include function without the with_context=false parameter
         elseif ($node instanceof Apishka_Templater_Node_Expression_Function
             && 'include' === $node->getAttribute('name')

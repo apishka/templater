@@ -96,15 +96,6 @@ class Apishka_Templater_Tests_ErrorTest extends PHPUnit_Framework_TestCase
                 'index', 3,
             ),
 
-            // error occurs in an included template
-            array(
-                array(
-                    'index'   => "{% include 'partial' %}",
-                    'partial' => '{{ foo.bar }}',
-                ),
-                'partial', 1,
-            ),
-
             // error occurs in a parent block when called via parent()
             array(
                 array(
