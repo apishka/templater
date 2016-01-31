@@ -85,6 +85,11 @@ class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseN
             // actions are safe by definition
             $this->setSafe($node, array('all'));
         }
+        elseif ($node instanceof Apishka_Templater_Node_Expression_Link)
+        {
+            // links are safe by definition
+            $this->setSafe($node, array('all'));
+        }
         elseif ($node instanceof Apishka_Templater_Node_Expression_Parent)
         {
             // parent block is safe by definition

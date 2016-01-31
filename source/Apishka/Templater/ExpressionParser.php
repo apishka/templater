@@ -375,6 +375,23 @@ class Apishka_Templater_ExpressionParser
                     $line
                 );
             }
+            case 'link':
+            {
+                $args = $this->parseArguments(false, false, true);
+                if (count($args) < 1)
+                {
+                    throw new Apishka_Templater_Error_Syntax('The "link" function takes at least one argument (the variable and the attributes).', $line, $this->parser->getFilename());
+                }
+
+                $block_name = $args->getNode('__first_arg__');
+                $args->removeNode('__first_arg__');
+
+                return Apishka_Templater_Node_Expression_Link::apishka(
+                    $block_name,
+                    $args,
+                    $line
+                );
+            }
             case 'attribute':
             {
                 $args = $this->parseArguments();
@@ -551,7 +568,7 @@ class Apishka_Templater_ExpressionParser
                 );
             }
 
-            if ($firstNoNamed && $namedArguments && empty($args))
+            if ($firstNoNamed && empty($args))
             {
                 $value = $this->parseExpression();
                 $args['__first_arg__'] = $value;
