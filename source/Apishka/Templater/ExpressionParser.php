@@ -325,8 +325,10 @@ class Apishka_Templater_ExpressionParser
 
     public function getFunctionNode($name, $line)
     {
-        switch ($name) {
+        switch ($name)
+        {
             case 'parent':
+            {
                 $this->parseArguments();
                 if (!count($this->parser->getBlockStack())) {
                     throw new Apishka_Templater_Error_Syntax('Calling "parent" outside a block is forbidden.', $line, $this->parser->getFilename());
@@ -337,7 +339,9 @@ class Apishka_Templater_ExpressionParser
                 }
 
                 return Apishka_Templater_Node_Expression_Parent::apishka($this->parser->peekBlockStack(), $line);
+            }
             case 'block':
+            {
                 $args = $this->parseArguments(true, false, true);
                 if (count($args) < 1)
                 {
@@ -353,14 +357,41 @@ class Apishka_Templater_ExpressionParser
                     false,
                     $line
                 );
+            }
+            case 'action':
+            {
+                $args = $this->parseArguments(true, false, true);
+                if (count($args) < 1)
+                {
+                    throw new Apishka_Templater_Error_Syntax('The "action" function takes at least one argument (the variable and the attributes).', $line, $this->parser->getFilename());
+                }
+
+                $block_name = $args->getNode('__first_arg__');
+                $args->removeNode('__first_arg__');
+
+                return Apishka_Templater_Node_Expression_Action::apishka(
+                    $block_name,
+                    $args,
+                    $line
+                );
+            }
             case 'attribute':
+            {
                 $args = $this->parseArguments();
                 if (count($args) < 2) {
                     throw new Apishka_Templater_Error_Syntax('The "attribute" function takes at least two arguments (the variable and the attributes).', $line, $this->parser->getFilename());
                 }
 
-                return Apishka_Templater_Node_Expression_GetAttr::apishka($args->getNode(0), $args->getNode(1), count($args) > 2 ? $args->getNode(2) : null, Apishka_Templater_TemplateAbstract::ANY_CALL, $line);
+                return Apishka_Templater_Node_Expression_GetAttr::apishka(
+                    $args->getNode(0),
+                    $args->getNode(1),
+                    count($args) > 2 ? $args->getNode(2) : null,
+                    Apishka_Templater_TemplateAbstract::ANY_CALL,
+                    $line
+                );
+            }
             default:
+            {
                 if (null !== $alias = $this->parser->getImportedSymbol('function', $name)) {
                     $arguments = Apishka_Templater_Node_Expression_Array::apishka(array(), $line);
                     foreach ($this->parseArguments() as $n) {
@@ -377,6 +408,7 @@ class Apishka_Templater_ExpressionParser
                 $class = $this->getFunctionNodeClass($name, $line);
 
                 return $class::apishka($name, $args, $line);
+            }
         }
     }
 
@@ -650,14 +682,16 @@ class Apishka_Templater_ExpressionParser
     {
         $env = $this->parser->getEnvironment();
 
-        if (false === $function = $env->getFunction($name)) {
+        if (false === $function = $env->getFunction($name))
+        {
             $e = new Apishka_Templater_Error_Syntax(sprintf('Unknown "%s" function.', $name), $line, $this->parser->getFilename());
             $e->addSuggestions($name, array_keys($env->getFunctions()));
 
             throw $e;
         }
 
-        if ($function->isDeprecated()) {
+        if ($function->isDeprecated())
+        {
             $message = sprintf('Twig Function "%s" is deprecated', $function->getName());
             if (!is_bool($function->getDeprecatedVersion())) {
                 $message .= sprintf(' since version %s', $function->getDeprecatedVersion());

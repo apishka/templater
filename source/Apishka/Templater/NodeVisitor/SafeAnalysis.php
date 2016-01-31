@@ -70,20 +70,34 @@ class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseN
      */
     protected function doLeaveNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
-        if ($node instanceof Apishka_Templater_Node_Expression_Constant) {
+        if ($node instanceof Apishka_Templater_Node_Expression_Constant)
+        {
             // constants are marked safe for all
             $this->setSafe($node, array('all'));
-        } elseif ($node instanceof Apishka_Templater_Node_Expression_BlockReference) {
+        }
+        elseif ($node instanceof Apishka_Templater_Node_Expression_BlockReference)
+        {
             // blocks are safe by definition
             $this->setSafe($node, array('all'));
-        } elseif ($node instanceof Apishka_Templater_Node_Expression_Parent) {
+        }
+        elseif ($node instanceof Apishka_Templater_Node_Expression_Action)
+        {
+            // actions are safe by definition
+            $this->setSafe($node, array('all'));
+        }
+        elseif ($node instanceof Apishka_Templater_Node_Expression_Parent)
+        {
             // parent block is safe by definition
             $this->setSafe($node, array('all'));
-        } elseif ($node instanceof Apishka_Templater_Node_Expression_Conditional) {
+        }
+        elseif ($node instanceof Apishka_Templater_Node_Expression_Conditional)
+        {
             // intersect safeness of both operands
             $safe = $this->intersectSafe($this->getSafe($node->getNode('expr2')), $this->getSafe($node->getNode('expr3')));
             $this->setSafe($node, $safe);
-        } elseif ($node instanceof Apishka_Templater_Node_Expression_Filter) {
+        }
+        elseif ($node instanceof Apishka_Templater_Node_Expression_Filter)
+        {
             // filter expression is safe when the filter is safe
             $name = $node->getNode('filter')->getAttribute('value');
             $args = $node->getNode('arguments');
@@ -96,7 +110,9 @@ class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseN
             } else {
                 $this->setSafe($node, array());
             }
-        } elseif ($node instanceof Apishka_Templater_Node_Expression_Function) {
+        }
+        elseif ($node instanceof Apishka_Templater_Node_Expression_Function)
+        {
             // function expression is safe when the function is safe
             $name = $node->getAttribute('name');
             $args = $node->getNode('arguments');
@@ -106,20 +122,26 @@ class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseN
             } else {
                 $this->setSafe($node, array());
             }
-        } elseif ($node instanceof Apishka_Templater_Node_Expression_MethodCall) {
+        }
+        elseif ($node instanceof Apishka_Templater_Node_Expression_MethodCall)
+        {
             if ($node->getAttribute('safe')) {
                 $this->setSafe($node, array('all'));
             } else {
                 $this->setSafe($node, array());
             }
-        } elseif ($node instanceof Apishka_Templater_Node_Expression_GetAttr && $node->getNode('node') instanceof Apishka_Templater_Node_Expression_Name) {
+        }
+        elseif ($node instanceof Apishka_Templater_Node_Expression_GetAttr && $node->getNode('node') instanceof Apishka_Templater_Node_Expression_Name)
+        {
             $name = $node->getNode('node')->getAttribute('name');
             if (in_array($name, $this->safeVars)) {
                 $this->setSafe($node, array('all'));
             } else {
                 $this->setSafe($node, array());
             }
-        } else {
+        }
+        else
+        {
             $this->setSafe($node, array());
         }
 

@@ -352,4 +352,53 @@ class Apishka_Templater_Tests_ExpressionParserTest extends PHPUnit_Framework_Tes
 
         return $tests;
     }
+
+    /**
+     * @dataProvider getTestsForAction
+     */
+    public function testActionExpression($template, $expected)
+    {
+        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
+        $stream = $env->tokenize($template, 'index');
+        $parser = new Apishka_Templater_Parser($env);
+
+        $this->assertEquals($expected, $parser->parse($stream)->getNode('body')->getNode(0));
+    }
+
+    public function getTestsForAction()
+    {
+        $tests = array();
+
+        $node = Apishka_Templater_Node_Expression_Action::apishka(
+            Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
+            Apishka_Templater_Node::apishka(),
+            1
+        );
+
+        $node->setAttribute('output', true);
+
+        $tests[] = array(
+            '{{ action("foo") }}',
+            $node,
+        );
+
+        $node = Apishka_Templater_Node_Expression_Action::apishka(
+            Apishka_Templater_Node_Expression_Constant::apishka('foo', 1),
+            Apishka_Templater_Node::apishka(
+                array(
+                    'named_arg' => Apishka_Templater_Node_Expression_Constant::apishka('bar', 1),
+                )
+            ),
+            1
+        );
+
+        $node->setAttribute('output', true);
+
+        $tests[] = array(
+            '{{ action("foo", named_arg="bar") }}',
+            $node,
+        );
+
+        return $tests;
+    }
 }

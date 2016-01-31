@@ -96,6 +96,7 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
 
         if (
             $node->getNode('expr') instanceof Apishka_Templater_Node_Expression_BlockReference ||
+            $node->getNode('expr') instanceof Apishka_Templater_Node_Expression_Action ||
             $node->getNode('expr') instanceof Apishka_Templater_Node_Expression_Parent
         ) {
             $node->getNode('expr')->setAttribute('output', true);
