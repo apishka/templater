@@ -60,8 +60,8 @@ class Apishka_Templater_TokenParser_Translate extends Apishka_Templater_TokenPar
             $stream->expect(Apishka_Templater_Token::OPERATOR_TYPE, '=');
 
             $params[] = array(
-                $param_name,
-                $this->parser->getExpressionParser()->parseExpression()
+                'type'  => $param_name,
+                'param' => $this->parser->getExpressionParser()->parseExpression()
             );
         }
 
