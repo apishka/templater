@@ -48,6 +48,20 @@ abstract class Apishka_Templater_TemplateAbstract
     abstract public function getTemplateName();
 
     /**
+     * Get globals
+     *
+     * @return Apishka_Templater_Template_Globals
+     */
+
+    protected function _getGlobals()
+    {
+        if ($this->_globals === null)
+            $this->_globals = Apishka_Templater_Template_Globals::apishka();
+
+        return $this->_globals;
+    }
+
+    /**
      * Returns the parent template.
      *
      * This method is for internal use only and should never be called
