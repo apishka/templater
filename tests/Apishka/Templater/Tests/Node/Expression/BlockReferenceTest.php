@@ -4,6 +4,7 @@
  * Apishka templater tests node expression block reference test
  *
  * @uses Apishka_Templater_Test_NodeTestCaseAbstract
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
@@ -43,7 +44,7 @@ class Apishka_Templater_Tests_Node_Expression_BlockReferenceTest extends Apishka
 
         $tests[] = array(
             $node,
-            '$this->renderBlock("foo", $context, $blocks)'
+            '$this->renderBlock("foo", $context, $blocks)',
         );
 
         // render: with args
@@ -60,7 +61,7 @@ class Apishka_Templater_Tests_Node_Expression_BlockReferenceTest extends Apishka
 
         $tests[] = array(
             $node,
-            '$this->renderBlock("foo", array_replace($context, array("named_arg" => "bar",)), $blocks)');
+            '$this->renderBlock("foo", array_replace($context, array("named_arg" => "bar",)), $blocks)', );
 
         // display: no args
         $node = Apishka_Templater_Node_Expression_BlockReference::apishka(
@@ -74,7 +75,7 @@ class Apishka_Templater_Tests_Node_Expression_BlockReferenceTest extends Apishka
 
         $tests[] = array(
             $node,
-            '// line 1' . PHP_EOL . '$this->displayBlock("foo", $context, $blocks);'
+            '// line 1' . PHP_EOL . '$this->displayBlock("foo", $context, $blocks);',
         );
 
         // display: with args
@@ -94,7 +95,7 @@ class Apishka_Templater_Tests_Node_Expression_BlockReferenceTest extends Apishka
         $tests[] = array(
             $node,
 '// line 1
-$this->displayBlock("foo", array_replace($context, array("named_arg" => "bar",)), $blocks);');
+$this->displayBlock("foo", array_replace($context, array("named_arg" => "bar",)), $blocks);', );
 
         return $tests;
     }

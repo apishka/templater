@@ -50,6 +50,7 @@ class Apishka_Templater_Node_Expression_Binary_BitwiseOr extends Apishka_Templat
      * Operator
      *
      * @param Apishka_Templater_Compiler $compiler
+     *
      * @return Apishka_Templater_Compiler
      */
 

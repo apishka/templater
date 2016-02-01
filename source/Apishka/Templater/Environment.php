@@ -897,7 +897,7 @@ class Apishka_Templater_Environment
      * @param Callable $callable
      */
 
-    public function registerUndefinedFilterCallback(Callable $callable)
+    public function registerUndefinedFilterCallback(callable $callable)
     {
         $this->filterCallbacks[] = $callable;
     }
@@ -1031,7 +1031,7 @@ class Apishka_Templater_Environment
      * @param Callable $callable
      */
 
-    public function registerUndefinedFunctionCallback(Callable $callable)
+    public function registerUndefinedFunctionCallback(callable $callable)
     {
         $this->functionCallbacks[] = $callable;
     }

@@ -4,6 +4,7 @@
  * Tests apishka templater tests node expression link test
  *
  * @uses Apishka_Templater_Test_NodeTestCaseAbstract
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
@@ -41,7 +42,7 @@ class Apishka_Templater_Tests_Node_Expression_LinkTest extends Apishka_Templater
 
         $tests[] = array(
             $node,
-            '$this->renderLink("foo", $context)'
+            '$this->renderLink("foo", $context)',
         );
 
         // render: with args
@@ -57,7 +58,7 @@ class Apishka_Templater_Tests_Node_Expression_LinkTest extends Apishka_Templater
 
         $tests[] = array(
             $node,
-            '$this->renderLink("foo", array_replace($context, array("named_arg" => "bar",)))');
+            '$this->renderLink("foo", array_replace($context, array("named_arg" => "bar",)))', );
 
         // display: no args
         $node = Apishka_Templater_Node_Expression_Link::apishka(
@@ -70,7 +71,7 @@ class Apishka_Templater_Tests_Node_Expression_LinkTest extends Apishka_Templater
 
         $tests[] = array(
             $node,
-            '// line 1' . PHP_EOL . '$this->displayLink("foo", $context);'
+            '// line 1' . PHP_EOL . '$this->displayLink("foo", $context);',
         );
 
         // display: with args
@@ -89,7 +90,7 @@ class Apishka_Templater_Tests_Node_Expression_LinkTest extends Apishka_Templater
         $tests[] = array(
             $node,
 '// line 2
-$this->displayLink("foo", array_replace($context, array("named_arg" => "bar",)));');
+$this->displayLink("foo", array_replace($context, array("named_arg" => "bar",)));', );
 
         return $tests;
     }

@@ -6,6 +6,7 @@
  * @easy-extend-base
  *
  * @uses Apishka_Templater_Node_Expression_Test
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 

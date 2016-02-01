@@ -14,6 +14,7 @@
  *
  * @uses PHPUnit_Framework_TestCase
  * @abstract
+ *
  * @author Evgeny Reykh <evgeny@reykh.com>
  */
 

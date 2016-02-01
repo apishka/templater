@@ -4,6 +4,7 @@
  * Apishka templater node translate
  *
  * @uses Apishka_Templater_NodeAbstract
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
@@ -13,10 +14,10 @@ class Apishka_Templater_Node_Translate extends Apishka_Templater_NodeAbstract
      * Construct
      *
      * @param Apishka_Templater_NodeAbstract $body
-     * @param array $params
-     * @param mixed $variables
-     * @param int $lineno
-     * @param string $tag
+     * @param array                          $params
+     * @param mixed                          $variables
+     * @param int                            $lineno
+     * @param string                         $tag
      */
 
     public function __construct(Apishka_Templater_NodeAbstract $body, array $params, $variables, $lineno, $tag)
@@ -29,7 +30,7 @@ class Apishka_Templater_Node_Translate extends Apishka_Templater_NodeAbstract
             ),
             array(
                 'params'        => $params,
-                'output'        => false
+                'output'        => false,
             ),
             $lineno,
             $tag

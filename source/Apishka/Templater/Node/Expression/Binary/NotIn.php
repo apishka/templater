@@ -66,6 +66,7 @@ class Apishka_Templater_Node_Expression_Binary_NotIn extends Apishka_Templater_N
      * Operator
      *
      * @param Apishka_Templater_Compiler $compiler
+     *
      * @return Apishka_Templater_Compiler
      */
 

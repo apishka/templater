@@ -4,6 +4,7 @@
  * Apishka templater node expression binary test abstract
  *
  * @abstract
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 

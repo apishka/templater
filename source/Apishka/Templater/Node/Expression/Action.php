@@ -4,6 +4,7 @@
  * Apishka templater node expression action
  *
  * @uses Apishka_Templater_Node_ExpressionAbstract
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
@@ -14,8 +15,8 @@ class Apishka_Templater_Node_Expression_Action extends Apishka_Templater_Node_Ex
      *
      * @param Apishka_Templater_NodeAbstract $name
      * @param Apishka_Templater_NodeAbstract $args
-     * @param int $lineno
-     * @param mixed $tag
+     * @param int                            $lineno
+     * @param mixed                          $tag
      */
 
     public function __construct(Apishka_Templater_NodeAbstract $name, Apishka_Templater_NodeAbstract $args, $lineno, $tag = null)
@@ -26,7 +27,7 @@ class Apishka_Templater_Node_Expression_Action extends Apishka_Templater_Node_Ex
                 'args' => $args,
             ),
             array(
-                'output'    => false
+                'output'    => false,
             ),
             $lineno,
             $tag
@@ -77,7 +78,7 @@ class Apishka_Templater_Node_Expression_Action extends Apishka_Templater_Node_Ex
     /**
      * Compile args
      *
-     * @param Apishka_Templater_Compiler $compiler
+     * @param Apishka_Templater_Compiler     $compiler
      * @param Apishka_Templater_NodeAbstract $args
      */
 

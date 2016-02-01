@@ -157,7 +157,7 @@ class Apishka_Templater_Compiler
      * Subcompile
      *
      * @param Apishka_Templater_NodeAbstract $node
-     * @param bool $raw
+     * @param bool                           $raw
      *
      * @return Apishka_Templater_Compiler
      */

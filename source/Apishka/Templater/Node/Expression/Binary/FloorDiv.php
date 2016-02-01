@@ -62,6 +62,7 @@ class Apishka_Templater_Node_Expression_Binary_FloorDiv extends Apishka_Template
      * Operator
      *
      * @param Apishka_Templater_Compiler $compiler
+     *
      * @return Apishka_Templater_Compiler
      */
 

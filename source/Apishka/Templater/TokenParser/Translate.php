@@ -4,6 +4,7 @@
  * Apishka templater token parser translate
  *
  * @uses Apishka_Templater_TokenParserAbstract
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
@@ -13,6 +14,7 @@ class Apishka_Templater_TokenParser_Translate extends Apishka_Templater_TokenPar
      * Parse
      *
      * @param Apishka_Templater_Token $token
+     *
      * @return Apishka_Templater_Node_Translation
      */
 
@@ -61,13 +63,13 @@ class Apishka_Templater_TokenParser_Translate extends Apishka_Templater_TokenPar
 
             $params[] = array(
                 'type'  => $param_name,
-                'param' => $this->parser->getExpressionParser()->parseExpression()
+                'param' => $this->parser->getExpressionParser()->parseExpression(),
             );
         }
 
         return array(
             $params,
-            $variables
+            $variables,
         );
     }
 
@@ -75,6 +77,7 @@ class Apishka_Templater_TokenParser_Translate extends Apishka_Templater_TokenPar
      * Decide translate end
      *
      * @param Apishka_Templater_Token $token
+     *
      * @return bool
      */
 

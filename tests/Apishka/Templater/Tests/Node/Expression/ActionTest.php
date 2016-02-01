@@ -4,6 +4,7 @@
  * Tests apishka templater tests node expression action test
  *
  * @uses Apishka_Templater_Test_NodeTestCaseAbstract
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
@@ -41,7 +42,7 @@ class Apishka_Templater_Tests_Node_Expression_ActionTest extends Apishka_Templat
 
         $tests[] = array(
             $node,
-            '$this->renderAction("foo", $context)'
+            '$this->renderAction("foo", $context)',
         );
 
         // render: with args
@@ -57,7 +58,7 @@ class Apishka_Templater_Tests_Node_Expression_ActionTest extends Apishka_Templat
 
         $tests[] = array(
             $node,
-            '$this->renderAction("foo", array_replace($context, array("named_arg" => "bar",)))');
+            '$this->renderAction("foo", array_replace($context, array("named_arg" => "bar",)))', );
 
         // display: no args
         $node = Apishka_Templater_Node_Expression_Action::apishka(
@@ -70,7 +71,7 @@ class Apishka_Templater_Tests_Node_Expression_ActionTest extends Apishka_Templat
 
         $tests[] = array(
             $node,
-            '// line 1' . PHP_EOL . '$this->displayAction("foo", $context);'
+            '// line 1' . PHP_EOL . '$this->displayAction("foo", $context);',
         );
 
         // display: with args
@@ -89,7 +90,7 @@ class Apishka_Templater_Tests_Node_Expression_ActionTest extends Apishka_Templat
         $tests[] = array(
             $node,
 '// line 2
-$this->displayAction("foo", array_replace($context, array("named_arg" => "bar",)));');
+$this->displayAction("foo", array_replace($context, array("named_arg" => "bar",)));', );
 
         return $tests;
     }

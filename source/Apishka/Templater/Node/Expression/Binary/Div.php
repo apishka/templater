@@ -50,6 +50,7 @@ class Apishka_Templater_Node_Expression_Binary_Div extends Apishka_Templater_Nod
      * Operator
      *
      * @param Apishka_Templater_Compiler $compiler
+     *
      * @return Apishka_Templater_Compiler
      */
 

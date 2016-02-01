@@ -4,6 +4,7 @@
  * Apishka templater node expression test router
  *
  * @uses \Apishka\EasyExtend\Router\ByKeyAbstract
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 

@@ -4,6 +4,7 @@
  * Apishka templater node expression test
  *
  * @uses Apishka_Templater_Node_Expression_TestAbstract
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 

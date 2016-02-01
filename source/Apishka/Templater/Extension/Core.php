@@ -282,7 +282,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
     {
         return array(
             Apishka_Templater_Node_Expression_UnaryRouter::apishka()->getData(),
-            Apishka_Templater_Node_Expression_BinaryRouter::apishka()->getData()
+            Apishka_Templater_Node_Expression_BinaryRouter::apishka()->getData(),
         );
     }
 

@@ -28,8 +28,6 @@ class Apishka_Templater_NodeVisitor_Escaper extends Apishka_Templater_BaseNodeVi
 
     /**
      * Construct
-     *
-     * @return void
      */
 
     public function __construct()

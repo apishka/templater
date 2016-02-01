@@ -4,6 +4,7 @@
  * Apishka templater node expression binary test is not
  *
  * @uses Apishka_Templater_Node_Expression_BinaryTestInterface
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
@@ -74,7 +75,7 @@ class Apishka_Templater_Node_Expression_Binary_TestIsNot extends Apishka_Templat
     /**
      * Construct
      *
-     * @param Apishka_Templater_Parser $parser
+     * @param Apishka_Templater_Parser       $parser
      * @param Apishka_Templater_NodeAbstract $node
      */
 

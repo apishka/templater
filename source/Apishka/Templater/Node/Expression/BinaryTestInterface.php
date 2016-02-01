@@ -4,6 +4,7 @@
  * Apishka templater node expression binary test interface
  *
  * @uses Apishka_Templater_Node_Expression_BinaryInterface
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 

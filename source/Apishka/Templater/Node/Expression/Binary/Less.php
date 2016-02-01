@@ -49,6 +49,7 @@ class Apishka_Templater_Node_Expression_Binary_Less extends Apishka_Templater_No
      * Operator
      *
      * @param Apishka_Templater_Compiler $compiler
+     *
      * @return Apishka_Templater_Compiler
      */
 

@@ -6,6 +6,7 @@
  * @easy-extend-base
  *
  * @uses \Apishka\EasyExtend\Router\ByClassName
+ *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
