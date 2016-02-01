@@ -23,9 +23,10 @@
 class Apishka_Templater_Node_Expression_Name extends Apishka_Templater_Node_ExpressionAbstract
 {
     private $specialVars = array(
-        '_self'    => '$this->getTemplateName()',
-        '_context' => '$context',
-        '_charset' => '$this->env->getCharset()',
+        '_self'     => '$this->getTemplateName()',
+        '_context'  => '$context',
+        '_charset'  => '$this->env->getCharset()',
+        'globals'   => '$this->_getGlobals()',
     );
 
     public function __construct($name, $lineno)
