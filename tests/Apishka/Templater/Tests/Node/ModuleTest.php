@@ -58,6 +58,13 @@ class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
         );
     }
 
+    public function getSupportedNames()
+    {
+        return array(
+            '__TwigTemplate_%x',
+        );
+    }
+
     protected function doDisplay(array \$context, array \$blocks = array())
     {
         // line 1
@@ -71,7 +78,7 @@ class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
 
     public function getDebugInfo()
     {
-        return array (  19 => 1,);
+        return array (  26 => 1,);
     }
 }
 EOF
@@ -94,6 +101,13 @@ class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
         // line 1
         \$this->parent = \$this->loadTemplate("layout.twig", "foo.twig", 1);
         \$this->blocks = array(
+        );
+    }
+
+    public function getSupportedNames()
+    {
+        return array(
+            '__TwigTemplate_%x',
         );
     }
 
@@ -141,6 +155,13 @@ EOF
 /* foo.twig */
 class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
 {
+    public function getSupportedNames()
+    {
+        return array(
+            '__TwigTemplate_%x',
+        );
+    }
+
     protected function doGetParent(array \$context)
     {
         // line 2
@@ -167,7 +188,7 @@ class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
 
     public function getDebugInfo()
     {
-        return array (  17 => 2,  15 => 4,  9 => 2,);
+        return array (  24 => 2,  22 => 4,  16 => 2,);
     }
 }
 EOF

@@ -13,10 +13,12 @@
 /**
  * Default base class for compiled templates.
  *
+ * @uses Apishka_Templater_TemplateInterface
+ *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 
-abstract class Apishka_Templater_TemplateAbstract
+abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_TemplateInterface
 {
     const ANY_CALL = 'any';
     const ARRAY_CALL = 'array';

@@ -75,6 +75,8 @@ class Apishka_Templater_Node_Module extends Apishka_Templater_NodeAbstract
             $this->compileConstructor($compiler);
         }
 
+        $this->compileApishkaName($compiler);
+
         $this->compileGetParent($compiler);
 
         $this->compileDisplay($compiler);
@@ -90,6 +92,27 @@ class Apishka_Templater_Node_Module extends Apishka_Templater_NodeAbstract
         $this->compileDebugInfo($compiler);
 
         $this->compileClassFooter($compiler);
+    }
+
+    /**
+     * Compile apishka name
+     *
+     * @param Apishka_Templater_Compiler $compiler
+     */
+
+    protected function compileApishkaName(Apishka_Templater_Compiler $compiler)
+    {
+        $compiler
+            ->write("public function getSupportedNames()\n", "{\n")
+            ->indent()
+            ->write('return array(' . PHP_EOL)
+            ->indent()
+            ->write(sprintf("'%s',", $compiler->getEnvironment()->getTemplateClass($this->getAttribute('filename'), $this->getAttribute('index'))) . PHP_EOL)
+            ->outdent()
+            ->write(');' . PHP_EOL)
+            ->outdent()
+            ->write('}' . PHP_EOL . PHP_EOL)
+        ;
     }
 
     protected function compileGetParent(Apishka_Templater_Compiler $compiler)

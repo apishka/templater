@@ -379,6 +379,13 @@ class Apishka_Templater_TemplateTest extends Apishka_Templater_TemplateAbstract
         self::$cache = array();
     }
 
+    public function getSupportedNames()
+    {
+        return array(
+            'Apishka_Templater_TemplateTest'
+        );
+    }
+
     public function getZero()
     {
         return 0;
