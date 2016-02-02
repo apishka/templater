@@ -3,12 +3,12 @@
 /**
  * Apishka templater tests node expression block reference test
  *
- * @uses Apishka_Templater_Test_NodeTestCaseAbstract
+ * @uses Apishka_Templater_Tests_Test_NodeTestCaseAbstract
  *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
-class Apishka_Templater_Tests_Node_Expression_BlockReferenceTest extends Apishka_Templater_Test_NodeTestCaseAbstract
+class Apishka_Templater_Tests_Node_Expression_BlockReferenceTest extends Apishka_Templater_Tests_Test_NodeTestCaseAbstract
 {
     public function testConstructor()
     {

@@ -16,7 +16,7 @@
  * @author Karma Dordrak <drak@zikula.org>
  */
 
-abstract class Apishka_Templater_Test_IntegrationTestCaseAbstract extends PHPUnit_Framework_TestCase
+abstract class Apishka_Templater_Tests_Test_IntegrationTestCaseAbstract extends PHPUnit_Framework_TestCase
 {
     /**
      * @return string
