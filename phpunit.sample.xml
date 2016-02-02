@@ -13,7 +13,7 @@
 >
     <testsuites>
         <testsuite name="Twig Test Suite">
-            <directory>./tests/Apishka/Templater/</directory>
+            <directory>./tests/Apishka/Tests/Templater/</directory>
         </testsuite>
     </testsuites>
 

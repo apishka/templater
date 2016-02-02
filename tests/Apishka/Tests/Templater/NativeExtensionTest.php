@@ -1,0 +1,33 @@
+<?php
+
+/*
+ * This file is part of Twig.
+ *
+ * (c) Fabien Potencier
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+class Apishka_Tests_Templater_NativeExtensionTest extends PHPUnit_Framework_TestCase
+{
+    public function testGetProperties()
+    {
+        if (defined('HHVM_VERSION')) {
+            $this->markTestSkipped('Skip under HHVM as the behavior is not the same as plain PHP (which is an edge case anyway)');
+        }
+
+        $twig = new Apishka_Templater_Environment(new Apishka_Templater_Loader_Array(array('index' => '{{ d1.date }}{{ d2.date }}')), array(
+            'debug'      => true,
+            'cache'      => false,
+            'autoescape' => false,
+        ));
+
+        $d1 = new DateTime();
+        $d2 = new DateTime();
+        $output = $twig->render('index', compact('d1', 'd2'));
+
+        // If it fails, PHP will crash.
+        $this->assertEquals($output, $d1->date . $d2->date);
+    }
+}
