@@ -17,6 +17,12 @@
 
 class Apishka_Templater_Environment
 {
+    /**
+     * Traits
+     */
+
+    use Apishka\EasyExtend\Helper\ByClassNameTrait;
+
     const VERSION = '2.0.0-DEV';
 
     private $charset;
