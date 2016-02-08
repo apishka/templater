@@ -97,16 +97,7 @@ class Apishka_Templater_Environment
         $this->setLoader($loader);
 
         $options = array_merge(
-            array(
-                'debug'               => false,
-                'charset'             => 'UTF-8',
-                'base_template_class' => 'Apishka_Templater_TemplateAbstract',
-                'strict_variables'    => false,
-                'autoescape'          => 'html',
-                'cache'               => false,
-                'auto_reload'         => null,
-                'optimizations'       => -1,
-            ),
+            $this->_getDefaultOptions(),
             $options
         );
 
@@ -121,6 +112,26 @@ class Apishka_Templater_Environment
         $this->addExtension(new Apishka_Templater_Extension_Escaper($options['autoescape']));
         $this->addExtension(new Apishka_Templater_Extension_Optimizer($options['optimizations']));
         $this->staging = new Apishka_Templater_Extension_Staging();
+    }
+
+    /**
+     * Get default options
+     *
+     * @return array
+     */
+
+    protected function _getDefaultOptions()
+    {
+        return array(
+            'debug'               => false,
+            'charset'             => 'UTF-8',
+            'base_template_class' => 'Apishka_Templater_TemplateAbstract',
+            'strict_variables'    => false,
+            'autoescape'          => 'html',
+            'cache'               => false,
+            'auto_reload'         => null,
+            'optimizations'       => -1,
+        );
     }
 
     /**

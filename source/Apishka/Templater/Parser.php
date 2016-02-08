@@ -117,7 +117,15 @@ class Apishka_Templater_Parser
             throw $e;
         }
 
-        $node = Apishka_Templater_Node_Module::apishka(Apishka_Templater_Node_Body::apishka(array($body)), $this->parent, Apishka_Templater_Node::apishka($this->blocks), Apishka_Templater_Node::apishka($this->macros), Apishka_Templater_Node::apishka($this->traits), $this->embeddedTemplates, $this->getFilename());
+        $node = Apishka_Templater_Node_Module::apishka(
+            Apishka_Templater_Node_Body::apishka(array($body)),
+            $this->parent,
+            Apishka_Templater_Node::apishka($this->blocks),
+            Apishka_Templater_Node::apishka($this->macros),
+            Apishka_Templater_Node::apishka($this->traits),
+            $this->embeddedTemplates,
+            $this->getFilename()
+        );
 
         $traverser = new Apishka_Templater_NodeTraverser($this->env, $this->visitors);
 
