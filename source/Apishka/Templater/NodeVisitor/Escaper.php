@@ -32,7 +32,7 @@ class Apishka_Templater_NodeVisitor_Escaper extends Apishka_Templater_BaseNodeVi
 
     public function __construct()
     {
-        $this->safeAnalysis = new Apishka_Templater_NodeVisitor_SafeAnalysis();
+        $this->safeAnalysis = Apishka_Templater_NodeVisitor_SafeAnalysis::apishka();
     }
 
     /**

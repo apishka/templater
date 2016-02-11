@@ -70,29 +70,9 @@ class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseN
      */
     protected function doLeaveNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
-        if ($node instanceof Apishka_Templater_Node_Expression_Constant)
+        if ($this->doLeaveNodeIsSafeAll($node))
         {
             // constants are marked safe for all
-            $this->setSafe($node, array('all'));
-        }
-        elseif ($node instanceof Apishka_Templater_Node_Expression_BlockReference)
-        {
-            // blocks are safe by definition
-            $this->setSafe($node, array('all'));
-        }
-        elseif ($node instanceof Apishka_Templater_Node_Expression_Action)
-        {
-            // actions are safe by definition
-            $this->setSafe($node, array('all'));
-        }
-        elseif ($node instanceof Apishka_Templater_Node_Expression_Link)
-        {
-            // links are safe by definition
-            $this->setSafe($node, array('all'));
-        }
-        elseif ($node instanceof Apishka_Templater_Node_Expression_Parent)
-        {
-            // parent block is safe by definition
             $this->setSafe($node, array('all'));
         }
         elseif ($node instanceof Apishka_Templater_Node_Expression_Conditional)
@@ -151,6 +131,22 @@ class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseN
         }
 
         return $node;
+    }
+
+    /**
+     * Do leave node is safe all
+     *
+     * @param Apishka_Templater_NodeAbstract $node
+     * @return bool
+     */
+
+    protected function doLeaveNodeIsSafeAll($node)
+    {
+        return
+            $node instanceof Apishka_Templater_Node_Expression_Constant ||
+            $node instanceof Apishka_Templater_Node_Expression_BlockReference ||
+            $node instanceof Apishka_Templater_Node_Expression_Parent
+        ;
     }
 
     private function intersectSafe(array $a = null, array $b = null)

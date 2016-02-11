@@ -86,9 +86,8 @@ class Apishka_Templater_Parser
             $this->visitors = $this->env->getNodeVisitors();
         }
 
-        if (null === $this->expressionParser) {
-            $this->expressionParser = new Apishka_Templater_ExpressionParser($this, $this->env->getUnaryOperators(), $this->env->getBinaryOperators());
-        }
+        if ($this->expressionParser === null)
+            $this->expressionParser = Apishka_Templater_ExpressionParser::apishka($this, $this->env->getUnaryOperators(), $this->env->getBinaryOperators());
 
         $this->stream = $stream;
         $this->parent = null;

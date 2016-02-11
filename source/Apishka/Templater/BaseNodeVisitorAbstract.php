@@ -18,6 +18,12 @@
 abstract class Apishka_Templater_BaseNodeVisitorAbstract implements Apishka_Templater_NodeVisitorInterface
 {
     /**
+     * Traits
+     */
+
+    use Apishka\EasyExtend\Helper\ByClassNameTrait;
+
+    /**
      * {@inheritdoc}
      */
 

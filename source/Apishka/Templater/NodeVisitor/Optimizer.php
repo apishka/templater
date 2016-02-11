@@ -90,22 +90,32 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
      */
     private function optimizePrintNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
-        if (!$node instanceof Apishka_Templater_Node_Print) {
+        if (!$node instanceof Apishka_Templater_Node_Print)
             return $node;
-        }
 
-        if (
-            $node->getNode('expr') instanceof Apishka_Templater_Node_Expression_BlockReference ||
-            $node->getNode('expr') instanceof Apishka_Templater_Node_Expression_Action ||
-            $node->getNode('expr') instanceof Apishka_Templater_Node_Expression_Link ||
-            $node->getNode('expr') instanceof Apishka_Templater_Node_Expression_Parent
-        ) {
+        if ($this->optimizePrintNodeIsOutput($node))
+        {
             $node->getNode('expr')->setAttribute('output', true);
 
             return $node->getNode('expr');
         }
 
         return $node;
+    }
+
+    /**
+     * Optimize print node: is output flag
+     *
+     * @param Apishka_Templater_NodeAbstract $node
+     * @return bool
+     */
+
+    protected function optimizePrintNodeIsOutput($node)
+    {
+        return
+            $node->getNode('expr') instanceof Apishka_Templater_Node_Expression_BlockReference ||
+            $node->getNode('expr') instanceof Apishka_Templater_Node_Expression_Parent
+        ;
     }
 
     /**

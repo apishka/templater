@@ -22,6 +22,12 @@
  */
 class Apishka_Templater_ExpressionParser
 {
+    /**
+     * Traits
+     */
+
+    use Apishka\EasyExtend\Helper\ByClassNameTrait;
+
     const OPERATOR_LEFT = 1;
     const OPERATOR_RIGHT = 2;
 
@@ -358,40 +364,6 @@ class Apishka_Templater_ExpressionParser
                     $line
                 );
             }
-            case 'action':
-            {
-                $args = $this->parseArguments(true, false, true);
-                if (count($args) < 1)
-                {
-                    throw new Apishka_Templater_Error_Syntax('The "action" function takes at least one argument (the variable and the attributes).', $line, $this->parser->getFilename());
-                }
-
-                $block_name = $args->getNode('__first_arg__');
-                $args->removeNode('__first_arg__');
-
-                return Apishka_Templater_Node_Expression_Action::apishka(
-                    $block_name,
-                    $args,
-                    $line
-                );
-            }
-            case 'link':
-            {
-                $args = $this->parseArguments(false, false, true);
-                if (count($args) < 1)
-                {
-                    throw new Apishka_Templater_Error_Syntax('The "link" function takes at least one argument (the variable and the attributes).', $line, $this->parser->getFilename());
-                }
-
-                $block_name = $args->getNode('__first_arg__');
-                $args->removeNode('__first_arg__');
-
-                return Apishka_Templater_Node_Expression_Link::apishka(
-                    $block_name,
-                    $args,
-                    $line
-                );
-            }
             case 'attribute':
             {
                 $args = $this->parseArguments();
@@ -409,24 +381,38 @@ class Apishka_Templater_ExpressionParser
             }
             default:
             {
-                if (null !== $alias = $this->parser->getImportedSymbol('function', $name)) {
-                    $arguments = Apishka_Templater_Node_Expression_Array::apishka(array(), $line);
-                    foreach ($this->parseArguments() as $n) {
-                        $arguments->addElement($n);
-                    }
-
-                    $node = Apishka_Templater_Node_Expression_MethodCall::apishka($alias['node'], $alias['name'], $arguments, $line);
-                    $node->setAttribute('safe', true);
-
-                    return $node;
-                }
-
-                $args = $this->parseArguments(true);
-                $class = $this->getFunctionNodeClass($name, $line);
-
-                return $class::apishka($name, $args, $line);
+                return $this->getFunctionNodeDefault($name, $line);
             }
         }
+    }
+
+    /**
+     * Get function node default
+     *
+     * @param string $name
+     * @param int $line
+     * @return Apishka_Templater_NodeAbstract
+     */
+
+    protected function getFunctionNodeDefault($name, $line = null)
+    {
+        if (null !== $alias = $this->parser->getImportedSymbol('function', $name))
+        {
+            $arguments = Apishka_Templater_Node_Expression_Array::apishka(array(), $line);
+            foreach ($this->parseArguments() as $n) {
+                $arguments->addElement($n);
+            }
+
+            $node = Apishka_Templater_Node_Expression_MethodCall::apishka($alias['node'], $alias['name'], $arguments, $line);
+            $node->setAttribute('safe', true);
+
+            return $node;
+        }
+
+        $args = $this->parseArguments(true);
+        $class = $this->getFunctionNodeClass($name, $line);
+
+        return $class::apishka($name, $args, $line);
     }
 
     public function parseSubscriptExpression($node)

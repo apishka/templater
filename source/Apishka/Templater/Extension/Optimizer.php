@@ -28,7 +28,9 @@ class Apishka_Templater_Extension_Optimizer extends Apishka_Templater_ExtensionA
 
     public function getNodeVisitors()
     {
-        return array(new Apishka_Templater_NodeVisitor_Optimizer($this->optimizers));
+        return array(
+            Apishka_Templater_NodeVisitor_Optimizer::apishka($this->optimizers),
+        );
     }
 
     public function getName()
