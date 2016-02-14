@@ -298,10 +298,6 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
         $parser->parse($env->tokenize('{{ 1 is foobar }}', 'index'));
     }
 
-    public function testBlockWithOutParam()
-    {
-    }
-
     /**
      * @dataProvider getTestsForBlock
      */
