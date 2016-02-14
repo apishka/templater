@@ -3,12 +3,10 @@
 /**
  * Apishka templater template globals
  *
- * @uses Iterator
- *
  * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
-class Apishka_Templater_Template_Globals implements Iterator
+class Apishka_Templater_Template_Globals
 {
     /**
      * Traits
@@ -129,50 +127,6 @@ class Apishka_Templater_Template_Globals implements Iterator
     public function rewind()
     {
         reset($this->_data);
-    }
-
-    /**
-     * Текущий элемент итерации.
-     *
-     * @return mixed
-     */
-
-    public function current()
-    {
-        return current($this->_data);
-    }
-
-    /**
-     * Ключ итерации
-     *
-     * @return string
-     */
-
-    public function key()
-    {
-        return key($this->_data);
-    }
-
-    /**
-     * Перейти на следующий элемент в выборке
-     *
-     * @return mixed
-     */
-
-    public function next()
-    {
-        return next($this->_data);
-    }
-
-    /**
-     * Валиден ли итератор (было ли успешно смещение?)
-     *
-     * @return bool
-     */
-
-    public function valid()
-    {
-        return $this->current() !== false;
     }
 
     /**
