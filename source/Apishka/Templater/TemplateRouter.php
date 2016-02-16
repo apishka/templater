@@ -11,6 +11,22 @@
 class Apishka_Templater_TemplateRouter extends \Apishka\EasyExtend\Router\ByKeyAbstract
 {
     /**
+     * Get item
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
+
+    public function getItem($name, ...$params)
+    {
+        $info = $this->getItemData($name);
+        $class = $info['class'];
+
+        return new $class(...$params);
+    }
+
+    /**
      * Checks item for correct information
      *
      * @param \ReflectionClass $reflector
