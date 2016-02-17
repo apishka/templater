@@ -21,6 +21,7 @@ class Apishka_Templater_Node_Expression_Binary_Or extends Apishka_Templater_Node
     {
         return array(
             'or',
+            '||',
         );
     }
 

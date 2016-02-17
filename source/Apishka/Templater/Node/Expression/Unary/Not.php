@@ -21,6 +21,7 @@ class Apishka_Templater_Node_Expression_Unary_Not extends Apishka_Templater_Node
     {
         return array(
             'not',
+            '!',
         );
     }
 
