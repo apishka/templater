@@ -448,7 +448,8 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     protected function getAttribute($object, $item, array $arguments = array(), $type = self::ANY_CALL, $isDefinedTest = false, $ignoreStrictCheck = false)
     {
         // array
-        if (self::METHOD_CALL !== $type) {
+        if (self::METHOD_CALL !== $type) 
+        {
             $arrayItem = is_bool($item) || is_float($item) ? (int) $item : $item;
 
             if ((is_array($object) && array_key_exists($arrayItem, $object))
@@ -515,85 +516,24 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
         }
 
         // object property
-        if (self::METHOD_CALL !== $type && !$object instanceof self) { // Apishka_Templater_TemplateAbstract does not have public properties, and we don't want to allow access to internal ones
-            if (isset($object->$item) || array_key_exists((string) $item, $object)) {
-                if ($isDefinedTest) {
-                    return true;
-                }
+        if (self::METHOD_CALL !== $type)
+        {
+            // Apishka_Templater_TemplateAbstract does not have public properties, and we don't want to allow access to internal ones
+            if ($isDefinedTest)
+                return true;
 
-                if ($this->env->hasExtension('sandbox')) {
-                    $this->env->getExtension('sandbox')->checkPropertyAllowed($object, $item);
-                }
-
-                return $object->$item;
-            }
-        }
-
-        $class = get_class($object);
-
-        // object method
-        if (!isset(self::$cache[$class]['methods'])) {
-            // get_class_methods returns all methods accessible in the scope, but we only want public ones to be accessible in templates
-            if ($object instanceof self) {
-                $ref = new ReflectionClass($class);
-                $methods = array();
-
-                foreach ($ref->getMethods(ReflectionMethod::IS_PUBLIC) as $refMethod) {
-                    $methods[strtolower($refMethod->name)] = true;
-                }
-
-                self::$cache[$class]['methods'] = $methods;
-            } else {
-                self::$cache[$class]['methods'] = array_change_key_case(array_flip(get_class_methods($object)));
-            }
-        }
-
-        $call = false;
-        $lcItem = strtolower($item);
-        if (isset(self::$cache[$class]['methods'][$lcItem])) {
-            $method = (string) $item;
-        } elseif (isset(self::$cache[$class]['methods']['get' . $lcItem])) {
-            $method = 'get' . $item;
-        } elseif (isset(self::$cache[$class]['methods']['is' . $lcItem])) {
-            $method = 'is' . $item;
-        } elseif (isset(self::$cache[$class]['methods']['__call'])) {
-            $method = (string) $item;
-            $call = true;
-        } else {
-            if ($isDefinedTest) {
-                return false;
-            }
-
-            if ($ignoreStrictCheck || !$this->env->isStrictVariables()) {
-                return;
-            }
-
-            throw new Apishka_Templater_Error_Runtime(sprintf('Method "%s" for object "%s" does not exist', $item, get_class($object)), -1, $this->getTemplateName());
-        }
-
-        if ($isDefinedTest) {
-            return true;
-        }
-
-        if ($this->env->hasExtension('sandbox')) {
-            $this->env->getExtension('sandbox')->checkMethodAllowed($object, $method);
+            return $object->$item;
         }
 
         // Some objects throw exceptions when they have __call, and the method we try
         // to call is not supported. If ignoreStrictCheck is true, we should return null.
-        try {
+        try
+        {
             $ret = call_user_func_array(array($object, $method), $arguments);
-        } catch (BadMethodCallException $e) {
-            if ($call && ($ignoreStrictCheck || !$this->env->isStrictVariables())) {
-                return;
-            }
-            throw $e;
         }
-
-        // useful when calling a template method from a template
-        // this is not supported but unfortunately heavily used in the Symfony profiler
-        if ($object instanceof self) {
-            return $ret === '' ? '' : new Apishka_Templater_Markup($ret, $this->env->getCharset());
+        catch (BadMethodCallException $e)
+        {
+            throw $e;
         }
 
         return $ret;
