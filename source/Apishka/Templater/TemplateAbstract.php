@@ -79,9 +79,7 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     public function getParent(array $context)
     {
         if (null !== $this->parent)
-        {
             return $this->parent;
-        }
 
         try
         {
@@ -175,51 +173,28 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
 
     public function displayBlock($name, array $context, array $blocks = array(), $useBlocks = true)
     {
-        if ($useBlocks && isset($blocks[$name]))
+        try
         {
-            $template = $blocks[$name][0];
-            $block = $blocks[$name][1];
+            $this->{'block_' . $name}($context, $blocks);
         }
-        elseif (isset($this->blocks[$name]))
+        catch (Apishka_Templater_Error $e)
         {
-            $template = $this->blocks[$name][0];
-            $block = $this->blocks[$name][1];
-        }
-        else
-        {
-            $template = null;
-            $block = null;
-        }
+            if (!$e->getTemplateFile())
+                $e->setTemplateFile($this->getTemplateName());
 
-        if (null !== $template)
-        {
-            try
+            // this is mostly useful for Apishka_Templater_Error_Loader exceptions
+            // see Apishka_Templater_Error_Loader
+            if (false === $e->getTemplateLine())
             {
-                $template->$block($context, $blocks);
+                $e->setTemplateLine(-1);
+                $e->guess();
             }
-            catch (Apishka_Templater_Error $e)
-            {
-                if (!$e->getTemplateFile())
-                    $e->setTemplateFile($template->getTemplateName());
 
-                // this is mostly useful for Apishka_Templater_Error_Loader exceptions
-                // see Apishka_Templater_Error_Loader
-                if (false === $e->getTemplateLine())
-                {
-                    $e->setTemplateLine(-1);
-                    $e->guess();
-                }
-
-                throw $e;
-            }
-            catch (Exception $e)
-            {
-                throw new Apishka_Templater_Error_Runtime(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $template->getTemplateName(), $e);
-            }
+            throw $e;
         }
-        elseif (false !== $parent = $this->getParent($context))
+        catch (Exception $e)
         {
-            $parent->displayBlock($name, $context, array_merge($this->blocks, $blocks), false);
+            throw new Apishka_Templater_Error_Runtime(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $this->getTemplateName(), $e);
         }
     }
 
