@@ -42,7 +42,6 @@ class Apishka_Templater_Environment
     private $tests;
     private $functions;
     private $runtimeInitialized = false;
-    private $extensionInitialized = false;
     private $loadedTemplates;
     private $strictVariables;
     private $unaryOperators;
@@ -801,9 +800,6 @@ class Apishka_Templater_Environment
 
     public function getTokenParsers()
     {
-        if (!$this->extensionInitialized)
-            $this->initExtensions();
-
         return $this->parsers;
     }
 
@@ -844,9 +840,6 @@ class Apishka_Templater_Environment
 
     public function getNodeVisitors()
     {
-        if (!$this->extensionInitialized)
-            $this->initExtensions();
-
         return $this->visitors;
     }
 
@@ -877,9 +870,6 @@ class Apishka_Templater_Environment
 
     public function getFilter($name)
     {
-        if (!$this->extensionInitialized)
-            $this->initExtensions();
-
         if (isset($this->filters[$name]))
             return $this->filters[$name];
 
@@ -931,9 +921,6 @@ class Apishka_Templater_Environment
 
     public function getFilters()
     {
-        if (!$this->extensionInitialized)
-            $this->initExtensions();
-
         return $this->filters;
     }
 
@@ -959,9 +946,6 @@ class Apishka_Templater_Environment
 
     public function getTests()
     {
-        if (!$this->extensionInitialized)
-            $this->initExtensions();
-
         return $this->tests;
     }
 
@@ -975,9 +959,6 @@ class Apishka_Templater_Environment
 
     public function getTest($name)
     {
-        if (!$this->extensionInitialized)
-            $this->initExtensions();
-
         if (isset($this->tests[$name]))
             return $this->tests[$name];
 
@@ -1011,9 +992,6 @@ class Apishka_Templater_Environment
 
     public function getFunction($name)
     {
-        if (!$this->extensionInitialized)
-            $this->initExtensions();
-
         if (isset($this->functions[$name]))
             return $this->functions[$name];
 
@@ -1065,9 +1043,6 @@ class Apishka_Templater_Environment
 
     public function getFunctions()
     {
-        if (!$this->extensionInitialized)
-            $this->initExtensions();
-
         return $this->functions;
     }
 
@@ -1093,9 +1068,6 @@ class Apishka_Templater_Environment
 
     public function getUnaryOperators()
     {
-        if (!$this->extensionInitialized)
-            $this->initExtensions();
-
         return $this->unaryOperators;
     }
 
@@ -1107,77 +1079,6 @@ class Apishka_Templater_Environment
 
     public function getBinaryOperators()
     {
-        if (!$this->extensionInitialized)
-            $this->initExtensions();
-
         return $this->binaryOperators;
-    }
-
-    /**
-     * Init extensions
-     */
-
-    private function initExtensions()
-    {
-        if ($this->extensionInitialized)
-            return;
-
-        $this->extensionInitialized = true;
-        $this->parsers = array();
-        $this->filters = array();
-        $this->functions = array();
-        $this->tests = array();
-        $this->visitors = array();
-        $this->unaryOperators = array();
-        $this->binaryOperators = array();
-
-        foreach ($this->extensions as $extension)
-            $this->initExtension($extension);
-
-        $this->initExtension($this->staging);
-    }
-
-    /**
-     * Init extension
-     *
-     * @param Apishka_Templater_ExtensionInterface $extension
-     */
-
-    private function initExtension(Apishka_Templater_ExtensionInterface $extension)
-    {
-        // filters
-        foreach ($extension->getFilters() as $filter)
-            $this->filters[$filter->getName()] = $filter;
-
-        // functions
-        foreach ($extension->getFunctions() as $function)
-            $this->functions[$function->getName()] = $function;
-
-        // tests
-        foreach ($extension->getTests() as $test)
-            $this->tests[$test->getName()] = $test;
-
-        // token parsers
-        foreach ($extension->getTokenParsers() as $parser)
-        {
-            if (!$parser instanceof Apishka_Templater_TokenParserInterface)
-                throw new LogicException('getTokenParsers() must return an array of Apishka_Templater_TokenParserInterface');
-
-            $this->parsers[] = $parser;
-        }
-
-        // node visitors
-        foreach ($extension->getNodeVisitors() as $visitor)
-            $this->visitors[] = $visitor;
-
-        // operators
-        if ($operators = $extension->getOperators())
-        {
-            if (2 !== count($operators))
-                throw new InvalidArgumentException(sprintf('"%s::getOperators()" does not return a valid operators array.', get_class($extension)));
-
-            $this->unaryOperators = array_merge($this->unaryOperators, $operators[0]);
-            $this->binaryOperators = array_merge($this->binaryOperators, $operators[1]);
-        }
     }
 }
