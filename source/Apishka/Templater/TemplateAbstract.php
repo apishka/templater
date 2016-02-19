@@ -24,21 +24,31 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     const ARRAY_CALL    = 'array';
     const METHOD_CALL   = 'method';
 
-    protected $parent;
-    protected $parents = array();
+    /**
+     * Environment
+     *
+     * @var mixed
+     */
+
     protected $env;
-    protected $blocks = array();
-    protected $traits = array();
+
+    /**
+     * Blocks
+     *
+     * @var array
+     */
+
+    protected $_blocks = array();
 
     /**
      * Constructor.
      *
-     * @param Apishka_Templater_Environment $env A Apishka_Templater_Environment instance
+     * @param Apishka_Templater_Environment $environment A Apishka_Templater_Environment instance
      */
 
-    public function __construct(Apishka_Templater_Environment $env)
+    public function __construct(Apishka_Templater_Environment $environment)
     {
-        $this->env = $env;
+        $this->env = $environment;
     }
 
     /**
@@ -64,100 +74,6 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     }
 
     /**
-     * Returns the parent template.
-     *
-     * This method is for internal use only and should never be called
-     * directly.
-     *
-     * @param array $context
-     *
-     * @return Apishka_Templater_TemplateAbstract|false The parent template or false if there is no parent
-     *
-     * @internal
-     */
-
-    public function getParent(array $context)
-    {
-        if (null !== $this->parent)
-            return $this->parent;
-
-        try
-        {
-            $parent = $this->doGetParent($context);
-
-            if (false === $parent)
-                return false;
-
-            if (!isset($this->parents[$parent]))
-            {
-                $this->parents[$parent] = $this->loadTemplate($parent);
-            }
-        }
-        catch (Apishka_Templater_Error_Loader $e)
-        {
-            $e->setTemplateFile(null);
-            $e->guess();
-
-            throw $e;
-        }
-
-        return $this->parents[$parent];
-    }
-
-    /**
-     * Do get parent
-     *
-     * @param array $context
-     *
-     * @return bool
-     */
-
-    protected function doGetParent(array $context)
-    {
-        return false;
-    }
-
-    /**
-     * Is traitable
-     *
-     * @return bool
-     */
-
-    public function isTraitable()
-    {
-        return true;
-    }
-
-    /**
-     * Displays a parent block.
-     *
-     * This method is for internal use only and should never be called
-     * directly.
-     *
-     * @param string $name    The block name to display from the parent
-     * @param array  $context The context
-     * @param array  $blocks  The current set of blocks
-     *
-     * @internal
-     */
-
-    public function displayParentBlock($name, array $context, array $blocks = array())
-    {
-        if (isset($this->traits[$name]))
-        {
-            $this->traits[$name][0]->displayBlock($name, $context, $blocks, false);
-        }
-        elseif (false !== $parent = $this->getParent($context))
-        {
-            $parent->displayBlock($name, $context, $blocks, false);
-        }
-        else
-        {
-            throw new Apishka_Templater_Error_Runtime(sprintf('The template has no parent and no traits defining the "%s" block', $name), -1, $this->getTemplateName());
-        }
-    }
-
-    /**
      * Displays a block.
      *
      * This method is for internal use only and should never be called
@@ -175,7 +91,7 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     {
         try
         {
-            $this->{'block_' . $name}($context, $blocks);
+            $this->{$this->getBlockFunctionName($name)}($context, $blocks);
         }
         catch (Apishka_Templater_Error $e)
         {
@@ -196,29 +112,6 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
         {
             throw new Apishka_Templater_Error_Runtime(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $this->getTemplateName(), $e);
         }
-    }
-
-    /**
-     * Renders a parent block.
-     *
-     * This method is for internal use only and should never be called
-     * directly.
-     *
-     * @param string $name    The block name to render from the parent
-     * @param array  $context The context
-     * @param array  $blocks  The current set of blocks
-     *
-     * @return string The rendered block
-     *
-     * @internal
-     */
-
-    public function renderParentBlock($name, array $context, array $blocks = array())
-    {
-        ob_start();
-        $this->displayParentBlock($name, $context, $blocks);
-
-        return ob_get_clean();
     }
 
     /**
@@ -267,25 +160,23 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
 
     public function hasBlock($name)
     {
-        return isset($this->blocks[$name]);
+        return method_exists(
+            $this,
+            $this->getBlockFunctionName($name)
+        );
     }
 
     /**
-     * Returns all block names.
+     * Get block function name
      *
-     * This method is for internal use only and should never be called
-     * directly.
+     * @param string $name
      *
-     * @return array An array of block names
-     *
-     * @see hasBlock
-     *
-     * @internal
+     * @return string
      */
 
-    public function getBlockNames()
+    protected function getBlockFunctionName($name)
     {
-        return array_keys($this->blocks);
+        return 'block_' . $name;
     }
 
     /**
@@ -330,24 +221,6 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     }
 
     /**
-     * Returns all blocks.
-     *
-     * This method is for internal use only and should never be called
-     * directly.
-     *
-     * @return array An array of blocks
-     *
-     * @see hasBlock
-     *
-     * @internal
-     */
-
-    public function getBlocks()
-    {
-        return $this->blocks;
-    }
-
-    /**
      * Returns the template source code.
      *
      * @return string|null The template source code or null if it is not available
@@ -380,18 +253,6 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      * {@inheritdoc}
      */
 
-    public function display(array $context, array $blocks = array())
-    {
-        $this->displayWithErrorHandling(
-            $this->env->mergeGlobals($context),
-            array_merge($this->blocks, $blocks)
-        );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-
     public function render(array $context)
     {
         $level = ob_get_level();
@@ -410,49 +271,6 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
 
         return ob_get_clean();
     }
-
-    /**
-     * Display with error handling
-     *
-     * @param array $context
-     * @param array $blocks
-     */
-
-    protected function displayWithErrorHandling(array $context, array $blocks = array())
-    {
-        try
-        {
-            $this->doDisplay($context, $blocks);
-        }
-        catch (Apishka_Templater_Error $e)
-        {
-            if (!$e->getTemplateFile())
-                $e->setTemplateFile($this->getTemplateName());
-
-            // this is mostly useful for Apishka_Templater_Error_Loader exceptions
-            // see Apishka_Templater_Error_Loader
-            if (false === $e->getTemplateLine())
-            {
-                $e->setTemplateLine(-1);
-                $e->guess();
-            }
-
-            throw $e;
-        }
-        catch (Exception $e)
-        {
-            throw new Apishka_Templater_Error_Runtime(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $this->getTemplateName(), $e);
-        }
-    }
-
-    /**
-     * Auto-generated method to display the template with the given context.
-     *
-     * @param array $context An array of parameters to pass to the template
-     * @param array $blocks  An array of blocks to pass to the template
-     */
-
-    abstract protected function doDisplay(array $context, array $blocks = array());
 
     /**
      * Throws an exception for an unknown variable.
