@@ -67,10 +67,7 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
 
     protected function _getGlobals()
     {
-        if ($this->_globals === null)
-            $this->_globals = Apishka_Templater_Template_Globals::apishka();
-
-        return $this->_globals;
+        return $this->env->getGlobals();
     }
 
     /**
@@ -270,26 +267,6 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
         }
 
         return ob_get_clean();
-    }
-
-    /**
-     * Throws an exception for an unknown variable.
-     *
-     * This method is for internal use only and should never be called
-     * directly.
-     *
-     * This is an implementation detail due to a PHP limitation before version 7.0.
-     *
-     * @throws Apishka_Templater_Error_Runtime if the variable does not exist and Twig is running in strict mode
-     *
-     * @return mixed The content of the context variable
-     *
-     * @internal
-     */
-
-    final protected function notFound($name, $line)
-    {
-        throw new Apishka_Templater_Error_Runtime(sprintf('Variable "%s" does not exist', $name), $line, $this->getTemplateName());
     }
 
     /**

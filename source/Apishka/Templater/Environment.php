@@ -25,6 +25,7 @@ class Apishka_Templater_Environment
 
     const VERSION = '2.0.0-DEV';
 
+    private $_globals;
     private $charset;
     private $loader;
     private $debug;
@@ -40,7 +41,6 @@ class Apishka_Templater_Environment
     private $filters;
     private $tests;
     private $functions;
-    private $globals;
     private $runtimeInitialized = false;
     private $extensionInitialized = false;
     private $loadedTemplates;
@@ -1072,35 +1072,6 @@ class Apishka_Templater_Environment
     }
 
     /**
-     * Registers a Global.
-     *
-     * New globals can be added before compiling or rendering a template;
-     * but after, you can only update existing globals.
-     *
-     * @param string $name  The global name
-     * @param mixed  $value The global value
-     */
-
-    public function addGlobal($name, $value)
-    {
-        if ($this->extensionInitialized || $this->runtimeInitialized)
-        {
-            if (null === $this->globals)
-                $this->globals = $this->initGlobals();
-
-            if (!array_key_exists($name, $this->globals))
-                throw new LogicException(sprintf('Unable to add global "%s" as the runtime or the extensions have already been initialized.', $name));
-
-            // update the value
-            $this->globals[$name] = $value;
-        }
-        else
-        {
-            $this->staging->addGlobal($name, $value);
-        }
-    }
-
-    /**
      * Gets the registered Globals.
      *
      * @return array An array of globals
@@ -1108,34 +1079,10 @@ class Apishka_Templater_Environment
 
     public function getGlobals()
     {
-        if (!$this->runtimeInitialized && !$this->extensionInitialized)
-            return $this->initGlobals();
+        if ($this->_globals === null)
+            $this->_globals = Apishka_Templater_Template_Globals::apishka();
 
-        if (null === $this->globals)
-            $this->globals = $this->initGlobals();
-
-        return $this->globals;
-    }
-
-    /**
-     * Merges a context with the defined globals.
-     *
-     * @param array $context An array representing the context
-     *
-     * @return array The context merged with the globals
-     */
-
-    public function mergeGlobals(array $context)
-    {
-        // we don't use array_merge as the context being generally
-        // bigger than globals, this code is faster.
-        foreach ($this->getGlobals() as $key => $value)
-        {
-            if (!array_key_exists($key, $context))
-                $context[$key] = $value;
-        }
-
-        return $context;
+        return $this->_globals;
     }
 
     /**
@@ -1164,30 +1111,6 @@ class Apishka_Templater_Environment
             $this->initExtensions();
 
         return $this->binaryOperators;
-    }
-
-    /**
-     * Init globals
-     */
-
-    private function initGlobals()
-    {
-        $globals = array();
-        foreach ($this->extensions as $name => $extension)
-        {
-            if (!$extension instanceof Apishka_Templater_Extension_GlobalsInterface)
-                continue;
-
-            $extGlob = $extension->getGlobals();
-            if (!is_array($extGlob))
-                throw new UnexpectedValueException(sprintf('"%s::getGlobals()" must return an array of globals.', get_class($extension)));
-
-            $globals[] = $extGlob;
-        }
-
-        $globals[] = $this->staging->getGlobals();
-
-        return call_user_func_array('array_merge', $globals);
     }
 
     /**
