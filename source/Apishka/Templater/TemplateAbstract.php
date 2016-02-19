@@ -24,8 +24,6 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     const ARRAY_CALL    = 'array';
     const METHOD_CALL   = 'method';
 
-    protected static $cache = array();
-
     protected $parent;
     protected $parents = array();
     protected $env;
