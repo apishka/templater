@@ -35,6 +35,7 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @param Apishka_Templater_Environment $env A Apishka_Templater_Environment instance
      */
+
     public function __construct(Apishka_Templater_Environment $env)
     {
         $this->env = $env;
@@ -45,6 +46,7 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @return string The template name
      */
+
     abstract public function getTemplateName();
 
     /**
