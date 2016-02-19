@@ -20,9 +20,9 @@
 
 abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_TemplateInterface
 {
-    const ANY_CALL = 'any';
-    const ARRAY_CALL = 'array';
-    const METHOD_CALL = 'method';
+    const ANY_CALL      = 'any';
+    const ARRAY_CALL    = 'array';
+    const METHOD_CALL   = 'method';
 
     protected static $cache = array();
 
@@ -75,27 +75,28 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @internal
      */
+
     public function getParent(array $context)
     {
-        if (null !== $this->parent) {
+        if (null !== $this->parent)
+        {
             return $this->parent;
         }
 
-        try {
+        try
+        {
             $parent = $this->doGetParent($context);
 
-            if (false === $parent) {
+            if (false === $parent)
                 return false;
-            }
 
-            if ($parent instanceof self) {
-                return $this->parents[$parent->getTemplateName()] = $parent;
-            }
-
-            if (!isset($this->parents[$parent])) {
+            if (!isset($this->parents[$parent]))
+            {
                 $this->parents[$parent] = $this->loadTemplate($parent);
             }
-        } catch (Apishka_Templater_Error_Loader $e) {
+        }
+        catch (Apishka_Templater_Error_Loader $e)
+        {
             $e->setTemplateFile(null);
             $e->guess();
 
@@ -105,10 +106,24 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
         return $this->parents[$parent];
     }
 
+    /**
+     * Do get parent
+     *
+     * @param array $context
+     *
+     * @return bool
+     */
+
     protected function doGetParent(array $context)
     {
         return false;
     }
+
+    /**
+     * Is traitable
+     *
+     * @return bool
+     */
 
     public function isTraitable()
     {
@@ -127,13 +142,19 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @internal
      */
+
     public function displayParentBlock($name, array $context, array $blocks = array())
     {
-        if (isset($this->traits[$name])) {
+        if (isset($this->traits[$name]))
+        {
             $this->traits[$name][0]->displayBlock($name, $context, $blocks, false);
-        } elseif (false !== $parent = $this->getParent($context)) {
+        }
+        elseif (false !== $parent = $this->getParent($context))
+        {
             $parent->displayBlock($name, $context, $blocks, false);
-        } else {
+        }
+        else
+        {
             throw new Apishka_Templater_Error_Runtime(sprintf('The template has no parent and no traits defining the "%s" block', $name), -1, $this->getTemplateName());
         }
     }
@@ -151,44 +172,53 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @internal
      */
+
     public function displayBlock($name, array $context, array $blocks = array(), $useBlocks = true)
     {
-        if ($useBlocks && isset($blocks[$name])) {
+        if ($useBlocks && isset($blocks[$name]))
+        {
             $template = $blocks[$name][0];
             $block = $blocks[$name][1];
-        } elseif (isset($this->blocks[$name])) {
+        }
+        elseif (isset($this->blocks[$name]))
+        {
             $template = $this->blocks[$name][0];
             $block = $this->blocks[$name][1];
-        } else {
+        }
+        else
+        {
             $template = null;
             $block = null;
         }
 
-        if (null !== $template) {
-            // avoid RCEs when sandbox is enabled
-            if (!$template instanceof self) {
-                throw new LogicException('A block must be a method on a Apishka_Templater_TemplateAbstract instance.');
-            }
-
-            try {
+        if (null !== $template)
+        {
+            try
+            {
                 $template->$block($context, $blocks);
-            } catch (Apishka_Templater_Error $e) {
-                if (!$e->getTemplateFile()) {
+            }
+            catch (Apishka_Templater_Error $e)
+            {
+                if (!$e->getTemplateFile())
                     $e->setTemplateFile($template->getTemplateName());
-                }
 
                 // this is mostly useful for Apishka_Templater_Error_Loader exceptions
                 // see Apishka_Templater_Error_Loader
-                if (false === $e->getTemplateLine()) {
+                if (false === $e->getTemplateLine())
+                {
                     $e->setTemplateLine(-1);
                     $e->guess();
                 }
 
                 throw $e;
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 throw new Apishka_Templater_Error_Runtime(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $template->getTemplateName(), $e);
             }
-        } elseif (false !== $parent = $this->getParent($context)) {
+        }
+        elseif (false !== $parent = $this->getParent($context))
+        {
             $parent->displayBlock($name, $context, array_merge($this->blocks, $blocks), false);
         }
     }
@@ -207,6 +237,7 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @internal
      */
+
     public function renderParentBlock($name, array $context, array $blocks = array())
     {
         ob_start();
@@ -230,6 +261,7 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @internal
      */
+
     public function renderBlock($name, array $context, array $blocks = array(), $useBlocks = true)
     {
         ob_start();
@@ -257,6 +289,7 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @internal
      */
+
     public function hasBlock($name)
     {
         return isset($this->blocks[$name]);
@@ -274,35 +307,46 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @internal
      */
+
     public function getBlockNames()
     {
         return array_keys($this->blocks);
     }
 
+    /**
+     * Load template
+     *
+     * @param mixed $template
+     * @param mixed $templateName
+     * @param mixed $line
+     * @param mixed $index
+     *
+     * @return void
+     */
+
     protected function loadTemplate($template, $templateName = null, $line = null, $index = null)
     {
-        try {
-            if (is_array($template)) {
+        try
+        {
+            if (is_array($template))
                 return $this->env->resolveTemplate($template);
-            }
-
-            if ($template instanceof self) {
-                return $template;
-            }
 
             return $this->env->loadTemplate($template, $index);
-        } catch (Apishka_Templater_Error $e) {
-            if (!$e->getTemplateFile()) {
+        }
+        catch (Apishka_Templater_Error $e)
+        {
+            if (!$e->getTemplateFile())
                 $e->setTemplateFile($templateName ? $templateName : $this->getTemplateName());
-            }
 
-            if ($e->getTemplateLine()) {
+            if ($e->getTemplateLine())
                 throw $e;
-            }
 
-            if (!$line) {
+            if (!$line)
+            {
                 $e->guess();
-            } else {
+            }
+            else
+            {
                 $e->setTemplateLine($line);
             }
 
@@ -322,6 +366,7 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @internal
      */
+
     public function getBlocks()
     {
         return $this->blocks;
@@ -332,23 +377,25 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @return string|null The template source code or null if it is not available
      */
+
     public function getSource()
     {
         $reflector = new ReflectionClass($this);
         $file = $reflector->getFileName();
 
-        if (!file_exists($file)) {
+        if (!file_exists($file))
             return;
-        }
 
         $source = file($file, FILE_IGNORE_NEW_LINES);
         array_splice($source, 0, $reflector->getEndLine());
 
         $i = 0;
-        while (isset($source[$i]) && '/* */' === substr_replace($source[$i], '', 3, -2)) {
+        while (isset($source[$i]) && '/* */' === substr_replace($source[$i], '', 3, -2))
+        {
             $source[$i] = str_replace('*//* ', '*/', substr($source[$i], 3, -2));
             ++$i;
         }
+
         array_splice($source, $i);
 
         return implode("\n", $source);
@@ -357,24 +404,31 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     /**
      * {@inheritdoc}
      */
+
     public function display(array $context, array $blocks = array())
     {
-        $this->displayWithErrorHandling($this->env->mergeGlobals($context), array_merge($this->blocks, $blocks));
+        $this->displayWithErrorHandling(
+            $this->env->mergeGlobals($context),
+            array_merge($this->blocks, $blocks)
+        );
     }
 
     /**
      * {@inheritdoc}
      */
+
     public function render(array $context)
     {
         $level = ob_get_level();
         ob_start();
-        try {
+        try
+        {
             $this->display($context);
-        } catch (Exception $e) {
-            while (ob_get_level() > $level) {
+        }
+        catch (Exception $e)
+        {
+            while (ob_get_level() > $level)
                 ob_end_clean();
-            }
 
             throw $e;
         }
@@ -382,24 +436,36 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
         return ob_get_clean();
     }
 
+    /**
+     * Display with error handling
+     *
+     * @param array $context
+     * @param array $blocks
+     */
+
     protected function displayWithErrorHandling(array $context, array $blocks = array())
     {
-        try {
+        try
+        {
             $this->doDisplay($context, $blocks);
-        } catch (Apishka_Templater_Error $e) {
-            if (!$e->getTemplateFile()) {
+        }
+        catch (Apishka_Templater_Error $e)
+        {
+            if (!$e->getTemplateFile())
                 $e->setTemplateFile($this->getTemplateName());
-            }
 
             // this is mostly useful for Apishka_Templater_Error_Loader exceptions
             // see Apishka_Templater_Error_Loader
-            if (false === $e->getTemplateLine()) {
+            if (false === $e->getTemplateLine())
+            {
                 $e->setTemplateLine(-1);
                 $e->guess();
             }
 
             throw $e;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             throw new Apishka_Templater_Error_Runtime(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $this->getTemplateName(), $e);
         }
     }
@@ -410,6 +476,7 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      * @param array $context An array of parameters to pass to the template
      * @param array $blocks  An array of blocks to pass to the template
      */
+
     abstract protected function doDisplay(array $context, array $blocks = array());
 
     /**
@@ -426,6 +493,7 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      *
      * @internal
      */
+
     final protected function notFound($name, $line)
     {
         throw new Apishka_Templater_Error_Runtime(sprintf('Variable "%s" does not exist', $name), $line, $this->getTemplateName());
@@ -434,108 +502,64 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     /**
      * Returns the attribute value for a given array/object.
      *
-     * @param mixed  $object            The object or array from where to get the item
-     * @param mixed  $item              The item to get from the array or object
-     * @param array  $arguments         An array of arguments to pass if the item is an object method
-     * @param string $type              The type of attribute (@see Apishka_Templater_TemplateAbstract constants)
-     * @param bool   $isDefinedTest     Whether this is only a defined check
-     * @param bool   $ignoreStrictCheck Whether to ignore the strict attribute check or not
+     * @param mixed  $object              The object or array from where to get the item
+     * @param mixed  $item                The item to get from the array or object
+     * @param array  $arguments           An array of arguments to pass if the item is an object method
+     * @param string $type                The type of attribute (@see Apishka_Templater_TemplateAbstract constants)
+     * @param bool   $is_defined_test     Whether this is only a defined check
+     * @param bool   $ignore_string_check Whether to ignore the strict attribute check or not
      *
-     * @throws Apishka_Templater_Error_Runtime if the attribute does not exist and Twig is running in strict mode and $isDefinedTest is false
-     *
-     * @return mixed The attribute value, or a Boolean when $isDefinedTest is true, or null when the attribute is not set and $ignoreStrictCheck is true
+     * @return mixed The attribute value, or a Boolean when $is_defined_test is true, or null when the attribute is not set and $ignore_string_check is true
      */
-    protected function getAttribute($object, $item, array $arguments = array(), $type = self::ANY_CALL, $isDefinedTest = false, $ignoreStrictCheck = false)
+
+    protected function getAttribute($object, $item, array $arguments = array(), $type = self::ANY_CALL, $is_defined_test = false, $ignore_string_check = false)
     {
         // array
-        if (self::METHOD_CALL !== $type) 
+        if (self::METHOD_CALL !== $type)
         {
-            $arrayItem = is_bool($item) || is_float($item) ? (int) $item : $item;
+            $array_item = is_bool($item) || is_float($item)
+                ? (int) $item
+                : $item
+            ;
 
-            if ((is_array($object) && array_key_exists($arrayItem, $object))
-                || ($object instanceof ArrayAccess && isset($object[$arrayItem]))
-            ) {
-                if ($isDefinedTest) {
+            if ((is_array($object) && array_key_exists($array_item, $object)) || ($object instanceof ArrayAccess && isset($object[$array_item])))
+            {
+                if ($is_defined_test)
                     return true;
-                }
 
-                return $object[$arrayItem];
+                return $object[$array_item];
             }
 
-            if (self::ARRAY_CALL === $type || !is_object($object)) {
-                if ($isDefinedTest) {
+            if (self::ARRAY_CALL === $type || !is_object($object))
+            {
+                if ($is_defined_test)
                     return false;
-                }
 
-                if ($ignoreStrictCheck || !$this->env->isStrictVariables()) {
-                    return;
-                }
-
-                if ($object instanceof ArrayAccess) {
-                    $message = sprintf('Key "%s" in object with ArrayAccess of class "%s" does not exist', $arrayItem, get_class($object));
-                } elseif (is_object($object)) {
-                    $message = sprintf('Impossible to access a key "%s" on an object of class "%s" that does not implement ArrayAccess interface', $item, get_class($object));
-                } elseif (is_array($object)) {
-                    if (empty($object)) {
-                        $message = sprintf('Key "%s" does not exist as the array is empty', $arrayItem);
-                    } else {
-                        $message = sprintf('Key "%s" for array with keys "%s" does not exist', $arrayItem, implode(', ', array_keys($object)));
-                    }
-                } elseif (self::ARRAY_CALL === $type) {
-                    if (null === $object) {
-                        $message = sprintf('Impossible to access a key ("%s") on a null variable', $item);
-                    } else {
-                        $message = sprintf('Impossible to access a key ("%s") on a %s variable ("%s")', $item, gettype($object), $object);
-                    }
-                } elseif (null === $object) {
-                    $message = sprintf('Impossible to access an attribute ("%s") on a null variable', $item);
-                } else {
-                    $message = sprintf('Impossible to access an attribute ("%s") on a %s variable ("%s")', $item, gettype($object), $object);
-                }
-
-                throw new Apishka_Templater_Error_Runtime($message, -1, $this->getTemplateName());
+                return;
             }
         }
 
-        if (!is_object($object)) {
-            if ($isDefinedTest) {
+        if (!is_object($object))
+        {
+            if ($is_defined_test)
                 return false;
-            }
 
-            if ($ignoreStrictCheck || !$this->env->isStrictVariables()) {
-                return;
-            }
-
-            if (null === $object) {
-                $message = sprintf('Impossible to invoke a method ("%s") on a null variable', $item);
-            } else {
-                $message = sprintf('Impossible to invoke a method ("%s") on a %s variable ("%s")', $item, gettype($object), $object);
-            }
-
-            throw new Apishka_Templater_Error_Runtime($message, -1, $this->getTemplateName());
+            return;
         }
 
         // object property
         if (self::METHOD_CALL !== $type)
         {
             // Apishka_Templater_TemplateAbstract does not have public properties, and we don't want to allow access to internal ones
-            if ($isDefinedTest)
+            if ($is_defined_test)
                 return true;
 
             return $object->$item;
         }
 
-        // Some objects throw exceptions when they have __call, and the method we try
-        // to call is not supported. If ignoreStrictCheck is true, we should return null.
-        try
-        {
-            $ret = call_user_func_array(array($object, $method), $arguments);
-        }
-        catch (BadMethodCallException $e)
-        {
-            throw $e;
-        }
-
-        return $ret;
+        return call_user_func_array(
+            array($object, $item),
+            $arguments
+        );
     }
 }
