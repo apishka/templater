@@ -150,6 +150,8 @@ class Apishka_Templater_Compiler
 
         $node->compile($this);
 
+        $this->_source = str_replace('&space;', ' ', $this->_source);
+
         return $this;
     }
 
