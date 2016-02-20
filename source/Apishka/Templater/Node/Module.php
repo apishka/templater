@@ -107,7 +107,7 @@ class Apishka_Templater_Node_Module extends Apishka_Templater_NodeAbstract
             ->indent()
             ->write('return array(' . PHP_EOL)
             ->indent()
-            ->write(sprintf("'%s',", $compiler->getEnvironment()->getTemplateClass($this->getAttribute('filename'), $this->getAttribute('index'))) . PHP_EOL)
+            ->write(sprintf("'%s',", $this->getAttribute('filename')) . PHP_EOL)
             ->outdent()
             ->write(');' . PHP_EOL)
             ->outdent()
