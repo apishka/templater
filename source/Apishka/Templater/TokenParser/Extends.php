@@ -28,9 +28,27 @@ class Apishka_Templater_TokenParser_Extends extends Apishka_Templater_TokenParse
         if (null !== $this->parser->getParent()) {
             throw new Apishka_Templater_Error_Syntax('Multiple extends tags are forbidden.', $token->getLine(), $this->parser->getFilename());
         }
-        $this->parser->setParent($this->parser->getExpressionParser()->parseExpression());
 
-        $this->parser->getStream()->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
+        $parent = $this->parser->getExpressionParser()->parseExpression();
+
+        $stream = $this->parser->getStream();
+
+        $options = array();
+        while (!$stream->test(Apishka_Templater_Token::BLOCK_END_TYPE))
+        {
+            $token = $stream->expect(Apishka_Templater_Token::NAME_TYPE);
+
+            $name = $token->getValue();
+            $stream->expect(Apishka_Templater_Token::OPERATOR_TYPE, '=');
+
+            $options[$name] = $this->parser->getExpressionParser()->parseExpression();
+        }
+
+        $parent->setAttribute('parent_options', $options);
+
+        $this->parser->setParent($parent);
+
+        $stream->expect(Apishka_Templater_Token::BLOCK_END_TYPE);
     }
 
     public function getTag()
