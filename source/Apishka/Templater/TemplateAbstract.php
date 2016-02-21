@@ -105,10 +105,6 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
 
             throw $e;
         }
-        catch (Exception $e)
-        {
-            throw new Apishka_Templater_Error_Runtime(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $this->getTemplateName(), $e);
-        }
     }
 
     /**
