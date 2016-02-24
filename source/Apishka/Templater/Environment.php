@@ -23,7 +23,7 @@ class Apishka_Templater_Environment
 
     use Apishka\EasyExtend\Helper\ByClassNameTrait;
 
-    const VERSION = '2.0.0-DEV';
+    const VERSION = '2.0.4';
 
     private $_globals;
     private $charset;
@@ -1179,5 +1179,16 @@ class Apishka_Templater_Environment
             $this->unaryOperators = array_merge($this->unaryOperators, $operators[0]);
             $this->binaryOperators = array_merge($this->binaryOperators, $operators[1]);
         }
+    }
+
+    /**
+     * Get version
+     *
+     * @return string
+     */
+
+    public function getVersion()
+    {
+        return static::VERSION;
     }
 }
