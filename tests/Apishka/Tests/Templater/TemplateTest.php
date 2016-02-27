@@ -11,76 +11,12 @@
 class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException LogicException
+     * @expectedException Error
      */
     public function testDisplayBlocksAcceptTemplateOnlyAsBlocks()
     {
         $template = $this->getMockForAbstractClass('Apishka_Templater_TemplateAbstract', array(), '', false);
         $template->displayBlock('foo', array(), array('foo' => array(new stdClass(), 'foo')));
-    }
-
-    /**
-     * @dataProvider getAttributeExceptions
-     */
-    public function testGetAttributeExceptions($template, $message, $useExt)
-    {
-        $name = 'index_' . ($useExt ? 1 : 0);
-        $templates = array(
-            $name => $template . $useExt, // appending $useExt makes the template content unique
-        );
-
-        $env = new Apishka_Templater_Environment(new Apishka_Templater_Loader_Array($templates), array('strict_variables' => true));
-        if (!$useExt) {
-            $env->addNodeVisitor(new CExtDisablingNodeVisitor());
-        }
-        $template = $env->loadTemplate($name);
-
-        $context = array(
-            'string'          => 'foo',
-            'null'            => null,
-            'empty_array'     => array(),
-            'array'           => array('foo' => 'foo'),
-            'array_access'    => new Apishka_Templater_TemplateArrayAccessObject(),
-            'magic_exception' => new Apishka_Templater_TemplateMagicPropertyObjectWithException(),
-            'object'          => new stdClass(),
-        );
-
-        try {
-            $template->render($context);
-            $this->fail('Accessing an invalid attribute should throw an exception.');
-        } catch (Apishka_Templater_Error_Runtime $e) {
-            $this->assertSame(sprintf($message, $name), $e->getMessage());
-        }
-    }
-
-    public function getAttributeExceptions()
-    {
-        $tests = array(
-            array('{{ string["a"] }}', 'Impossible to access a key ("a") on a string variable ("foo") in "%s" at line 1', false),
-            array('{{ null["a"] }}', 'Impossible to access a key ("a") on a null variable in "%s" at line 1', false),
-            array('{{ empty_array["a"] }}', 'Key "a" does not exist as the array is empty in "%s" at line 1', false),
-            array('{{ array["a"] }}', 'Key "a" for array with keys "foo" does not exist in "%s" at line 1', false),
-            array('{{ array_access["a"] }}', 'Key "a" in object with ArrayAccess of class "Apishka_Templater_TemplateArrayAccessObject" does not exist in "%s" at line 1', false),
-            array('{{ string.a }}', 'Impossible to access an attribute ("a") on a string variable ("foo") in "%s" at line 1', false),
-            array('{{ string.a() }}', 'Impossible to invoke a method ("a") on a string variable ("foo") in "%s" at line 1', false),
-            array('{{ null.a }}', 'Impossible to access an attribute ("a") on a null variable in "%s" at line 1', false),
-            array('{{ null.a() }}', 'Impossible to invoke a method ("a") on a null variable in "%s" at line 1', false),
-            array('{{ empty_array.a }}', 'Key "a" does not exist as the array is empty in "%s" at line 1', false),
-            array('{{ array.a }}', 'Key "a" for array with keys "foo" does not exist in "%s" at line 1', false),
-            array('{{ attribute(array, -10) }}', 'Key "-10" for array with keys "foo" does not exist in "%s" at line 1', false),
-            array('{{ array_access.a }}', 'Method "a" for object "Apishka_Templater_TemplateArrayAccessObject" does not exist in "%s" at line 1', false),
-            array('{{ magic_exception.test }}', 'An exception has been thrown during the rendering of a template ("Hey! Don\'t try to isset me!") in "%s" at line 1.', false),
-            array('{{ object["a"] }}', 'Impossible to access a key "a" on an object of class "stdClass" that does not implement ArrayAccess interface in "%s" at line 1', false),
-        );
-
-        if (function_exists('twig_template_get_attributes')) {
-            foreach (array_slice($tests, 0) as $test) {
-                $test[2] = true;
-                $tests[] = $test;
-            }
-        }
-
-        return $tests;
     }
 
     public function testGetSource()
@@ -180,48 +116,6 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider getGetAttributeTests
-     */
-    public function testGetAttributeStrict($defined, $value, $object, $item, $arguments, $type, $useExt = false, $exceptionMessage = null)
-    {
-        $template = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('strict_variables' => true)), $useExt);
-
-        if ($defined) {
-            $this->assertEquals($value, $template->getAttribute($object, $item, $arguments, $type));
-        } else {
-            try {
-                $this->assertEquals($value, $template->getAttribute($object, $item, $arguments, $type));
-
-                throw new Exception('Expected Apishka_Templater_Error_Runtime exception.');
-            } catch (Apishka_Templater_Error_Runtime $e) {
-                if (null !== $exceptionMessage) {
-                    $this->assertSame($exceptionMessage, $e->getMessage());
-                }
-            }
-        }
-    }
-
-    /**
-     * @dataProvider getGetAttributeTests
-     */
-    public function testGetAttributeDefined($defined, $value, $object, $item, $arguments, $type, $useExt = false)
-    {
-        $template = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')), $useExt);
-
-        $this->assertEquals($defined, $template->getAttribute($object, $item, $arguments, $type, true));
-    }
-
-    /**
-     * @dataProvider getGetAttributeTests
-     */
-    public function testGetAttributeDefinedStrict($defined, $value, $object, $item, $arguments, $type, $useExt = false)
-    {
-        $template = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('strict_variables' => true)), $useExt);
-
-        $this->assertEquals($defined, $template->getAttribute($object, $item, $arguments, $type, true));
-    }
-
-    /**
      * @dataProvider getTestsDependingOnExtensionAvailability
      */
     public function testGetAttributeCallExceptions($useExt = false)
@@ -236,13 +130,13 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
     public function getGetAttributeTests()
     {
         $array = array(
-            'defined' => 'defined',
-            'zero'    => 0,
-            'null'    => null,
-            '1'       => 1,
-            'bar'     => true,
-            '09'      => '09',
-            '+4'      => '+4',
+            'defined'   => 'defined',
+            'zero'      => 0,
+            'null'      => null,
+            '1'         => 1,
+            'bar'       => true,
+            '09'        => '09',
+            '+4'        => '+4',
         );
 
         $objectArray = new Apishka_Templater_TemplateArrayAccessObject();
@@ -261,16 +155,16 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
 
         $basicTests = array(
             // array(defined, value, property to fetch)
-            array(true,  'defined', 'defined'),
-            array(false, null,      'undefined'),
-            array(false, null,      'protected'),
-            array(true,  0,         'zero'),
-            array(true,  1,         1),
-            array(true,  1,         1.0),
-            array(true,  null,      'null'),
-            array(true,  true,      'bar'),
-            array(true,  '09',      '09'),
-            array(true,  '+4',      '+4'),
+            array('defined', 'defined'),
+            array(null,      'undefined'),
+            array(null,      'protected'),
+            array(0,         'zero'),
+            array(1,         1),
+            array(1,         1.0),
+            array(null,      'null'),
+            array(true,      'bar'),
+            array('09',      '09'),
+            array('+4',      '+4'),
         );
         $testObjects = array(
             // array(object, type of fetch)
@@ -286,20 +180,39 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
         );
 
         $tests = array();
-        foreach ($testObjects as $testObject) {
-            foreach ($basicTests as $test) {
-                // properties cannot be numbers
-                if (($testObject[0] instanceof stdClass || $testObject[0] instanceof Apishka_Templater_TemplatePropertyObject) && is_numeric($test[2])) {
+        foreach ($testObjects as $testObject)
+        {
+            foreach ($basicTests as $test)
+            {
+                if ($testObject[0] instanceof stdClass)
+                {
+                    if (is_numeric($test[1]))
+                        continue;
+
+                    if (in_array($test[1], ['undefined', 'protected']))
+                        continue;
+                }
+
+                if (($testObject[0] instanceof Apishka_Templater_TemplatePropertyObject) && is_numeric($test[1]))
+                {
                     continue;
                 }
 
-                if ('+4' === $test[2] && $methodObject === $testObject[0]) {
+                if ('+4' === $test[1] && $methodObject === $testObject[0])
+                {
                     continue;
                 }
 
-                $tests[] = array($test[0], $test[1], $testObject[0], $test[2], array(), $testObject[1]);
+                if ($testObject[0] instanceof Apishka_Templater_TemplateMethodObject && is_numeric($test[1]))
+                {
+                    continue;
+                }
+
+                $tests[] = array($test[0], $test[0], $testObject[0], $test[1], array(), $testObject[1]);
             }
         }
+
+        return $tests;
 
         // additional properties tests
         $tests = array_merge($tests, array(
@@ -370,7 +283,16 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
 
 class Apishka_Templater_TemplateTest extends Apishka_Templater_TemplateAbstract
 {
+    static public $cache = array();
     protected $useExtGetAttribute = false;
+
+    public function __get($name)
+    {
+        if (method_exists($this, $method = 'get' . $name))
+            return $this->$method();
+
+        return null;
+    }
 
     public function __construct(Apishka_Templater_Environment $env, $useExtGetAttribute = false)
     {
@@ -510,6 +432,11 @@ class Apishka_Templater_TemplatePropertyObject
     public $bar = true;
 
     protected $protected = 'protected';
+
+    public function __get($name)
+    {
+        return null;
+    }
 }
 
 class Apishka_Templater_TemplatePropertyObjectAndIterator extends Apishka_Templater_TemplatePropertyObject implements IteratorAggregate
@@ -579,19 +506,35 @@ class Apishka_Templater_TemplateMethodObject
     {
     }
 
-    public function isBar()
+    public function getBar()
     {
         return true;
     }
 
     protected function getProtected()
     {
-        return 'protected';
+        return null;
     }
 
     public static function getStatic()
     {
         return 'static';
+    }
+
+    public function __get($name)
+    {
+        if (method_exists($this, $method = 'get' . $name))
+            return $this->$method();
+
+        return null;
+    }
+
+    public function __call($name, $arguments)
+    {
+        if (method_exists($this, $method = 'get' . $name))
+            return call_user_func_array([$this, $method], $arguments);
+
+        return null;
     }
 }
 
@@ -626,6 +569,11 @@ class Apishka_Templater_TemplateMagicMethodObject
 
 class Apishka_Templater_TemplateMagicMethodExceptionObject
 {
+    public function __get($name)
+    {
+        return null;
+    }
+
     public function __call($method, $arguments)
     {
         throw new BadMethodCallException(sprintf('Unknown method "%s".', $method));

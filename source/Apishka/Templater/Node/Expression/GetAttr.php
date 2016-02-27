@@ -13,7 +13,7 @@ class Apishka_Templater_Node_Expression_GetAttr extends Apishka_Templater_Node_E
 {
     public function __construct(Apishka_Templater_Node_ExpressionAbstract $node, Apishka_Templater_Node_ExpressionAbstract $attribute, Apishka_Templater_Node_ExpressionAbstract $arguments = null, $type, $lineno)
     {
-        parent::__construct(array('node' => $node, 'attribute' => $attribute, 'arguments' => $arguments), array('type' => $type, 'is_defined_test' => false, 'ignore_strict_check' => false, 'disable_c_ext' => false), $lineno);
+        parent::__construct(array('node' => $node, 'attribute' => $attribute, 'arguments' => $arguments), array('type' => $type, 'disable_c_ext' => false), $lineno);
     }
 
     public function compile(Apishka_Templater_Compiler $compiler)
@@ -24,18 +24,12 @@ class Apishka_Templater_Node_Expression_GetAttr extends Apishka_Templater_Node_E
             $compiler->raw('$this->getAttribute(');
         }
 
-        if ($this->getAttribute('ignore_strict_check')) {
-            $this->getNode('node')->setAttribute('ignore_strict_check', true);
-        }
-
         $compiler->subcompile($this->getNode('node'));
 
         $compiler->raw(', ')->subcompile($this->getNode('attribute'));
 
         // only generate optional arguments when needed (to make generated code more readable)
-        $needFourth = $this->getAttribute('ignore_strict_check');
-        $needThird = $needFourth || $this->getAttribute('is_defined_test');
-        $needSecond = $needThird || Apishka_Templater_TemplateAbstract::ANY_CALL !== $this->getAttribute('type');
+        $needSecond = Apishka_Templater_TemplateAbstract::ANY_CALL !== $this->getAttribute('type');
         $needFirst = $needSecond || null !== $this->getNode('arguments');
 
         if ($needFirst) {
@@ -48,14 +42,6 @@ class Apishka_Templater_Node_Expression_GetAttr extends Apishka_Templater_Node_E
 
         if ($needSecond) {
             $compiler->raw(', ')->repr($this->getAttribute('type'));
-        }
-
-        if ($needThird) {
-            $compiler->raw(', ')->repr($this->getAttribute('is_defined_test'));
-        }
-
-        if ($needFourth) {
-            $compiler->raw(', ')->repr($this->getAttribute('ignore_strict_check'));
         }
 
         $compiler->raw(')');

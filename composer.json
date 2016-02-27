@@ -19,7 +19,7 @@
     },
     "autoload-dev": {
         "psr-0" : {
-            "Apishka_Templater_Tests_" : "tests/"
+            "Apishka_Tests_Templater_" : "tests/"
         }
     }
 }

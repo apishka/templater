@@ -61,7 +61,7 @@ class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
     public function getSupportedNames()
     {
         return array(
-            '__TwigTemplate_%x',
+            'foo.twig',
         );
     }
 
@@ -107,7 +107,7 @@ class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
     public function getSupportedNames()
     {
         return array(
-            '__TwigTemplate_%x',
+            'foo.twig',
         );
     }
 
@@ -158,7 +158,7 @@ class __TwigTemplate_%x extends Apishka_Templater_TemplateAbstract
     public function getSupportedNames()
     {
         return array(
-            '__TwigTemplate_%x',
+            'foo.twig',
         );
     }
 

@@ -31,8 +31,14 @@ class Apishka_Templater_Node_Expression_Name extends Apishka_Templater_Node_Expr
 
     public function __construct($name, $lineno)
     {
-        parent::__construct(array(), array('name' => $name, 'is_defined_test' => false, 'ignore_strict_check' => false, 'always_defined' => false), $lineno);
+        parent::__construct(array(), array('name' => $name, 'always_defined' => false), $lineno);
     }
+
+    /**
+     * Compile
+     *
+     * @param Apishka_Templater_Compiler $compiler
+     */
 
     public function compile(Apishka_Templater_Compiler $compiler)
     {
@@ -40,57 +46,38 @@ class Apishka_Templater_Node_Expression_Name extends Apishka_Templater_Node_Expr
 
         $compiler->addDebugInfo($this);
 
-        if ($this->getAttribute('is_defined_test')) {
-            if ($this->isSpecial()) {
-                $compiler->repr(true);
-            } else {
-                $compiler->raw('array_key_exists(')->repr($name)->raw(', $context)');
-            }
-        } elseif ($this->isSpecial()) {
+        if ($this->isSpecial())
+        {
             $compiler->raw($this->specialVars[$name]);
-        } elseif ($this->getAttribute('always_defined')) {
+        }
+        elseif ($this->getAttribute('always_defined'))
+        {
             $compiler
                 ->raw('$context[')
                 ->string($name)
                 ->raw(']')
             ;
-        } else {
-            if ($this->getAttribute('ignore_strict_check') || !$compiler->getEnvironment()->isStrictVariables()) {
-                $compiler
-                    ->raw('(isset($context[')
-                    ->string($name)
-                    ->raw(']) ? $context[')
-                    ->string($name)
-                    ->raw('] : null)')
-                ;
-            } else {
-                // When Twig will require PHP 7.0, the Template::notFound() method
-                // will be removed and the code inlined like this:
-                // (function () { throw new Exception(...); })();
-                $compiler
-                    ->raw('(isset($context[')
-                    ->string($name)
-                    ->raw(']) || array_key_exists(')
-                    ->string($name)
-                    ->raw(', $context) ? $context[')
-                    ->string($name)
-                    ->raw('] : $this->notFound(')
-                    ->string($name)
-                    ->raw(', ')
-                    ->repr($this->lineno)
-                    ->raw('))')
-                ;
-            }
+        }
+        else
+        {
+            $compiler
+                ->raw('(isset($context[')
+                ->string($name)
+                ->raw(']) ? $context[')
+                ->string($name)
+                ->raw('] : null)')
+            ;
         }
     }
+
+    /**
+     * Is special
+     *
+     * @return bool
+     */
 
     public function isSpecial()
     {
         return isset($this->specialVars[$this->getAttribute('name')]);
-    }
-
-    public function isSimple()
-    {
-        return !$this->isSpecial() && !$this->getAttribute('is_defined_test');
     }
 }

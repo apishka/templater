@@ -24,12 +24,11 @@ class Apishka_Tests_Templater_Node_Expression_NameTest extends Apishka_Tests_Tem
         $self = Apishka_Templater_Node_Expression_Name::apishka('_self', 1);
         $context = Apishka_Templater_Node_Expression_Name::apishka('_context', 1);
 
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('strict_variables' => true));
-        $env1 = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('strict_variables' => false));
+        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
 
         return array(
-            array($node, "// line 1\n" . '(isset($context["foo"]) || array_key_exists("foo", $context) ? $context["foo"] : $this->notFound("foo", 1))', $env),
-            array($node, $this->getVariableGetter('foo', 1), $env1),
+            array($node, "// line 1\n" . '(isset($context["foo"]) ? $context["foo"] : null)', $env),
+            array($node, $this->getVariableGetter('foo', 1), $env),
             array($self, "// line 1\n\$this->getTemplateName()"),
             array($context, "// line 1\n\$context"),
         );

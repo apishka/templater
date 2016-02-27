@@ -272,13 +272,11 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      * @param mixed  $item                The item to get from the array or object
      * @param array  $arguments           An array of arguments to pass if the item is an object method
      * @param string $type                The type of attribute (@see Apishka_Templater_TemplateAbstract constants)
-     * @param bool   $is_defined_test     Whether this is only a defined check
-     * @param bool   $ignore_string_check Whether to ignore the strict attribute check or not
      *
-     * @return mixed The attribute value, or a Boolean when $is_defined_test is true, or null when the attribute is not set and $ignore_string_check is true
+     * @return mixed
      */
 
-    protected function getAttribute($object, $item, array $arguments = array(), $type = self::ANY_CALL, $is_defined_test = false, $ignore_string_check = false)
+    protected function getAttribute($object, $item, array $arguments = array(), $type = self::ANY_CALL)
     {
         // array
         if (self::METHOD_CALL !== $type)
@@ -289,39 +287,18 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
             ;
 
             if ((is_array($object) && array_key_exists($array_item, $object)) || ($object instanceof ArrayAccess && isset($object[$array_item])))
-            {
-                if ($is_defined_test)
-                    return true;
-
                 return $object[$array_item];
-            }
 
             if (self::ARRAY_CALL === $type || !is_object($object))
-            {
-                if ($is_defined_test)
-                    return false;
-
                 return;
-            }
         }
 
         if (!is_object($object))
-        {
-            if ($is_defined_test)
-                return false;
-
             return;
-        }
 
         // object property
         if (self::METHOD_CALL !== $type)
-        {
-            // Apishka_Templater_TemplateAbstract does not have public properties, and we don't want to allow access to internal ones
-            if ($is_defined_test)
-                return true;
-
             return $object->$item;
-        }
 
         return call_user_func_array(
             array($object, $item),
