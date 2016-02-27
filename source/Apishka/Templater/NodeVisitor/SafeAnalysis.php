@@ -137,16 +137,13 @@ class Apishka_Templater_NodeVisitor_SafeAnalysis extends Apishka_Templater_BaseN
      * Do leave node is safe all
      *
      * @param Apishka_Templater_NodeAbstract $node
+     *
      * @return bool
      */
 
     protected function doLeaveNodeIsSafeAll($node)
     {
-        return
-            $node instanceof Apishka_Templater_Node_Expression_Constant ||
-            $node instanceof Apishka_Templater_Node_Expression_BlockReference ||
-            $node instanceof Apishka_Templater_Node_Expression_Parent
-        ;
+        return $node->isSafeAll();
     }
 
     private function intersectSafe(array $a = null, array $b = null)

@@ -20,4 +20,15 @@ class Apishka_Templater_Node_Expression_Constant extends Apishka_Templater_Node_
     {
         $compiler->repr($this->getAttribute('value'));
     }
+
+    /**
+     * Is safe all
+     *
+     * @return bool
+     */
+
+    public function isSafeAll()
+    {
+        return true;
+    }
 }

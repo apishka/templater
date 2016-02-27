@@ -200,4 +200,26 @@ abstract class Apishka_Templater_NodeAbstract implements Countable, IteratorAggr
     {
         return new ArrayIterator($this->nodes);
     }
+
+    /**
+     * Is safe all
+     *
+     * @return bool
+     */
+
+    public function isSafeAll()
+    {
+        return false;
+    }
+
+    /**
+     * Is output supported
+     *
+     * @return bool
+     */
+
+    public function isOutputSupported()
+    {
+        return false;
+    }
 }

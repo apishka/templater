@@ -112,10 +112,7 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
 
     protected function optimizePrintNodeIsOutput($node)
     {
-        return
-            $node->getNode('expr') instanceof Apishka_Templater_Node_Expression_BlockReference ||
-            $node->getNode('expr') instanceof Apishka_Templater_Node_Expression_Parent
-        ;
+        return $node->getNode('expr')->isOutputSupported();
     }
 
     /**

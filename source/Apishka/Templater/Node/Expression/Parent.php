@@ -39,4 +39,26 @@ class Apishka_Templater_Node_Expression_Parent extends Apishka_Templater_Node_Ex
             ;
         }
     }
+
+    /**
+     * Is safe all
+     *
+     * @return bool
+     */
+
+    public function isSafeAll()
+    {
+        return true;
+    }
+
+    /**
+     * Is output supported
+     *
+     * @return bool
+     */
+
+    public function isOutputSupported()
+    {
+        return true;
+    }
 }
