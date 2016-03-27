@@ -11,8 +11,6 @@
 
 /**
  * Internal node used by the for node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_ForLoop extends Apishka_Templater_NodeAbstract
 {

@@ -2,10 +2,6 @@
 
 /**
  * Apishka templater node expression test router
- *
- * @uses \Apishka\EasyExtend\Router\ByKeyAbstract
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_Node_Expression_TestRouter extends \Apishka\EasyExtend\Router\ByKeyAbstract

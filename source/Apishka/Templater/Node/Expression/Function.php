@@ -13,10 +13,6 @@
  * Apishka templater node expression function
  *
  * @easy-extend-base
- *
- * @uses Apishka_Templater_Node_Expression_CallAbstract
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_Node_Expression_Function extends Apishka_Templater_Node_Expression_CallAbstract

@@ -11,10 +11,6 @@
 
 /**
  * Apishka templater extension profiler
- *
- * @uses Apishka_Templater_ExtensionAbstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
 class Apishka_Templater_Extension_Profiler extends Apishka_Templater_ExtensionAbstract

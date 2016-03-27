@@ -11,8 +11,6 @@
 
 /**
  * Marks a content as safe.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Markup implements Countable, JsonSerializable
 {

@@ -10,7 +10,6 @@
  */
 
 /**
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Util_DeprecationCollector
 {

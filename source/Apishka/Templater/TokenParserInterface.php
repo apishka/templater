@@ -11,8 +11,6 @@
 
 /**
  * Interface implemented by token parsers.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface Apishka_Templater_TokenParserInterface
 {

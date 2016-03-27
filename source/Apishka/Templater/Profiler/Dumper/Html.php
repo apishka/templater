@@ -10,7 +10,6 @@
  */
 
 /**
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Profiler_Dumper_Html extends Apishka_Templater_Profiler_Dumper_Text
 {

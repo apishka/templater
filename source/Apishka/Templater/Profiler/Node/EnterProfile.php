@@ -11,8 +11,6 @@
 
 /**
  * Represents a profile enter node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Profiler_Node_EnterProfile extends Apishka_Templater_NodeAbstract
 {

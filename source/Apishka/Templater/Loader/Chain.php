@@ -11,8 +11,6 @@
 
 /**
  * Loads templates from other loaders.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Loader_Chain implements Apishka_Templater_LoaderInterface, Apishka_Templater_ExistsLoaderInterface
 {

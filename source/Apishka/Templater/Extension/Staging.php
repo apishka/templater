@@ -12,7 +12,6 @@
 /**
  * Used by Apishka_Templater_Environment as a staging area.
  *
- * @author Fabien Potencier <fabien@symfony.com>
  *
  * @internal
  */

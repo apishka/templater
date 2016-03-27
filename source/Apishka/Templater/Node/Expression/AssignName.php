@@ -14,10 +14,6 @@
  * Apishka templater node expression assign name
  *
  * @easy-extend-base
- *
- * @uses Apishka_Templater_Node_Expression_Name
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_Node_Expression_AssignName extends Apishka_Templater_Node_Expression_Name

@@ -11,8 +11,6 @@
 
 /**
  * Represents a displayable node in the AST.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface Apishka_Templater_NodeOutputInterface
 {

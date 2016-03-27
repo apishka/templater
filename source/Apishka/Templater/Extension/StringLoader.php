@@ -11,10 +11,6 @@
 
 /**
  * Apishka templater extension string loader
- *
- * @uses Apishka_Templater_ExtensionAbstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
 class Apishka_Templater_Extension_StringLoader extends Apishka_Templater_ExtensionAbstract

@@ -14,10 +14,6 @@
  * Apishka templater node expression filter
  *
  * @easy-extend-base
- *
- * @uses Apishka_Templater_Node_Expression_CallAbstract
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_Node_Expression_Filter extends Apishka_Templater_Node_Expression_CallAbstract

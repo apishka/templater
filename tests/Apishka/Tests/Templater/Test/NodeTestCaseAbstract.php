@@ -11,11 +11,6 @@
 
 /**
  * Apishka templater test node test case
- *
- * @uses PHPUnit_Framework_TestCase
- * @abstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
 abstract class Apishka_Tests_Templater_Test_NodeTestCaseAbstract extends PHPUnit_Framework_TestCase

@@ -11,8 +11,6 @@
 
 /**
  * Apishka_Templater_NodeVisitorInterface is the interface the all node visitor classes must implement.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface Apishka_Templater_NodeVisitorInterface
 {

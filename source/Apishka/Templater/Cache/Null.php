@@ -11,8 +11,6 @@
 
 /**
  * Implements a no-cache strategy.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Cache_Null implements Apishka_Templater_CacheInterface
 {

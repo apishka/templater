@@ -11,8 +11,6 @@
 
 /**
  * Loads template from the filesystem.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Loader_Filesystem implements Apishka_Templater_LoaderInterface, Apishka_Templater_ExistsLoaderInterface
 {

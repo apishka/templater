@@ -11,8 +11,6 @@
 
 /**
  * Exception thrown when a not allowed tag is used in a template.
- *
- * @author Martin Hasoň <martin.hason@gmail.com>
  */
 class Apishka_Templater_Sandbox_SecurityNotAllowedTagError extends Apishka_Templater_Sandbox_SecurityError
 {

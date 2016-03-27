@@ -12,8 +12,6 @@
 
 /**
  * Represents a Token.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Token
 {

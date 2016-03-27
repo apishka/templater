@@ -17,8 +17,6 @@
  *
  * @see http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
  * @see http://en.wikipedia.org/wiki/Operator-precedence_parser
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_ExpressionParser
 {
@@ -46,20 +44,16 @@ class Apishka_Templater_ExpressionParser
     {
         $expr = $this->getPrimary();
         $token = $this->parser->getCurrentToken();
-        while ($this->isBinary($token) && $this->binaryOperators[$token->getValue()]['precedence'] >= $precedence)
-        {
+        while ($this->isBinary($token) && $this->binaryOperators[$token->getValue()]['precedence'] >= $precedence) {
             $op = $this->binaryOperators[$token->getValue()];
             $this->parser->getStream()->next();
 
-            if ($op['type'] == 'test')
-            {
+            if ($op['type'] == 'test') {
                 $class = $op['class'];
                 $expr = $class::apishka($this->parser, $expr)
                     ->parseTestExpression()
                 ;
-            }
-            else
-            {
+            } else {
                 $expr1 = $this->parseExpression(
                     self::OPERATOR_LEFT === $op['associativity']
                         ? $op['precedence'] + 1
@@ -331,8 +325,7 @@ class Apishka_Templater_ExpressionParser
 
     public function getFunctionNode($name, $line)
     {
-        switch ($name)
-        {
+        switch ($name) {
             case 'parent':
             {
                 $this->parseArguments();
@@ -349,8 +342,7 @@ class Apishka_Templater_ExpressionParser
             case 'block':
             {
                 $args = $this->parseArguments(true, false, true);
-                if (count($args) < 1)
-                {
+                if (count($args) < 1) {
                     throw new Apishka_Templater_Error_Syntax('The "block" function takes at least one argument (the variable and the attributes).', $line, $this->parser->getFilename());
                 }
 
@@ -390,14 +382,14 @@ class Apishka_Templater_ExpressionParser
      * Get function node default
      *
      * @param string $name
-     * @param int $line
+     * @param int    $line
+     *
      * @return Apishka_Templater_NodeAbstract
      */
 
     protected function getFunctionNodeDefault($name, $line = null)
     {
-        if (null !== $alias = $this->parser->getImportedSymbol('function', $name))
-        {
+        if (null !== $alias = $this->parser->getImportedSymbol('function', $name)) {
             $arguments = Apishka_Templater_Node_Expression_Array::apishka(array(), $line);
             foreach ($this->parseArguments() as $n) {
                 $arguments->addElement($n);
@@ -543,10 +535,8 @@ class Apishka_Templater_ExpressionParser
         $stream = $this->parser->getStream();
 
         $stream->expect(Apishka_Templater_Token::PUNCTUATION_TYPE, '(', 'A list of arguments must begin with an opening parenthesis');
-        while (!$stream->test(Apishka_Templater_Token::PUNCTUATION_TYPE, ')'))
-        {
-            if (!empty($args))
-            {
+        while (!$stream->test(Apishka_Templater_Token::PUNCTUATION_TYPE, ')')) {
+            if (!empty($args)) {
                 $stream->expect(
                     Apishka_Templater_Token::PUNCTUATION_TYPE,
                     ',',
@@ -554,15 +544,13 @@ class Apishka_Templater_ExpressionParser
                 );
             }
 
-            if ($firstNoNamed && empty($args))
-            {
+            if ($firstNoNamed && empty($args)) {
                 $value = $this->parseExpression();
                 $args['__first_arg__'] = $value;
                 continue;
             }
 
-            if ($definition)
-            {
+            if ($definition) {
                 $token = $stream->expect(
                     Apishka_Templater_Token::NAME_TYPE,
                     null,
@@ -573,17 +561,13 @@ class Apishka_Templater_ExpressionParser
                     $token->getValue(),
                     $this->parser->getCurrentToken()->getLine()
                 );
-            }
-            else
-            {
+            } else {
                 $value = $this->parseExpression();
             }
 
             $name = null;
-            if ($namedArguments && $token = $stream->nextIf(Apishka_Templater_Token::OPERATOR_TYPE, '='))
-            {
-                if (!$value instanceof Apishka_Templater_Node_Expression_Name)
-                {
+            if ($namedArguments && $token = $stream->nextIf(Apishka_Templater_Token::OPERATOR_TYPE, '=')) {
+                if (!$value instanceof Apishka_Templater_Node_Expression_Name) {
                     throw new Apishka_Templater_Error_Syntax(
                         sprintf(
                             'A parameter name must be a string, "%s" given.',
@@ -596,29 +580,23 @@ class Apishka_Templater_ExpressionParser
 
                 $name = $value->getAttribute('name');
 
-                if ($definition)
-                {
+                if ($definition) {
                     $value = $this->parsePrimaryExpression();
 
-                    if (!$this->checkConstantExpression($value))
-                    {
+                    if (!$this->checkConstantExpression($value)) {
                         throw new Apishka_Templater_Error_Syntax(
                             sprintf('A default value for an argument must be a constant (a boolean, a string, a number, or an array).'),
                             $token->getLine(),
                             $this->parser->getFilename()
                         );
                     }
-                }
-                else
-                {
+                } else {
                     $value = $this->parseExpression();
                 }
             }
 
-            if ($definition)
-            {
-                if (null === $name)
-                {
+            if ($definition) {
+                if (null === $name) {
                     $name = $value->getAttribute('name');
                     $value = Apishka_Templater_Node_Expression_Constant::apishka(
                         null,
@@ -627,15 +605,10 @@ class Apishka_Templater_ExpressionParser
                 }
 
                 $args[$name] = $value;
-            }
-            else
-            {
-                if (null === $name)
-                {
+            } else {
+                if (null === $name) {
                     $args[] = $value;
-                }
-                else
-                {
+                } else {
                     $args[$name] = $value;
                 }
             }
@@ -685,16 +658,14 @@ class Apishka_Templater_ExpressionParser
     {
         $env = $this->parser->getEnvironment();
 
-        if (false === $function = $env->getFunction($name))
-        {
+        if (false === $function = $env->getFunction($name)) {
             $e = new Apishka_Templater_Error_Syntax(sprintf('Unknown "%s" function.', $name), $line, $this->parser->getFilename());
             $e->addSuggestions($name, array_keys($env->getFunctions()));
 
             throw $e;
         }
 
-        if ($function->isDeprecated())
-        {
+        if ($function->isDeprecated()) {
             $message = sprintf('Twig Function "%s" is deprecated', $function->getName());
             if (!is_bool($function->getDeprecatedVersion())) {
                 $message .= sprintf(' since version %s', $function->getDeprecatedVersion());

@@ -17,8 +17,6 @@
  *
  * Note that there is no runtime performance impact as the
  * default autoescaping strategy is set at compilation time.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_FileExtensionEscapingStrategy
 {

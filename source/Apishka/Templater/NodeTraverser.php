@@ -13,8 +13,6 @@
  * Apishka_Templater_NodeTraverser is a node traverser.
  *
  * It visits all nodes and their children and calls the given visitor for each.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_NodeTraverser
 {

@@ -15,7 +15,6 @@
  * Explicitly implement this interface if you really need to implement the
  * deprecated initRuntime() method in your extensions.
  *
- * @author Fabien Potencier <fabien@symfony.com>
  *
  * @deprecated to be removed in 3.0
  */

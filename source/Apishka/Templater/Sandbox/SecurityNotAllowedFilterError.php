@@ -11,8 +11,6 @@
 
 /**
  * Exception thrown when a not allowed filter is used in a template.
- *
- * @author Martin Hasoň <martin.hason@gmail.com>
  */
 class Apishka_Templater_Sandbox_SecurityNotAllowedFilterError extends Apishka_Templater_Sandbox_SecurityError
 {

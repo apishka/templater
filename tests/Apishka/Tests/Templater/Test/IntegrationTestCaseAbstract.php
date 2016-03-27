@@ -11,9 +11,6 @@
 
 /**
  * Integration test helper.
- *
- * @author Fabien Potencier <fabien@symfony.com>
- * @author Karma Dordrak <drak@zikula.org>
  */
 
 abstract class Apishka_Tests_Templater_Test_IntegrationTestCaseAbstract extends PHPUnit_Framework_TestCase

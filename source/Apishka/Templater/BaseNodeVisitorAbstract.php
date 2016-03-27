@@ -11,8 +11,6 @@
 
 /**
  * Apishka_Templater_BaseNodeVisitorAbstract can be used to make node visitors compatible with Twig 1.x and 2.x.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 
 abstract class Apishka_Templater_BaseNodeVisitorAbstract implements Apishka_Templater_NodeVisitorInterface

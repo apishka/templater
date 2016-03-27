@@ -11,8 +11,6 @@
 
 /**
  * Represents a do node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Do extends Apishka_Templater_NodeAbstract
 {

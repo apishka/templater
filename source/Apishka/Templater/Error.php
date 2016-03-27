@@ -28,8 +28,6 @@
  * and/or the filename is set to null). As this is a costly operation, this
  * can be disabled by passing false for both the filename and the line number
  * when creating a new instance of this class.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Error extends Exception
 {

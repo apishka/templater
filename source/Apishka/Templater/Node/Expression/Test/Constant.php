@@ -19,8 +19,6 @@
  *    the status attribute is exactly the same as Post::PUBLISHED
  *  {% endif %}
  * </pre>
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Expression_Test_Constant extends Apishka_Templater_Node_Expression_Test
 {

@@ -12,8 +12,6 @@
 
 /**
  * Represents a token stream.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_TokenStream
 {

@@ -11,8 +11,6 @@
 
 /**
  * Implements a cache on the filesystem.
- *
- * @author Andrew Tch <andrew@noop.lv>
  */
 class Apishka_Templater_Cache_Filesystem implements Apishka_Templater_CacheInterface
 {

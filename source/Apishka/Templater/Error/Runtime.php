@@ -12,8 +12,6 @@
 
 /**
  * Exception thrown when an error occurs at runtime.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Error_Runtime extends Apishka_Templater_Error
 {

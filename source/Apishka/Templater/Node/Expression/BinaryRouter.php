@@ -2,10 +2,6 @@
 
 /**
  * Apishka templater node expression binary router
- *
- * @uses \Apishka\EasyExtend\Router\ByKeyAbstract
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_Node_Expression_BinaryRouter extends \Apishka\EasyExtend\Router\ByKeyAbstract

@@ -12,10 +12,6 @@
 
 /**
  * Default base class for compiled templates.
- *
- * @uses Apishka_Templater_TemplateInterface
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 
 abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_TemplateInterface
@@ -86,19 +82,16 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
 
     public function displayBlock($name, array $context, array $blocks = array(), $useBlocks = true)
     {
-        try
-        {
+        try {
             $this->{$this->getBlockFunctionName($name)}($context, $blocks);
-        }
-        catch (Apishka_Templater_Error $e)
-        {
-            if (!$e->getTemplateFile())
+        } catch (Apishka_Templater_Error $e) {
+            if (!$e->getTemplateFile()) {
                 $e->setTemplateFile($this->getTemplateName());
+            }
 
             // this is mostly useful for Apishka_Templater_Error_Loader exceptions
             // see Apishka_Templater_Error_Loader
-            if (false === $e->getTemplateLine())
-            {
+            if (false === $e->getTemplateLine()) {
                 $e->setTemplateLine(-1);
                 $e->guess();
             }
@@ -179,33 +172,28 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
      * @param mixed $templateName
      * @param mixed $line
      * @param mixed $index
-     *
-     * @return void
      */
 
     protected function loadTemplate($template, $templateName = null, $line = null, $index = null)
     {
-        try
-        {
-            if (is_array($template))
+        try {
+            if (is_array($template)) {
                 return $this->env->resolveTemplate($template);
+            }
 
             return $this->env->loadTemplate($template, $index);
-        }
-        catch (Apishka_Templater_Error $e)
-        {
-            if (!$e->getTemplateFile())
+        } catch (Apishka_Templater_Error $e) {
+            if (!$e->getTemplateFile()) {
                 $e->setTemplateFile($templateName ? $templateName : $this->getTemplateName());
-
-            if ($e->getTemplateLine())
-                throw $e;
-
-            if (!$line)
-            {
-                $e->guess();
             }
-            else
-            {
+
+            if ($e->getTemplateLine()) {
+                throw $e;
+            }
+
+            if (!$line) {
+                $e->guess();
+            } else {
                 $e->setTemplateLine($line);
             }
 
@@ -224,15 +212,15 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
         $reflector = new ReflectionClass($this);
         $file = $reflector->getFileName();
 
-        if (!file_exists($file))
+        if (!file_exists($file)) {
             return;
+        }
 
         $source = file($file, FILE_IGNORE_NEW_LINES);
         array_splice($source, 0, $reflector->getEndLine());
 
         $i = 0;
-        while (isset($source[$i]) && '/* */' === substr_replace($source[$i], '', 3, -2))
-        {
+        while (isset($source[$i]) && '/* */' === substr_replace($source[$i], '', 3, -2)) {
             $source[$i] = str_replace('*//* ', '*/', substr($source[$i], 3, -2));
             ++$i;
         }
@@ -250,14 +238,12 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     {
         $level = ob_get_level();
         ob_start();
-        try
-        {
+        try {
             $this->display($context);
-        }
-        catch (Exception $e)
-        {
-            while (ob_get_level() > $level)
+        } catch (Exception $e) {
+            while (ob_get_level() > $level) {
                 ob_end_clean();
+            }
 
             throw $e;
         }
@@ -268,10 +254,10 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     /**
      * Returns the attribute value for a given array/object.
      *
-     * @param mixed  $object              The object or array from where to get the item
-     * @param mixed  $item                The item to get from the array or object
-     * @param array  $arguments           An array of arguments to pass if the item is an object method
-     * @param string $type                The type of attribute (@see Apishka_Templater_TemplateAbstract constants)
+     * @param mixed  $object    The object or array from where to get the item
+     * @param mixed  $item      The item to get from the array or object
+     * @param array  $arguments An array of arguments to pass if the item is an object method
+     * @param string $type      The type of attribute (@see Apishka_Templater_TemplateAbstract constants)
      *
      * @return mixed
      */
@@ -279,26 +265,29 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
     protected function getAttribute($object, $item, array $arguments = array(), $type = self::ANY_CALL)
     {
         // array
-        if (self::METHOD_CALL !== $type)
-        {
+        if (self::METHOD_CALL !== $type) {
             $array_item = is_bool($item) || is_float($item)
                 ? (int) $item
                 : $item
             ;
 
-            if ((is_array($object) && array_key_exists($array_item, $object)) || ($object instanceof ArrayAccess && isset($object[$array_item])))
+            if ((is_array($object) && array_key_exists($array_item, $object)) || ($object instanceof ArrayAccess && isset($object[$array_item]))) {
                 return $object[$array_item];
+            }
 
-            if (self::ARRAY_CALL === $type || !is_object($object))
+            if (self::ARRAY_CALL === $type || !is_object($object)) {
                 return;
+            }
         }
 
-        if (!is_object($object))
+        if (!is_object($object)) {
             return;
+        }
 
         // object property
-        if (self::METHOD_CALL !== $type)
+        if (self::METHOD_CALL !== $type) {
             return $object->$item;
+        }
 
         return call_user_func_array(
             array($object, $item),

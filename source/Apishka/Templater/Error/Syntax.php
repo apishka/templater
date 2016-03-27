@@ -12,8 +12,6 @@
 
 /**
  * Exception thrown when a syntax error occurs during lexing or parsing of a template.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Error_Syntax extends Apishka_Templater_Error
 {

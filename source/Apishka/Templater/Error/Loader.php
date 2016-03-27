@@ -19,8 +19,6 @@
  * Apishka_Templater_TemplateAbstract::displayWithErrorHandling().
  *
  * This strategy makes Apishka_Templater_Environment::resolveTemplate() much faster.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Error_Loader extends Apishka_Templater_Error
 {

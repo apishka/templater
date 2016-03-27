@@ -12,8 +12,6 @@
 
 /**
  * Represents a block node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Block extends Apishka_Templater_NodeAbstract
 {

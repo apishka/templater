@@ -12,8 +12,6 @@
 
 /**
  * Represents an if node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_If extends Apishka_Templater_NodeAbstract
 {

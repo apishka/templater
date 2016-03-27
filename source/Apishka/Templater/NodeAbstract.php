@@ -12,8 +12,6 @@
 
 /**
  * Represents a node in the AST.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 
 abstract class Apishka_Templater_NodeAbstract implements Countable, IteratorAggregate

@@ -12,8 +12,6 @@
 
 /**
  * Default parser implementation.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Parser
 {
@@ -86,8 +84,9 @@ class Apishka_Templater_Parser
             $this->visitors = $this->env->getNodeVisitors();
         }
 
-        if ($this->expressionParser === null)
+        if ($this->expressionParser === null) {
             $this->expressionParser = Apishka_Templater_ExpressionParser::apishka($this, $this->env->getUnaryOperators(), $this->env->getBinaryOperators());
+        }
 
         $this->stream = $stream;
         $this->parent = null;

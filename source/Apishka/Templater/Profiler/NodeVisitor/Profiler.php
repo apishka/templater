@@ -10,7 +10,6 @@
  */
 
 /**
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Profiler_NodeVisitor_Profiler extends Apishka_Templater_BaseNodeVisitorAbstract
 {

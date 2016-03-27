@@ -4,10 +4,6 @@
  * Apishka templater token parser router
  *
  * @easy-extend-base
- *
- * @uses \Apishka\EasyExtend\Router\ByClassName
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_TokenParserRouter extends \Apishka\EasyExtend\Router\ByClassName

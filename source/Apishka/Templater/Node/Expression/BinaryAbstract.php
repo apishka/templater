@@ -12,12 +12,6 @@
 
 /**
  * Apishka templater node expression binary abstract
- *
- * @uses Apishka_Templater_Node_ExpressionAbstract
- * @uses Apishka_Templater_Node_Expression_BinaryInterface
- * @abstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
 abstract class Apishka_Templater_Node_Expression_BinaryAbstract extends Apishka_Templater_Node_ExpressionAbstract implements Apishka_Templater_Node_Expression_BinaryInterface
@@ -73,7 +67,6 @@ abstract class Apishka_Templater_Node_Expression_BinaryAbstract extends Apishka_
      * Operator
      *
      * @param Apishka_Templater_Compiler $compiler
-     * @abstract
      */
 
     abstract public function operator(Apishka_Templater_Compiler $compiler);

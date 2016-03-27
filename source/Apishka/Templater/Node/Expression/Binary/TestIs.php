@@ -2,10 +2,6 @@
 
 /**
  * Apishka templater node expression binary test is
- *
- * @uses Apishka_Templater_Node_Expression_BinaryTestInterface
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_Node_Expression_Binary_TestIs extends Apishka_Templater_Node_Expression_BinaryTestAbstract implements Apishka_Templater_Node_Expression_BinaryTestInterface
@@ -102,8 +98,9 @@ class Apishka_Templater_Node_Expression_Binary_TestIs extends Apishka_Templater_
         $class  = $test->getNodeClass();
 
         $arguments = null;
-        if ($stream->test(Apishka_Templater_Token::PUNCTUATION_TYPE, '('))
+        if ($stream->test(Apishka_Templater_Token::PUNCTUATION_TYPE, '(')) {
             $arguments = $this->_parser->getExpressionParser()->parseArguments(true);
+        }
 
         return $class::apishka(
             $this->_node,
@@ -128,16 +125,15 @@ class Apishka_Templater_Node_Expression_Binary_TestIs extends Apishka_Templater_
         $name = $stream->expect(Apishka_Templater_Token::NAME_TYPE)->getValue();
         $env = $parser->getEnvironment();
 
-        if ($test = $env->getTest($name))
+        if ($test = $env->getTest($name)) {
             return $test;
+        }
 
-        if ($stream->test(Apishka_Templater_Token::NAME_TYPE))
-        {
+        if ($stream->test(Apishka_Templater_Token::NAME_TYPE)) {
             // try 2-words tests
             $name = $name . ' ' . $parser->getCurrentToken()->getValue();
 
-            if ($test = $env->getTest($name))
-            {
+            if ($test = $env->getTest($name)) {
                 $parser->getStream()->next();
 
                 return $test;

@@ -2,8 +2,6 @@
 
 /**
  * Apishka templater node expression test interface
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 interface Apishka_Templater_Node_Expression_TestInterface

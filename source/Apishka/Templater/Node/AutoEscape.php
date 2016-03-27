@@ -17,8 +17,6 @@
  * The true value is equivalent to html.
  *
  * If autoescaping is disabled, then the value is false.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_AutoEscape extends Apishka_Templater_NodeAbstract
 {

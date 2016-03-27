@@ -17,8 +17,6 @@
  * <pre>
  *  {{ var is odd }}
  * </pre>
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Expression_Test_Odd extends Apishka_Templater_Node_Expression_Test
 {

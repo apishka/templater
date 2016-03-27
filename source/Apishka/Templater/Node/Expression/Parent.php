@@ -12,8 +12,6 @@
 
 /**
  * Represents a parent node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Expression_Parent extends Apishka_Templater_Node_ExpressionAbstract
 {

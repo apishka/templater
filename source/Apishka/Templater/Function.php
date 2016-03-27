@@ -12,7 +12,6 @@
 /**
  * Represents a template function.
  *
- * @author Fabien Potencier <fabien@symfony.com>
  *
  * @see http://twig.sensiolabs.org/doc/templates.html#functions
  */

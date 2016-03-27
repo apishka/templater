@@ -11,8 +11,6 @@
 
 /**
  * Base class for all token parsers.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 
 abstract class Apishka_Templater_TokenParserAbstract implements Apishka_Templater_TokenParserInterface

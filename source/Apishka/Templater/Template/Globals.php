@@ -2,8 +2,6 @@
 
 /**
  * Apishka templater template globals
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_Template_Globals
@@ -139,8 +137,9 @@ class Apishka_Templater_Template_Globals
 
     public function __get($name)
     {
-        if (method_exists($this, $method = '__get' . $name))
+        if (method_exists($this, $method = '__get' . $name)) {
             return $this->$method();
+        }
 
         return $this->get($name);
     }

@@ -12,10 +12,6 @@
 
 /**
  * Apishka templater node expression binary and
- *
- * @uses Apishka_Templater_Node_Expression_BinaryAbstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
 class Apishka_Templater_Node_Expression_Binary_And extends Apishka_Templater_Node_Expression_BinaryAbstract

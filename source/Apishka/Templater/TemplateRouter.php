@@ -2,10 +2,6 @@
 
 /**
  * Apishka templater template router
- *
- * @uses \Apishka\EasyExtend\Router\ByClassName
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_TemplateRouter extends \Apishka\EasyExtend\Router\ByKeyAbstract

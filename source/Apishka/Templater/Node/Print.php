@@ -12,8 +12,6 @@
 
 /**
  * Represents a node that outputs an expression.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Print extends Apishka_Templater_NodeAbstract implements Apishka_Templater_NodeOutputInterface
 {

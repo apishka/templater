@@ -1,8 +1,9 @@
 <?php
 
 // use 0 as hhvm does not support several flags yet
-if (!defined('ENT_SUBSTITUTE'))
+if (!defined('ENT_SUBSTITUTE')) {
     define('ENT_SUBSTITUTE', 0);
+}
 
 /*
  * This file is part of Twig.
@@ -15,10 +16,6 @@ if (!defined('ENT_SUBSTITUTE'))
 
 /**
  * Apishka templater extension core
- *
- * @uses Apishka_Templater_ExtensionAbstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
 class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstract
@@ -87,11 +84,13 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
 
     public function setDateFormat($format = null, $date_interval_format = null)
     {
-        if (null !== $format)
+        if (null !== $format) {
             $this->_date_formats[0] = $format;
+        }
 
-        if (null !== $date_interval_format)
+        if (null !== $date_interval_format) {
             $this->_date_formats[1] = $date_interval_format;
+        }
     }
 
     /**
@@ -124,8 +123,9 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
 
     public function getTimezone()
     {
-        if (null === $this->_timezone)
+        if (null === $this->_timezone) {
             $this->_timezone = new DateTimeZone(date_default_timezone_get());
+        }
 
         return $this->_timezone;
     }
@@ -164,8 +164,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
     {
         $result = array();
         $data = Apishka_Templater_TokenParserRouter::apishka()->getData();
-        foreach ($data as $class => $info)
-        {
+        foreach ($data as $class => $info) {
             $result[] = $class::apishka();
         }
 
@@ -260,8 +259,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
         $result = array();
 
         $data = Apishka_Templater_Node_Expression_TestRouter::apishka()->getData();
-        foreach ($data as $name => $info)
-        {
+        foreach ($data as $name => $info) {
             $result[] = Apishka_Templater_Test::apishka(
                 $name,
                 null,

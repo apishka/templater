@@ -11,8 +11,6 @@
 
 /**
  * Interface implemented by extension classes.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface Apishka_Templater_ExtensionInterface
 {

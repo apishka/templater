@@ -11,10 +11,6 @@
 
 /**
  * Apishka templater extension optimizer
- *
- * @uses Apishka_Templater_ExtensionAbstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
 class Apishka_Templater_Extension_Optimizer extends Apishka_Templater_ExtensionAbstract

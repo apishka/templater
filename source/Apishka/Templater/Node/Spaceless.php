@@ -13,8 +13,6 @@
  * Represents a spaceless node.
  *
  * It removes spaces between HTML tags.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Spaceless extends Apishka_Templater_NodeAbstract
 {

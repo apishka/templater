@@ -2,10 +2,6 @@
 
 /**
  * Apishka templater node expression unary router
- *
- * @uses \Apishka\EasyExtend\Router\ByKeyAbstract
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_Node_Expression_UnaryRouter extends \Apishka\EasyExtend\Router\ByKeyAbstract

@@ -12,8 +12,6 @@
 
 /**
  * Represents a block call node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Expression_BlockReference extends Apishka_Templater_Node_ExpressionAbstract
 {
@@ -41,13 +39,13 @@ class Apishka_Templater_Node_Expression_BlockReference extends Apishka_Templater
 
     public function compile(Apishka_Templater_Compiler $compiler)
     {
-        if ($this->getAttribute('as_string'))
+        if ($this->getAttribute('as_string')) {
             $compiler->raw('(string) ');
+        }
 
         $args = $this->getNode('args');
 
-        if ($this->getAttribute('output'))
-        {
+        if ($this->getAttribute('output')) {
             $compiler
                 ->addDebugInfo($this)
                 ->write('$this->displayBlock(')
@@ -60,9 +58,7 @@ class Apishka_Templater_Node_Expression_BlockReference extends Apishka_Templater
             $compiler
                 ->write('$blocks);' . PHP_EOL)
             ;
-        }
-        else
-        {
+        } else {
             $compiler
                 ->raw('$this->renderBlock(')
                 ->subcompile($this->getNode('name'))
@@ -86,8 +82,7 @@ class Apishka_Templater_Node_Expression_BlockReference extends Apishka_Templater
 
     protected function compileContext(Apishka_Templater_Compiler $compiler, Apishka_Templater_NodeAbstract $args)
     {
-        if (!count($args))
-        {
+        if (!count($args)) {
             $compiler
                 ->raw('$context, ')
             ;
@@ -101,8 +96,7 @@ class Apishka_Templater_Node_Expression_BlockReference extends Apishka_Templater
             ->raw('array(')
         ;
 
-        foreach ($args as $name => $arg)
-        {
+        foreach ($args as $name => $arg) {
             $compiler
                 ->write('')
                 ->string($name)

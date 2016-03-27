@@ -17,8 +17,6 @@
  * <pre>
  *  {% if loop.index is divisible by(3) %}
  * </pre>
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Expression_Test_Divisibleby extends Apishka_Templater_Node_Expression_Test
 {

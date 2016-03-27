@@ -13,11 +13,6 @@
  * Apishka templater node expression test
  *
  * @easy-extend-base
- *
- * @uses Apishka_Templater_Node_Expression_CallAbstract
- * @uses Apishka_Templater_Node_Expression_TestInterface
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 abstract class Apishka_Templater_Node_Expression_TestAbstract extends Apishka_Templater_Node_Expression_CallAbstract implements Apishka_Templater_Node_Expression_TestInterface

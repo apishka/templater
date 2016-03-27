@@ -11,10 +11,6 @@
 
 /**
  * Apishka templater extension escaper
- *
- * @uses Apishka_Templater_ExtensionAbstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
 class Apishka_Templater_Extension_Escaper extends Apishka_Templater_ExtensionAbstract

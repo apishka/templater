@@ -11,8 +11,6 @@
 
 /**
  * Exception thrown when a security error occurs at runtime.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Sandbox_SecurityError extends Apishka_Templater_Error
 {

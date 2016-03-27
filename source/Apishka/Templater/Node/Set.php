@@ -11,8 +11,6 @@
 
 /**
  * Represents a set node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Set extends Apishka_Templater_NodeAbstract
 {

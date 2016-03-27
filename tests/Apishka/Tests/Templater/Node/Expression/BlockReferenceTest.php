@@ -2,10 +2,6 @@
 
 /**
  * Apishka templater tests node expression block reference test
- *
- * @uses Apishka_Tests_Templater_Test_NodeTestCaseAbstract
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Tests_Templater_Node_Expression_BlockReferenceTest extends Apishka_Tests_Templater_Test_NodeTestCaseAbstract

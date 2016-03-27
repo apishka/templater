@@ -16,8 +16,6 @@
  *
  * You can configure which optimizations you want to activate via the
  * optimizer mode.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNodeVisitorAbstract
 {
@@ -90,11 +88,11 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
      */
     private function optimizePrintNode(Apishka_Templater_NodeAbstract $node, Apishka_Templater_Environment $env)
     {
-        if (!$node instanceof Apishka_Templater_Node_Print)
+        if (!$node instanceof Apishka_Templater_Node_Print) {
             return $node;
+        }
 
-        if ($this->optimizePrintNodeIsOutput($node))
-        {
+        if ($this->optimizePrintNodeIsOutput($node)) {
             $node->getNode('expr')->setAttribute('output', true);
 
             return $node->getNode('expr');
@@ -107,6 +105,7 @@ class Apishka_Templater_NodeVisitor_Optimizer extends Apishka_Templater_BaseNode
      * Optimize print node: is output flag
      *
      * @param Apishka_Templater_NodeAbstract $node
+     *
      * @return bool
      */
 

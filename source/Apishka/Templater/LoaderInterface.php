@@ -11,8 +11,6 @@
 
 /**
  * Interface all loaders must implement.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface Apishka_Templater_LoaderInterface
 {

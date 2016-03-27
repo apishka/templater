@@ -180,31 +180,27 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
         );
 
         $tests = array();
-        foreach ($testObjects as $testObject)
-        {
-            foreach ($basicTests as $test)
-            {
-                if ($testObject[0] instanceof stdClass)
-                {
-                    if (is_numeric($test[1]))
+        foreach ($testObjects as $testObject) {
+            foreach ($basicTests as $test) {
+                if ($testObject[0] instanceof stdClass) {
+                    if (is_numeric($test[1])) {
                         continue;
+                    }
 
-                    if (in_array($test[1], ['undefined', 'protected']))
+                    if (in_array($test[1], ['undefined', 'protected'])) {
                         continue;
+                    }
                 }
 
-                if (($testObject[0] instanceof Apishka_Templater_TemplatePropertyObject) && is_numeric($test[1]))
-                {
+                if (($testObject[0] instanceof Apishka_Templater_TemplatePropertyObject) && is_numeric($test[1])) {
                     continue;
                 }
 
-                if ('+4' === $test[1] && $methodObject === $testObject[0])
-                {
+                if ('+4' === $test[1] && $methodObject === $testObject[0]) {
                     continue;
                 }
 
-                if ($testObject[0] instanceof Apishka_Templater_TemplateMethodObject && is_numeric($test[1]))
-                {
+                if ($testObject[0] instanceof Apishka_Templater_TemplateMethodObject && is_numeric($test[1])) {
                     continue;
                 }
 
@@ -283,15 +279,16 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
 
 class Apishka_Templater_TemplateTest extends Apishka_Templater_TemplateAbstract
 {
-    static public $cache = array();
+    public static $cache = array();
     protected $useExtGetAttribute = false;
 
     public function __get($name)
     {
-        if (method_exists($this, $method = 'get' . $name))
+        if (method_exists($this, $method = 'get' . $name)) {
             return $this->$method();
+        }
 
-        return null;
+        return;
     }
 
     public function __construct(Apishka_Templater_Environment $env, $useExtGetAttribute = false)
@@ -304,7 +301,7 @@ class Apishka_Templater_TemplateTest extends Apishka_Templater_TemplateAbstract
     public function getSupportedNames()
     {
         return array(
-            'Apishka_Templater_TemplateTest'
+            'Apishka_Templater_TemplateTest',
         );
     }
 
@@ -435,7 +432,7 @@ class Apishka_Templater_TemplatePropertyObject
 
     public function __get($name)
     {
-        return null;
+        return;
     }
 }
 
@@ -513,7 +510,7 @@ class Apishka_Templater_TemplateMethodObject
 
     protected function getProtected()
     {
-        return null;
+        return;
     }
 
     public static function getStatic()
@@ -523,18 +520,20 @@ class Apishka_Templater_TemplateMethodObject
 
     public function __get($name)
     {
-        if (method_exists($this, $method = 'get' . $name))
+        if (method_exists($this, $method = 'get' . $name)) {
             return $this->$method();
+        }
 
-        return null;
+        return;
     }
 
     public function __call($name, $arguments)
     {
-        if (method_exists($this, $method = 'get' . $name))
+        if (method_exists($this, $method = 'get' . $name)) {
             return call_user_func_array([$this, $method], $arguments);
+        }
 
-        return null;
+        return;
     }
 }
 
@@ -571,7 +570,7 @@ class Apishka_Templater_TemplateMagicMethodExceptionObject
 {
     public function __get($name)
     {
-        return null;
+        return;
     }
 
     public function __call($method, $arguments)

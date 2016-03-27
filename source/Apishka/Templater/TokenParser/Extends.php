@@ -34,8 +34,7 @@ class Apishka_Templater_TokenParser_Extends extends Apishka_Templater_TokenParse
         $stream = $this->parser->getStream();
 
         $options = array();
-        while (!$stream->test(Apishka_Templater_Token::BLOCK_END_TYPE))
-        {
+        while (!$stream->test(Apishka_Templater_Token::BLOCK_END_TYPE)) {
             $token = $stream->expect(Apishka_Templater_Token::NAME_TYPE);
 
             $name = $token->getValue();

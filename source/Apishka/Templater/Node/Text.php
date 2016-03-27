@@ -12,8 +12,6 @@
 
 /**
  * Represents a text node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Text extends Apishka_Templater_NodeAbstract implements Apishka_Templater_NodeOutputInterface
 {

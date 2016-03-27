@@ -11,11 +11,6 @@
 
 /**
  * Apishka templater extension
- *
- * @uses Apishka_Templater_ExtensionInterface
- * @abstract
- *
- * @author Evgeny Reykh <evgeny@reykh.com>
  */
 
 abstract class Apishka_Templater_ExtensionAbstract implements Apishka_Templater_ExtensionInterface

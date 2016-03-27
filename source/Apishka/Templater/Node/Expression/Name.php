@@ -14,10 +14,6 @@
  * Apishka templater node expression name
  *
  * @easy-extend-base
- *
- * @uses Apishka_Templater_Node_ExpressionAbstract
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_Node_Expression_Name extends Apishka_Templater_Node_ExpressionAbstract
@@ -46,20 +42,15 @@ class Apishka_Templater_Node_Expression_Name extends Apishka_Templater_Node_Expr
 
         $compiler->addDebugInfo($this);
 
-        if ($this->isSpecial())
-        {
+        if ($this->isSpecial()) {
             $compiler->raw($this->specialVars[$name]);
-        }
-        elseif ($this->getAttribute('always_defined'))
-        {
+        } elseif ($this->getAttribute('always_defined')) {
             $compiler
                 ->raw('$context[')
                 ->string($name)
                 ->raw(']')
             ;
-        }
-        else
-        {
+        } else {
             $compiler
                 ->raw('(isset($context[')
                 ->string($name)

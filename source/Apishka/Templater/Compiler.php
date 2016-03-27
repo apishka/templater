@@ -12,8 +12,6 @@
 
 /**
  * Compiles a node to PHP code.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 
 class Apishka_Templater_Compiler
@@ -145,8 +143,9 @@ class Apishka_Templater_Compiler
         $this->_source_line = 1;
         $this->_indentation = $indentation;
 
-        if ($node instanceof Apishka_Templater_Node_Module)
+        if ($node instanceof Apishka_Templater_Node_Module) {
             $this->_filename = $node->getAttribute('filename');
+        }
 
         $node->compile($this);
 
@@ -166,8 +165,9 @@ class Apishka_Templater_Compiler
 
     public function subcompile(Apishka_Templater_NodeAbstract $node, $raw = true)
     {
-        if (false === $raw)
+        if (false === $raw) {
             $this->addIndentation();
+        }
 
         $node->compile($this);
 
@@ -198,8 +198,7 @@ class Apishka_Templater_Compiler
     public function write()
     {
         $strings = func_get_args();
-        foreach ($strings as $string)
-        {
+        foreach ($strings as $string) {
             $this->addIndentation();
             $this->_source .= $string;
         }
@@ -245,32 +244,27 @@ class Apishka_Templater_Compiler
 
     public function repr($value)
     {
-        if (is_int($value) || is_float($value))
-        {
-            if (false !== $locale = setlocale(LC_NUMERIC, 0))
+        if (is_int($value) || is_float($value)) {
+            if (false !== $locale = setlocale(LC_NUMERIC, 0)) {
                 setlocale(LC_NUMERIC, 'C');
+            }
 
             $this->raw($value);
 
-            if (false !== $locale)
+            if (false !== $locale) {
                 setlocale(LC_NUMERIC, $locale);
-        }
-        elseif (null === $value)
-        {
+            }
+        } elseif (null === $value) {
             $this->raw('null');
-        }
-        elseif (is_bool($value))
-        {
+        } elseif (is_bool($value)) {
             $this->raw($value ? 'true' : 'false');
-        }
-        elseif (is_array($value))
-        {
+        } elseif (is_array($value)) {
             $this->raw('array(');
             $first = true;
-            foreach ($value as $key => $v)
-            {
-                if (!$first)
+            foreach ($value as $key => $v) {
+                if (!$first) {
                     $this->raw(', ');
+                }
 
                 $first = false;
                 $this->repr($key);
@@ -279,9 +273,7 @@ class Apishka_Templater_Compiler
             }
 
             $this->raw(')');
-        }
-        else
-        {
+        } else {
             $this->string($value);
         }
 
@@ -298,20 +290,16 @@ class Apishka_Templater_Compiler
 
     public function addDebugInfo(Apishka_Templater_NodeAbstract $node)
     {
-        if ($node->getLine() != $this->_last_line)
-        {
+        if ($node->getLine() != $this->_last_line) {
             $this->write(sprintf("// line %d\n", $node->getLine()));
 
             // when mbstring.func_overload is set to 2
             // mb_substr_count() replaces substr_count()
             // but they have different signatures!
-            if (((int) ini_get('mbstring.func_overload')) & 2)
-            {
+            if (((int) ini_get('mbstring.func_overload')) & 2) {
                 // this is much slower than the "right" version
                 $this->_source_line += mb_substr_count(mb_substr($this->_source, $this->_source_offset), "\n");
-            }
-            else
-            {
+            } else {
                 $this->_source_line += substr_count($this->_source, "\n", $this->_source_offset);
             }
 
@@ -365,8 +353,9 @@ class Apishka_Templater_Compiler
     public function outdent($step = 1)
     {
         // can't outdent by more steps than the current indentation level
-        if ($this->_indentation < $step)
+        if ($this->_indentation < $step) {
             throw new LogicException('Unable to call outdent() as the indentation would become negative');
+        }
 
         $this->_indentation -= $step;
 

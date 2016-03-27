@@ -18,8 +18,6 @@
  * control, you need to take care of clearing the old cache file by yourself.
  *
  * This loader should only be used for unit testing.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Loader_Array implements Apishka_Templater_LoaderInterface, Apishka_Templater_ExistsLoaderInterface
 {

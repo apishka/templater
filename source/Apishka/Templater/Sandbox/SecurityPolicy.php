@@ -11,8 +11,6 @@
 
 /**
  * Represents a security policy which need to be enforced when sandbox mode is enabled.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Sandbox_SecurityPolicy implements Apishka_Templater_Sandbox_SecurityPolicyInterface
 {

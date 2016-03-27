@@ -11,8 +11,6 @@
 
 /**
  * Interfaces that all security policy classes must implements.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface Apishka_Templater_Sandbox_SecurityPolicyInterface
 {

@@ -4,10 +4,6 @@
  * Apishka templater node expression test empty
  *
  * @easy-extend-base
- *
- * @uses Apishka_Templater_Node_Expression_Test
- *
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_Node_Expression_Test_Empty extends Apishka_Templater_Node_Expression_Test

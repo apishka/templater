@@ -17,8 +17,6 @@
  * <pre>
  *  {{ var is none }}
  * </pre>
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Apishka_Templater_Node_Expression_Test_Null extends Apishka_Templater_Node_Expression_Test
 {

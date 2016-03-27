@@ -2,9 +2,6 @@
 
 /**
  * Apishka templater node expression binary strict equal
- *
- * @uses Apishka_Templater_Node_Expression_BinaryAbstract
- * @author Alexander "grevus" Lobtsov <alex@lobtsov.com>
  */
 
 class Apishka_Templater_Node_Expression_Binary_StrictEqual extends Apishka_Templater_Node_Expression_BinaryAbstract
