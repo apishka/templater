@@ -289,9 +289,6 @@ abstract class Apishka_Templater_TemplateAbstract implements Apishka_Templater_T
             return $object->$item;
         }
 
-        return call_user_func_array(
-            array($object, $item),
-            $arguments
-        );
+        return $object->$item(...$arguments);
     }
 }
