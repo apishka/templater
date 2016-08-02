@@ -118,7 +118,7 @@ abstract class Apishka_Templater_Node_Expression_CallAbstract extends Apishka_Te
     /**
      * Get arguments
      *
-     * @param Callable $callable
+     * @param callable $callable
      * @param array    $arguments
      */
 

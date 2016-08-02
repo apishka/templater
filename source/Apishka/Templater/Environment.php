@@ -907,7 +907,7 @@ class Apishka_Templater_Environment
     /**
      * Register undefined filter callback
      *
-     * @param Callable $callable
+     * @param callable $callable
      */
 
     public function registerUndefinedFilterCallback(callable $callable)
@@ -1046,7 +1046,7 @@ class Apishka_Templater_Environment
     /**
      * Register undefined function callback
      *
-     * @param Callable $callable
+     * @param callable $callable
      */
 
     public function registerUndefinedFunctionCallback(callable $callable)

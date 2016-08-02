@@ -56,7 +56,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
      * Defines a new escaper to be used via the escape filter.
      *
      * @param string   $strategy The strategy name that should be used as a strategy in the escape call
-     * @param Callable $callable A valid PHP callable
+     * @param callable $callable A valid PHP callable
      */
 
     public function setEscaper($strategy, callable $callable)
