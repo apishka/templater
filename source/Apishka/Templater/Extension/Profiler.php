@@ -40,7 +40,7 @@ class Apishka_Templater_Extension_Profiler extends Apishka_Templater_ExtensionAb
 
     public function getNodeVisitors()
     {
-        return array(new Apishka_Templater_Profiler_NodeVisitor_Profiler($this->getName()));
+        return array(Apishka_Templater_Profiler_NodeVisitor_Profiler::apishka($this->getName()));
     }
 
     public function getName()

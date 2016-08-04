@@ -36,7 +36,7 @@ class Apishka_Templater_Extension_Escaper extends Apishka_Templater_ExtensionAbs
 
     public function getNodeVisitors()
     {
-        return array(new Apishka_Templater_NodeVisitor_Escaper());
+        return array(Apishka_Templater_NodeVisitor_Escaper::apishka());
     }
 
     public function getFilters()
