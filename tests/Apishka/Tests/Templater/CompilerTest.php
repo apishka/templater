@@ -13,7 +13,7 @@ class Apishka_Tests_Templater_CompilerTest extends PHPUnit_Framework_TestCase
 {
     public function testReprNumericValueWithLocale()
     {
-        $compiler = new Apishka_Templater_Compiler(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $compiler = new Apishka_Templater_Compiler(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
 
         $locale = setlocale(LC_NUMERIC, 0);
         if (false === $locale) {

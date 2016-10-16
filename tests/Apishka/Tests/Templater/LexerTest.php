@@ -14,7 +14,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{% § %}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
 
         $stream->expect(Apishka_Templater_Token::BLOCK_START_TYPE);
@@ -25,7 +25,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{{ §() }}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
 
         $stream->expect(Apishka_Templater_Token::VAR_START_TYPE);
@@ -42,7 +42,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
 
     protected function countToken($template, $type, $value = null)
     {
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
 
         $count = 0;
@@ -67,7 +67,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
             . "baz\n"
             . "}}\n";
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
 
         // foo\nbar\n
@@ -87,7 +87,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
             . "baz\n"
             . "}}\n";
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
 
         // foo\nbar
@@ -102,7 +102,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{# ' . str_repeat('*', 100000) . ' #}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $lexer->tokenize($template);
 
         // should not throw an exception
@@ -112,7 +112,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{% verbatim %}' . str_repeat('*', 100000) . '{% endverbatim %}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $lexer->tokenize($template);
 
         // should not throw an exception
@@ -122,7 +122,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{{ ' . str_repeat('x', 100000) . ' }}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $lexer->tokenize($template);
 
         // should not throw an exception
@@ -132,7 +132,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{% ' . str_repeat('x', 100000) . ' %}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $lexer->tokenize($template);
 
         // should not throw an exception
@@ -142,7 +142,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{{ 922337203685477580700 }}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
         $stream->next();
         $node = $stream->next();
@@ -156,7 +156,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
             '{{ "foo \" bar" }}' => 'foo " bar',
         );
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         foreach ($tests as $template => $expected) {
             $stream = $lexer->tokenize($template);
             $stream->expect(Apishka_Templater_Token::VAR_START_TYPE);
@@ -168,7 +168,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = 'foo {{ "bar #{ baz + 1 }" }}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
         $stream->expect(Apishka_Templater_Token::TEXT_TYPE, 'foo ');
         $stream->expect(Apishka_Templater_Token::VAR_START_TYPE);
@@ -185,7 +185,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{{ "bar \#{baz+1}" }}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
         $stream->expect(Apishka_Templater_Token::VAR_START_TYPE);
         $stream->expect(Apishka_Templater_Token::STRING_TYPE, 'bar #{baz+1}');
@@ -196,7 +196,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{{ "bar # baz" }}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
         $stream->expect(Apishka_Templater_Token::VAR_START_TYPE);
         $stream->expect(Apishka_Templater_Token::STRING_TYPE, 'bar # baz');
@@ -211,7 +211,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{{ "bar #{x" }}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $lexer->tokenize($template);
     }
 
@@ -219,7 +219,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{{ "bar #{ "foo#{bar}" }" }}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
         $stream->expect(Apishka_Templater_Token::VAR_START_TYPE);
         $stream->expect(Apishka_Templater_Token::STRING_TYPE, 'bar ');
@@ -236,7 +236,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = '{% foo "bar #{ "foo#{bar}" }" %}';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
         $stream->expect(Apishka_Templater_Token::BLOCK_START_TYPE);
         $stream->expect(Apishka_Templater_Token::NAME_TYPE, 'foo');
@@ -254,7 +254,7 @@ class Apishka_Tests_Templater_LexerTest extends PHPUnit_Framework_TestCase
     {
         $template = "{{ 1 and\n0}}";
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $stream = $lexer->tokenize($template);
         $stream->expect(Apishka_Templater_Token::VAR_START_TYPE);
         $stream->expect(Apishka_Templater_Token::NUMBER_TYPE, 1);
@@ -276,7 +276,7 @@ bar
 
 ';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $lexer->tokenize($template);
     }
 
@@ -295,7 +295,7 @@ bar
 
 ';
 
-        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $lexer = new Apishka_Templater_Lexer(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $lexer->tokenize($template);
     }
 }

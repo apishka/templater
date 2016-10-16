@@ -17,7 +17,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testCanOnlyAssignToNames($template)
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Apishka_Templater_Parser($env);
 
         $parser->parse($env->tokenize($template, 'index'));
@@ -41,7 +41,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testArrayExpression($template, $expected)
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $stream = $env->tokenize($template, 'index');
         $parser = new Apishka_Templater_Parser($env);
 
@@ -54,7 +54,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testArraySyntaxError($template)
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Apishka_Templater_Parser($env);
 
         $parser->parse($env->tokenize($template, 'index'));
@@ -149,7 +149,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testStringExpressionDoesNotConcatenateTwoConsecutiveStrings()
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
         $stream = $env->tokenize('{{ "a" "b" }}', 'index');
         $parser = new Apishka_Templater_Parser($env);
 
@@ -161,7 +161,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testStringExpression($template, $expected)
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
         $stream = $env->tokenize($template, 'index');
         $parser = new Apishka_Templater_Parser($env);
 
@@ -220,7 +220,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testAttributeCallDoesNotSupportNamedArguments()
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Apishka_Templater_Parser($env);
 
         $parser->parse($env->tokenize('{{ foo.bar(name="Foo") }}', 'index'));
@@ -232,7 +232,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testUnknownFunction()
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Apishka_Templater_Parser($env);
 
         $parser->parse($env->tokenize('{{ cycl() }}', 'index'));
@@ -244,7 +244,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testUnknownFunctionWithoutSuggestions()
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Apishka_Templater_Parser($env);
 
         $parser->parse($env->tokenize('{{ foobar() }}', 'index'));
@@ -256,7 +256,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testUnknownFilter()
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Apishka_Templater_Parser($env);
 
         $parser->parse($env->tokenize('{{ 1|lowe }}', 'index'));
@@ -268,7 +268,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testUnknownFilterWithoutSuggestions()
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Apishka_Templater_Parser($env);
 
         $parser->parse($env->tokenize('{{ 1|foobar }}', 'index'));
@@ -280,7 +280,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testUnknownTest()
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Apishka_Templater_Parser($env);
 
         $parser->parse($env->tokenize('{{ 1 is nul }}', 'index'));
@@ -292,7 +292,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testUnknownTestWithoutSuggestions()
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Apishka_Templater_Parser($env);
 
         $parser->parse($env->tokenize('{{ 1 is foobar }}', 'index'));
@@ -303,7 +303,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testBlockExpression($template, $expected)
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
         $stream = $env->tokenize($template, 'index');
         $parser = new Apishka_Templater_Parser($env);
 
@@ -355,7 +355,7 @@ class Apishka_Tests_Templater_ExpressionParserTest extends PHPUnit_Framework_Tes
      */
     public function testBlockNoArgs()
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Apishka_Templater_Parser($env);
 
         $parser->parse($env->tokenize('{{ block() }}', 'index'));

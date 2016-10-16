@@ -11,123 +11,9 @@
 
 class Apishka_Tests_Templater_EnvironmentTest extends PHPUnit_Framework_TestCase
 {
-    public function testAutoescapeOption()
-    {
-        $loader = new Apishka_Templater_Loader_Array(array(
-            'html' => '{{ foo }} {{ foo }}',
-            'js'   => '{{ bar }} {{ bar }}',
-        ));
-
-        $twig = new Apishka_Templater_Environment($loader, array(
-            'debug'      => true,
-            'cache'      => false,
-            'autoescape' => array($this, 'escapingStrategyCallback'),
-        ));
-
-        $this->assertEquals('foo&lt;br/ &gt; foo&lt;br/ &gt;', $twig->render('html', array('foo' => 'foo<br/ >')));
-        $this->assertEquals('foo\x3Cbr\x2F\x20\x3E foo\x3Cbr\x2F\x20\x3E', $twig->render('js', array('bar' => 'foo<br/ >')));
-    }
-
-    public function escapingStrategyCallback($filename)
-    {
-        return $filename;
-    }
-
-    public function testGlobals()
-    {
-        // globals can be added after calling getGlobals
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
-        $twig->addGlobal('foo', 'foo');
-        $twig->getGlobals();
-        $twig->addGlobal('foo', 'bar');
-        $globals = $twig->getGlobals();
-        $this->assertEquals('bar', $globals['foo']);
-
-        // globals can be modified after a template has been loaded
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
-        $twig->addGlobal('foo', 'foo');
-        $twig->getGlobals();
-        $twig->loadTemplate('index');
-        $twig->addGlobal('foo', 'bar');
-        $globals = $twig->getGlobals();
-        $this->assertEquals('bar', $globals['foo']);
-
-        // globals can be modified after extensions init
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
-        $twig->addGlobal('foo', 'foo');
-        $twig->getGlobals();
-        $twig->getFunctions();
-        $twig->addGlobal('foo', 'bar');
-        $globals = $twig->getGlobals();
-        $this->assertEquals('bar', $globals['foo']);
-
-        // globals can be modified after extensions and a template has been loaded
-        $twig = new Apishka_Templater_Environment($loader = new Apishka_Templater_Loader_Array(array('index' => '{{foo}}')));
-        $twig->addGlobal('foo', 'foo');
-        $twig->getGlobals();
-        $twig->getFunctions();
-        $twig->loadTemplate('index');
-        $twig->addGlobal('foo', 'bar');
-        $globals = $twig->getGlobals();
-        $this->assertEquals('bar', $globals['foo']);
-
-        $twig = new Apishka_Templater_Environment($loader);
-        $twig->getGlobals();
-        $twig->addGlobal('foo', 'bar');
-        $template = $twig->loadTemplate('index');
-        $this->assertEquals('bar', $template->render(array()));
-
-        // globals cannot be added after a template has been loaded
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
-        $twig->addGlobal('foo', 'foo');
-        $twig->getGlobals();
-        $twig->loadTemplate('index');
-        try {
-            $twig->addGlobal('bar', 'bar');
-            $this->fail();
-        } catch (LogicException $e) {
-            $this->assertFalse(array_key_exists('bar', $twig->getGlobals()));
-        }
-
-        // globals cannot be added after extensions init
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
-        $twig->addGlobal('foo', 'foo');
-        $twig->getGlobals();
-        $twig->getFunctions();
-        try {
-            $twig->addGlobal('bar', 'bar');
-            $this->fail();
-        } catch (LogicException $e) {
-            $this->assertFalse(array_key_exists('bar', $twig->getGlobals()));
-        }
-
-        // globals cannot be added after extensions and a template has been loaded
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
-        $twig->addGlobal('foo', 'foo');
-        $twig->getGlobals();
-        $twig->getFunctions();
-        $twig->loadTemplate('index');
-        try {
-            $twig->addGlobal('bar', 'bar');
-            $this->fail();
-        } catch (LogicException $e) {
-            $this->assertFalse(array_key_exists('bar', $twig->getGlobals()));
-        }
-
-        // test adding globals after a template has been loaded without call to getGlobals
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
-        $twig->loadTemplate('index');
-        try {
-            $twig->addGlobal('bar', 'bar');
-            $this->fail();
-        } catch (LogicException $e) {
-            $this->assertFalse(array_key_exists('bar', $twig->getGlobals()));
-        }
-    }
-
     public function testCompileSourceInlinesSource()
     {
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
+        $twig = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'));
 
         $source = "<? */*foo*/ ?>\r\nbar\n";
         $expected = "/* <? *//* *foo*//*  ?>*/\n/* bar*/\n/* */\n";
@@ -137,40 +23,12 @@ class Apishka_Tests_Templater_EnvironmentTest extends PHPUnit_Framework_TestCase
         $this->assertNotContains('/**', $compiled);
     }
 
-    public function testExtensionsAreNotInitializedWhenRenderingACompiledTemplate()
-    {
-        $cache = new Apishka_Templater_Cache_Filesystem($dir = sys_get_temp_dir() . '/twig');
-        $options = array('cache' => $cache, 'auto_reload' => false, 'debug' => false);
-
-        // force compilation
-        $twig = new Apishka_Templater_Environment($loader = new Apishka_Templater_Loader_Array(array('index' => '{{ foo }}')), $options);
-
-        $key = $cache->generateKey('index', $twig->getTemplateClass('index'));
-        $cache->write($key, $twig->compileSource('{{ foo }}', 'index'));
-
-        // check that extensions won't be initialized when rendering a template that is already in the cache
-        $twig = $this
-            ->getMockBuilder('Apishka_Templater_Environment')
-            ->setConstructorArgs(array($loader, $options))
-            ->setMethods(array('initExtensions'))
-            ->getMock()
-        ;
-
-        $twig->expects($this->never())->method('initExtensions');
-
-        // render template
-        $output = $twig->render('index', array('foo' => 'bar'));
-        $this->assertEquals('bar', $output);
-
-        Apishka_Tests_Templater_FilesystemHelper::removeDir($dir);
-    }
-
     public function testAutoReloadCacheMiss()
     {
         $templateName = __FUNCTION__;
         $templateContent = __FUNCTION__;
 
-        $cache = $this->getMock('Apishka_Templater_CacheInterface');
+        $cache = $this->createMock('Apishka_Templater_CacheInterface');
         $loader = $this->getMockLoader($templateName, $templateContent);
         $twig = new Apishka_Templater_Environment($loader, array('cache' => $cache, 'auto_reload' => true, 'debug' => false));
 
@@ -195,7 +53,7 @@ class Apishka_Tests_Templater_EnvironmentTest extends PHPUnit_Framework_TestCase
         $templateName = __FUNCTION__;
         $templateContent = __FUNCTION__;
 
-        $cache = $this->getMock('Apishka_Templater_CacheInterface');
+        $cache = $this->createMock('Apishka_Templater_CacheInterface');
         $loader = $this->getMockLoader($templateName, $templateContent);
         $twig = new Apishka_Templater_Environment($loader, array('cache' => $cache, 'auto_reload' => true, 'debug' => false));
 
@@ -223,7 +81,7 @@ class Apishka_Tests_Templater_EnvironmentTest extends PHPUnit_Framework_TestCase
         $templateName = __FUNCTION__;
         $templateContent = __FUNCTION__;
 
-        $cache = $this->getMock('Apishka_Templater_CacheInterface');
+        $cache = $this->createMock('Apishka_Templater_CacheInterface');
         $loader = $this->getMockLoader($templateName, $templateContent);
         $twig = new Apishka_Templater_Environment($loader, array('cache' => $cache, 'auto_reload' => true, 'debug' => false));
 
@@ -246,7 +104,7 @@ class Apishka_Tests_Templater_EnvironmentTest extends PHPUnit_Framework_TestCase
 
     public function testAddExtension()
     {
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
+        $twig = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'));
         $twig->addExtension(new Apishka_Tests_Templater_EnvironmentTest_Extension());
 
         $this->assertArrayHasKey('test', $twig->getTags());
@@ -255,14 +113,13 @@ class Apishka_Tests_Templater_EnvironmentTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('foo_test', $twig->getTests());
         $this->assertArrayHasKey('foo_unary', $twig->getUnaryOperators());
         $this->assertArrayHasKey('foo_binary', $twig->getBinaryOperators());
-        $this->assertArrayHasKey('foo_global', $twig->getGlobals());
         $visitors = $twig->getNodeVisitors();
         $this->assertEquals('Apishka_Tests_Templater_EnvironmentTest_NodeVisitor', get_class($visitors[2]));
     }
 
     public function testAddMockExtension()
     {
-        $extension = $this->getMock('Apishka_Templater_ExtensionInterface');
+        $extension = $this->createMock('Apishka_Templater_ExtensionInterface');
         $extension->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('mock'));
@@ -278,7 +135,7 @@ class Apishka_Tests_Templater_EnvironmentTest extends PHPUnit_Framework_TestCase
 
     public function testInitRuntimeWithAnExtensionUsingInitRuntimeNoDeprecation()
     {
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
+        $twig = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'));
         $twig->addExtension(new Apishka_Tests_Templater_EnvironmentTest_ExtensionWithoutDeprecationInitRuntime());
 
         $twig->initRuntime();
@@ -290,14 +147,14 @@ class Apishka_Tests_Templater_EnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testOverrideExtension()
     {
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
+        $twig = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'));
         $twig->addExtension(new Apishka_Tests_Templater_EnvironmentTest_Extension());
         $twig->addExtension(new Apishka_Tests_Templater_EnvironmentTest_Extension());
     }
 
     protected function getMockLoader($templateName, $templateContent)
     {
-        $loader = $this->getMock('Apishka_Templater_LoaderInterface');
+        $loader = $this->createMock('Apishka_Templater_LoaderInterface');
         $loader->expects($this->any())
           ->method('getSource')
           ->with($templateName)

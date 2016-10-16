@@ -24,7 +24,7 @@ class Apishka_Tests_Templater_Node_Expression_NameTest extends Apishka_Tests_Tem
         $self = Apishka_Templater_Node_Expression_Name::apishka('_self', 1);
         $context = Apishka_Templater_Node_Expression_Name::apishka('_context', 1);
 
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'));
 
         return array(
             array($node, "// line 1\n" . '(isset($context["foo"]) ? $context["foo"] : null)', $env),

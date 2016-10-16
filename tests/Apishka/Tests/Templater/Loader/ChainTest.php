@@ -63,11 +63,11 @@ class Apishka_Tests_Templater_Loader_ChainTest extends PHPUnit_Framework_TestCas
 
     public function testExists()
     {
-        $loader1 = $this->getMock('Apishka_Templater_Loader_Array', array('exists', 'getSource'), array(), '', false);
+        $loader1 = $this->createMock('Apishka_Templater_Loader_Array', array('exists', 'getSource'), array(), '', false);
         $loader1->expects($this->once())->method('exists')->will($this->returnValue(false));
         $loader1->expects($this->never())->method('getSource');
 
-        $loader2 = $this->getMock('Apishka_Templater_LoaderInterface');
+        $loader2 = $this->createMock('Apishka_Templater_LoaderInterface');
         $loader2->expects($this->once())->method('exists')->will($this->returnValue(true));
         $loader2->expects($this->never())->method('getSource');
 

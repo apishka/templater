@@ -30,7 +30,7 @@ class Apishka_Tests_Templater_Node_ModuleTest extends Apishka_Tests_Templater_Te
 
     public function getTests()
     {
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
+        $twig = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'));
 
         $tests = array();
 

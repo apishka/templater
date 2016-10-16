@@ -12,7 +12,7 @@ class Apishka_Tests_Templater_NodeVisitor_OptimizerTest extends PHPUnit_Framewor
 {
     public function testRenderBlockOptimizer()
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
 
         $stream = $env->parse($env->tokenize('{{ block("foo") }}', 'index'));
 
@@ -24,7 +24,7 @@ class Apishka_Tests_Templater_NodeVisitor_OptimizerTest extends PHPUnit_Framewor
 
     public function testRenderParentBlockOptimizer()
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false, 'autoescape' => false));
 
         $stream = $env->parse($env->tokenize('{% extends "foo" %}{% block content %}{{ parent() }}{% endblock %}', 'index'));
 
@@ -39,7 +39,7 @@ class Apishka_Tests_Templater_NodeVisitor_OptimizerTest extends PHPUnit_Framewor
      */
     public function testForOptimizer($template, $expected)
     {
-        $env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array('cache' => false));
+        $env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array('cache' => false));
 
         $stream = $env->parse($env->tokenize($template, 'index'));
 

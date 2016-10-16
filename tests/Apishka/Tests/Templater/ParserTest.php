@@ -22,7 +22,7 @@ class Apishka_Tests_Templater_ParserTest extends PHPUnit_Framework_TestCase
             new Apishka_Templater_Token(Apishka_Templater_Token::BLOCK_END_TYPE, '', 1),
             new Apishka_Templater_Token(Apishka_Templater_Token::EOF_TYPE, '', 1),
         ));
-        $parser = new Apishka_Templater_Parser(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $parser = new Apishka_Templater_Parser(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $parser->parse($stream);
     }
 
@@ -38,7 +38,7 @@ class Apishka_Tests_Templater_ParserTest extends PHPUnit_Framework_TestCase
             new Apishka_Templater_Token(Apishka_Templater_Token::BLOCK_END_TYPE, '', 1),
             new Apishka_Templater_Token(Apishka_Templater_Token::EOF_TYPE, '', 1),
         ));
-        $parser = new Apishka_Templater_Parser(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $parser = new Apishka_Templater_Parser(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $parser->parse($stream);
     }
 
@@ -109,7 +109,7 @@ class Apishka_Tests_Templater_ParserTest extends PHPUnit_Framework_TestCase
 
     public function testParseIsReentrant()
     {
-        $twig = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'), array(
+        $twig = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'), array(
             'autoescape'    => false,
             'optimizations' => 0,
         ));
@@ -132,7 +132,7 @@ class Apishka_Tests_Templater_ParserTest extends PHPUnit_Framework_TestCase
 
     protected function getParser()
     {
-        $parser = new Apishka_Templater_Parser(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')));
+        $parser = new Apishka_Templater_Parser(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')));
         $parser->setParent(Apishka_Templater_Node::apishka());
         $p = new ReflectionProperty($parser, 'stream');
         $p->setAccessible(true);

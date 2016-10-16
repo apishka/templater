@@ -23,7 +23,7 @@ class Apishka_Tests_Templater_Node_Expression_FunctionTest extends Apishka_Tests
 
     public function getTests()
     {
-        $environment = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
+        $environment = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'));
         $environment->addFunction(new Apishka_Templater_Function('foo', 'twig_tests_function_dummy', array()));
         $environment->addFunction(new Apishka_Templater_Function('bar', 'twig_tests_function_dummy', array('needs_environment' => true)));
         $environment->addFunction(new Apishka_Templater_Function('foofoo', 'twig_tests_function_dummy', array('needs_context' => true)));

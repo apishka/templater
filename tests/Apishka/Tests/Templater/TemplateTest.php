@@ -21,7 +21,7 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
 
     public function testGetSource()
     {
-        $template = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')), false);
+        $template = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')), false);
 
         $this->assertSame("<? */*bar*/ ?>\n", $template->getSource());
     }
@@ -31,25 +31,16 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAttributeWithTemplateAsObject($useExt)
     {
-        $template = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')), $useExt);
-        $template1 = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')), false);
+        $template = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')), $useExt);
+        $template1 = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')), false);
 
-        $this->assertInstanceof('Apishka_Templater_Markup', $template->getAttribute($template1, 'string'));
         $this->assertEquals('some_string', $template->getAttribute($template1, 'string'));
 
-        $this->assertInstanceof('Apishka_Templater_Markup', $template->getAttribute($template1, 'true'));
         $this->assertEquals('1', $template->getAttribute($template1, 'true'));
 
-        $this->assertInstanceof('Apishka_Templater_Markup', $template->getAttribute($template1, 'zero'));
         $this->assertEquals('0', $template->getAttribute($template1, 'zero'));
 
-        $this->assertNotInstanceof('Apishka_Templater_Markup', $template->getAttribute($template1, 'empty'));
         $this->assertSame('', $template->getAttribute($template1, 'empty'));
-
-        $this->assertFalse($template->getAttribute($template1, 'env', array(), Apishka_Templater_TemplateAbstract::ANY_CALL, true));
-        $this->assertFalse($template->getAttribute($template1, 'environment', array(), Apishka_Templater_TemplateAbstract::ANY_CALL, true));
-        $this->assertFalse($template->getAttribute($template1, 'getEnvironment', array(), Apishka_Templater_TemplateAbstract::METHOD_CALL, true));
-        $this->assertFalse($template->getAttribute($template1, 'displayWithErrorHandling', array(), Apishka_Templater_TemplateAbstract::METHOD_CALL, true));
     }
 
     public function getGetAttributeWithTemplateAsObject()
@@ -71,7 +62,7 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
     public function testGetAttributeOnArrayWithConfusableKey($useExt = false)
     {
         $template = new Apishka_Templater_TemplateTest(
-            new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')),
+            new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')),
             $useExt
         );
 
@@ -110,7 +101,7 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAttribute($defined, $value, $object, $item, $arguments, $type, $useExt = false)
     {
-        $template = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')), $useExt);
+        $template = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')), $useExt);
 
         $this->assertEquals($value, $template->getAttribute($object, $item, $arguments, $type));
     }
@@ -120,7 +111,7 @@ class Apishka_Tests_Templater_TemplateTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAttributeCallExceptions($useExt = false)
     {
-        $template = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface')), $useExt);
+        $template = new Apishka_Templater_TemplateTest(new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface')), $useExt);
 
         $object = new Apishka_Templater_TemplateMagicMethodExceptionObject();
 
@@ -284,9 +275,8 @@ class Apishka_Templater_TemplateTest extends Apishka_Templater_TemplateAbstract
 
     public function __get($name)
     {
-        if (method_exists($this, $method = 'get' . $name)) {
+        if (method_exists($this, ($method = 'get' . $name)))
             return $this->$method();
-        }
 
         return;
     }
@@ -342,13 +332,9 @@ class Apishka_Templater_TemplateTest extends Apishka_Templater_TemplateAbstract
     {
     }
 
-    public function getAttribute($object, $item, array $arguments = array(), $type = Apishka_Templater_TemplateAbstract::ANY_CALL, $isDefinedTest = false, $ignoreStrictCheck = false)
+    public function getAttribute($object, $item, array $arguments = array(), $type = Apishka_Templater_TemplateAbstract::ANY_CALL)
     {
-        if ($this->useExtGetAttribute) {
-            return twig_template_get_attributes($this, $object, $item, $arguments, $type, $isDefinedTest, $ignoreStrictCheck);
-        } else {
-            return parent::getAttribute($object, $item, $arguments, $type, $isDefinedTest, $ignoreStrictCheck);
-        }
+        return parent::getAttribute($object, $item, $arguments, $type);
     }
 }
 /* <? *//* *bar*//*  ?>*/

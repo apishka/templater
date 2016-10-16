@@ -25,7 +25,7 @@ class Apishka_Tests_Templater_Node_Expression_TestTest extends Apishka_Tests_Tem
 
     public function getTests()
     {
-        $environment = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
+        $environment = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'));
         $environment->addTest(new Apishka_Templater_SimpleTest('barbar', 'twig_tests_test_barbar', array('is_variadic' => true, 'need_context' => true)));
 
         $tests = array();

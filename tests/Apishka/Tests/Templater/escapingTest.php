@@ -146,7 +146,7 @@ class Apishka_Templater_Test_EscapingTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->env = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
+        $this->env = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'));
     }
 
     public function testHtmlEscapingConvertsSpecialChars()

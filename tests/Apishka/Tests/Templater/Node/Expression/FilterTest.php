@@ -25,7 +25,7 @@ class Apishka_Tests_Templater_Node_Expression_FilterTest extends Apishka_Tests_T
 
     public function getTests()
     {
-        $environment = new Apishka_Templater_Environment($this->getMock('Apishka_Templater_LoaderInterface'));
+        $environment = new Apishka_Templater_Environment($this->createMock('Apishka_Templater_LoaderInterface'));
         $environment->addFilter(new Apishka_Templater_SimpleFilter('bar', 'twig_tests_filter_dummy', array('needs_environment' => true)));
         $environment->addFilter(new Apishka_Templater_SimpleFilter('barbar', 'twig_tests_filter_barbar', array('needs_context' => true, 'is_variadic' => true)));
 
