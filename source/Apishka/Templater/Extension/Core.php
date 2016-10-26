@@ -224,6 +224,9 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
             // escaping
             new Apishka_Templater_Filter('escape', 'twig_escape_filter', array('needs_environment' => true, 'is_safe_callback' => 'twig_escape_filter_is_safe')),
             new Apishka_Templater_Filter('e', 'twig_escape_filter', array('needs_environment' => true, 'is_safe_callback' => 'twig_escape_filter_is_safe')),
+            new Apishka_Templater_Filter('md5', 'md5'),
+            new Apishka_Templater_Filter('crc32', 'crc32'),
+            new Apishka_Templater_Filter('sha1', 'sha1'),
         );
     }
 
