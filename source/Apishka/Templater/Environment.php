@@ -21,7 +21,7 @@ class Apishka_Templater_Environment
 
     use Apishka\EasyExtend\Helper\ByClassNameTrait;
 
-    const VERSION = '2.0.4';
+    const VERSION = '2.0.12';
 
     private $_globals;
     private $charset;
