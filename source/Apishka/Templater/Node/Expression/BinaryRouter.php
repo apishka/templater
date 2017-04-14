@@ -38,13 +38,14 @@ class Apishka_Templater_Node_Expression_BinaryRouter extends \Apishka\EasyExtend
      *
      * @param \ReflectionClass $reflector
      * @param mixed            $item
+     * @param mixed            $variant
      *
      * @return array
      */
 
-    protected function getClassData(\ReflectionClass $reflector, $item)
+    protected function getClassData(\ReflectionClass $reflector, $item, $variant)
     {
-        $data = parent::getClassData($reflector, $item);
+        $data = parent::getClassData($reflector, $item, $variant);
 
         $data['associativity']  = $item->getAssociativity();
         $data['precedence']     = $item->getPrecedence();
