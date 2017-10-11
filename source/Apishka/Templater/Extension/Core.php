@@ -193,6 +193,7 @@ class Apishka_Templater_Extension_Core extends Apishka_Templater_ExtensionAbstra
             new Apishka_Templater_Filter('url_encode', 'twig_urlencode_filter'),
             new Apishka_Templater_Filter('json_encode', 'json_encode'),
             new Apishka_Templater_Filter('convert_encoding', 'twig_convert_encoding'),
+            new Apishka_Templater_Filter('base64_encode', 'base64_encode'),
 
             // string filters
             new Apishka_Templater_Filter('title', 'twig_title_string_filter', array('needs_environment' => true)),
