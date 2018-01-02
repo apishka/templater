@@ -4,7 +4,7 @@
     "require": {
         "php": ">=7",
         "symfony/polyfill-mbstring": "^1.0",
-        "apishka/easy-extend": "^1.2.10"
+        "apishka/easy-extend": "*"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0.1",
