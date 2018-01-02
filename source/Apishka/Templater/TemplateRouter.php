@@ -1,10 +1,11 @@
-<?php
+<?php declare(strict_types = 1);
+
+use Apishka\EasyExtend\Router\ByKeyAbstract;
 
 /**
  * Apishka templater template router
  */
-
-class Apishka_Templater_TemplateRouter extends \Apishka\EasyExtend\Router\ByKeyAbstract
+class Apishka_Templater_TemplateRouter extends ByKeyAbstract
 {
     /**
      * Get item
@@ -13,7 +14,6 @@ class Apishka_Templater_TemplateRouter extends \Apishka\EasyExtend\Router\ByKeyA
      *
      * @return mixed
      */
-
     public function getItem($name, ...$params)
     {
         $info = $this->getItemData($name);
@@ -29,8 +29,7 @@ class Apishka_Templater_TemplateRouter extends \Apishka\EasyExtend\Router\ByKeyA
      *
      * @return bool
      */
-
-    protected function isCorrectItem(\ReflectionClass $reflector)
+    protected function isCorrectItem(\ReflectionClass $reflector): bool
     {
         return $reflector->isSubclassOf('Apishka_Templater_TemplateInterface');
     }
@@ -43,8 +42,7 @@ class Apishka_Templater_TemplateRouter extends \Apishka\EasyExtend\Router\ByKeyA
      *
      * @return array
      */
-
-    protected function getClassVariants(\ReflectionClass $reflector, $item)
+    protected function getClassVariants(\ReflectionClass $reflector, $item): array
     {
         return $item->getSupportedNames();
     }

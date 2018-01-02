@@ -1,11 +1,10 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Apishka templater token parser router
  *
  * @easy-extend-base
  */
-
 class Apishka_Templater_TokenParserRouter extends \Apishka\EasyExtend\Router\ByClassName
 {
     /**
@@ -15,9 +14,8 @@ class Apishka_Templater_TokenParserRouter extends \Apishka\EasyExtend\Router\ByC
      *
      * @return bool
      */
-
-    protected function isCorrectItem(\ReflectionClass $reflector)
+    protected function isCorrectItem(\ReflectionClass $reflector): bool
     {
-        return $reflector->isSubclassOf('Apishka_Templater_TokenParserInterface');
+        return $reflector->isSubclassOf(Apishka_Templater_TokenParserInterface::class);
     }
 }
